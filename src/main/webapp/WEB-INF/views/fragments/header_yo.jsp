@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <nav class="navbar navbar-default">
 		<div class="container-fluid">
 		
@@ -33,10 +36,11 @@
           			<a href="#" class="dropdown-toggle" 
           				data-toggle="dropdown" role="button" 
           				aria-expanded="false">Cracking Interview Questions Çözümleri <span class="caret"></span></a>
-          		
           			<ul class="dropdown-menu" role="menu">
-            			<li><a href="">Stringler</a></li>
-            			<li><a href="">Veri Yapıları</a></li>
+	          		<c:forEach items="${questionCategories}" var="category">
+						<li><a href="<spring:url 
+								value="/${category.id}/${category.urlUniqueName}"/>">${category.name}</a></li>
+					</c:forEach>
           			</ul>
         		
         		</li>
