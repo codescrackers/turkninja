@@ -19,7 +19,7 @@ public class BookQuestion extends BaseEntity {
 
 	private String urlUniqueName;
 
-	private BookQuestionCategory bookCategory;
+	private BookQuestionChapter bookChapter;
 
 	private String answer;
 
@@ -42,13 +42,13 @@ public class BookQuestion extends BaseEntity {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "BOOK_CATEGORY_ID")
-	public BookQuestionCategory getBookCategory() {
-		return bookCategory;
+	@JoinColumn(name = "BOOK_CHAPTER_ID")
+	public BookQuestionChapter getBookChapter() {
+		return bookChapter;
 	}
 
-	public void setBookCategory(BookQuestionCategory bookCategory) {
-		this.bookCategory = bookCategory;
+	public void setBookChapter(BookQuestionChapter bookChapter) {
+		this.bookChapter = bookChapter;
 	}
 
 	@Column(name = "ANSWER")

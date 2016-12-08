@@ -7,7 +7,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="<spring:url value="/resources/css/home.css"/>" type="text/css" />
+	href="<spring:url value="../../resources/css/home.css"/>" type="text/css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script
@@ -15,22 +15,22 @@
 </head>
 <body>
 
-	<jsp:include page="../views/fragments/header_yo.jsp"></jsp:include>
+	<jsp:include page="../../views/fragments/header_yo.jsp"></jsp:include>
 
 	<div class="container">
 		<div class="row">
-			<h1>Kitap Kategorisi Ekle</h1>
+			<h1>Kitap Bölümü Ekle - Düzenle - Sil</h1>
 		</div>
 		<div class="row">
 
-			<spring:url value="/admin/question-category/add" var="formUrl" />
+			<spring:url value="/admin/question-chapter/add" var="formUrl" />
 
 			<form:form action="${formUrl}" method="POST"
-				modelAttribute="category">
+				modelAttribute="chapter">
 
 				<div class="form-group">
-					<label for="category-name">Kotegori İsim</label>
-					<form:input path="name" cssClass="form-control" id="category-name" />
+					<label for="chapter-name">Bölüm İsim</label>
+					<form:input path="name" cssClass="form-control" id="chapter-name" />
 				</div>
 
 				<button type="submit" class="btn btn-default">Ekle</button>

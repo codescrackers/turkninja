@@ -37,9 +37,9 @@
           				data-toggle="dropdown" role="button" 
           				aria-expanded="false">Cracking Interview Questions Çözümleri <span class="caret"></span></a>
           			<ul class="dropdown-menu" role="menu">
-	          		<c:forEach items="${questionCategories}" var="category">
+	          		<c:forEach items="${questionChapter}" var="chapter">
 						<li><a href="<spring:url 
-								value="/${category.id}/${category.urlUniqueName}"/>">${category.name}</a></li>
+								value="/${chapter.id}/${chapter.urlUniqueName}"/>">${chapter.name}</a></li>
 					</c:forEach>
           			</ul>
         		

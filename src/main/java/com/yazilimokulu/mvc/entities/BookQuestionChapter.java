@@ -12,8 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BOOK_QUESTION_CATEGORY")
-public class BookQuestionCategory extends BaseEntity {
+@Table(name = "BOOK_QUESTION_CHAPTER")
+public class BookQuestionChapter extends BaseEntity {
 
 	
 	private Long id;
@@ -42,7 +42,7 @@ public class BookQuestionCategory extends BaseEntity {
 		this.urlUniqueName = urlUniqueName;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "bookCategory")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "bookChapter")
 	public List<BookQuestion> getQuestionList() {
 		return questionList;
 	}
@@ -53,7 +53,7 @@ public class BookQuestionCategory extends BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "BOOK_CATEGORY_ID")
+	@Column(name = "BOOK_CHAPTER_ID")
 	public Long getId() {
 		return id;
 	}

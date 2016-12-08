@@ -13,40 +13,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yazilimokulu.mvc.entities.BookQuestionCategory;
-import com.yazilimokulu.mvc.services.BookQuestionCategoryService;
+import com.yazilimokulu.mvc.entities.BookQuestionChapter;
+import com.yazilimokulu.mvc.services.BookQuestionChapterService;
 
 @Controller
 @RequestMapping(value="/admin")
 public class AdminController {
 	
 	@Autowired
-	BookQuestionCategoryService bookQuestionCategoryService;
+	BookQuestionChapterService bookQuestionChapterService;
 
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value="")
 	public String adminHome( Model model){
-		return "admin_home";
+		return "admin/admin_home";
 	}
 
-	@RequestMapping(value="/question-category/add")
-	public String addBookQuestionCategory( Model model){
+	@RequestMapping(value="/question-chapter/add")
+	public String addBookQuestionChapter( Model model){
 		
-		BookQuestionCategory category = new BookQuestionCategory();
-		model.addAttribute("category", category);
-		return "book_category_add";
+		BookQuestionChapter chapter = new BookQuestionChapter();
+		model.addAttribute("chapter", chapter);
+		return "admin/book_chapter_add";
 		
 	}
 	
-	@RequestMapping(value="/question-category/add", method = RequestMethod.POST)
-	public String saveBookQuestionCategory( @Valid @ModelAttribute BookQuestionCategory category,
+	@RequestMapping(value="/question-chapter/add", method = RequestMethod.POST)
+	public String saveBookQuestionChapter( @Valid @ModelAttribute BookQuestionChapter chapter,
 			Errors errors, RedirectAttributes attributes){
 		if(errors.hasErrors()){
-			return "book_category_add";
+			return "admin/book_chapter_add";
 		}
-		category.setCreateDate(new Date());
-		bookQuestionCategoryService.saveOrUpdate(category);
-		attributes.addFlashAttribute("category", category);
+		chapter.setCreateDate(new Date());
+		bookQuestionChapterService.saveOrUpdate(chapter);
+		attributes.addFlashAttribute("chapter", chapter);
 		return "redirect:/admin";
 		
 	}

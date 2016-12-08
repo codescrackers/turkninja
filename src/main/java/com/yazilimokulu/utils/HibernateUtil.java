@@ -11,7 +11,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import com.yazilimokulu.mvc.entities.BookQuestion;
-import com.yazilimokulu.mvc.entities.BookQuestionCategory;
+import com.yazilimokulu.mvc.entities.BookQuestionChapter;
 
 public class HibernateUtil {
 
@@ -22,7 +22,7 @@ public class HibernateUtil {
 	private static SessionFactory buildSessionFactory() {
 		try {
 			Configuration configuration = new Configuration();
-			configuration.addAnnotatedClass(BookQuestionCategory.class);
+			configuration.addAnnotatedClass(BookQuestionChapter.class);
 			configuration.addAnnotatedClass(BookQuestion.class);
 			configuration.setProperties(new Properties() {
 				{
