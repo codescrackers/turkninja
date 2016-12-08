@@ -27,10 +27,7 @@ public class HibernateUtil {
 			configuration.setProperties(new Properties() {
 				{
 					put("hibernate.hbm2ddl.auto", "update");
-					put("hibernate.connection.username", "root");
-					put("hibernate.connection.password", "password");
 					put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-					put("hibernate.connection.url", "jdbc:mysql://localhost:3306/yazilimokulu?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8");
 					put("hibernate.connection.characterEncoding", "utf8");
 					put("hibernate.connection.CharSet", "utf8");
 					put("hibernate.connection.useUnicode", "true");
