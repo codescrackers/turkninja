@@ -35,7 +35,7 @@
 					<label for="book-page-number">Sayfa Sayısı</label>
 					<form:input path="pageNumber" cssClass="form-control" id="book-page-number" />
 					
-					<label for="book-author">Yazar (Birden fazla yazarı arada virgül bırakarak yazınız)</label>
+					<label for="book-author">Yazar [Birden fazla yazarı arada virgül bırakarak yazınız]</label>
 					<form:input path="author" cssClass="form-control" id="book-author" />
 					
 					<label for="book-publisher">Yayınevi</label>
