@@ -13,10 +13,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="admin/question-chapter/add">Kitap Bölümleri</a>
+                    <a href="admin/book">Kitaplar</a>
                 </li>
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="admin/question-chapter/add">Kitap Bölümleri</a>
                 </li>
                 <li>
                     <a href="#">Overview</a>

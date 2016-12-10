@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
 public class BaseEntity {
 	
 	
-	@Column(name="CREATE_DATE")
+	@Column(name="CREATE_DATE", updatable = false)
 	private Date createDate;
 	
 	@Column(name="UPDATE_DATE")

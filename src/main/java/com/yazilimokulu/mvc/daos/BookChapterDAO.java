@@ -7,6 +7,6 @@ import com.yazilimokulu.mvc.entities.BookQuestionChapter;
 public interface BookChapterDAO {
 	
 	List<BookQuestionChapter> findAll();
-	void saveOrUpdate(BookQuestionChapter category);
+	void saveOrUpdate(BookQuestionChapter chapter);
 
 }

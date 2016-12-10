@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import com.yazilimokulu.mvc.entities.Book;
 import com.yazilimokulu.mvc.entities.BookQuestion;
 import com.yazilimokulu.mvc.entities.BookQuestionChapter;
 
@@ -24,6 +25,7 @@ public class HibernateUtil {
 			Configuration configuration = new Configuration();
 			configuration.addAnnotatedClass(BookQuestionChapter.class);
 			configuration.addAnnotatedClass(BookQuestion.class);
+			configuration.addAnnotatedClass(Book.class);
 			configuration.setProperties(new Properties() {
 				{
 					put("hibernate.hbm2ddl.auto", "update");

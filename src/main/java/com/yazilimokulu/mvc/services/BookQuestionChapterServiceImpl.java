@@ -20,9 +20,8 @@ public class BookQuestionChapterServiceImpl implements BookQuestionChapterServic
 	}
 
 	@Override
-	public void saveOrUpdate(BookQuestionChapter category) {
-		bookCategoryDao.saveOrUpdate(category);
-		
+	public void saveOrUpdate(BookQuestionChapter chapter) {
+		bookCategoryDao.saveOrUpdate(chapter);
 	}
 
 }
