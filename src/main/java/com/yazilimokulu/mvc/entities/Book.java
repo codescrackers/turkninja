@@ -3,7 +3,9 @@ package com.yazilimokulu.mvc.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -12,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -44,6 +47,9 @@ public class Book extends BaseEntity implements Serializable {
 	
 	@Column(name = "DELETED")
 	private Boolean isDeleted;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="book")
+	List<BookQuestionChapter> chapters = new ArrayList<>();
 
 	public Long getId() {
 		return id;

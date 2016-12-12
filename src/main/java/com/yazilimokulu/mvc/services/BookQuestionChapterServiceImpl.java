@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yazilimokulu.mvc.daos.BookChapterDAO;
+import com.yazilimokulu.mvc.daos.BookDAO;
+import com.yazilimokulu.mvc.entities.Book;
 import com.yazilimokulu.mvc.entities.BookQuestionChapter;
 
 @Service
@@ -14,6 +16,9 @@ public class BookQuestionChapterServiceImpl implements BookQuestionChapterServic
 	@Autowired
 	BookChapterDAO bookCategoryDao;
 	
+	@Autowired
+	BookDAO bookDAO;
+	
 	@Override
 	public List<BookQuestionChapter> findAll() {
 		return bookCategoryDao.findAll();
@@ -21,6 +26,9 @@ public class BookQuestionChapterServiceImpl implements BookQuestionChapterServic
 
 	@Override
 	public void saveOrUpdate(BookQuestionChapter chapter) {
+		Book book = bookDAO.find(1L);
+		chapter.setBook(book);
+		
 		bookCategoryDao.saveOrUpdate(chapter);
 	}
 

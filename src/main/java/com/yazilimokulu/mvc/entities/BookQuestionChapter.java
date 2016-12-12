@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,6 +25,8 @@ public class BookQuestionChapter extends BaseEntity {
 	private String urlUniqueName;
 
 	private List<BookQuestion> questionList;
+	
+	private Book book;
 
 	@Column(name = "NAME")
 	public String getName() {
@@ -61,6 +65,17 @@ public class BookQuestionChapter extends BaseEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	@ManyToOne
+	@JoinColumn(name="BOOK_ID")
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
 
 
 }

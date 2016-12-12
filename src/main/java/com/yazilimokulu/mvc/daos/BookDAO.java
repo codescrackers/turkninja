@@ -5,5 +5,6 @@ import com.yazilimokulu.mvc.entities.Book;
 public interface BookDAO {
 
 	void saveOrUpdate(Book book);
+	Book find(Long id);
 	
 }

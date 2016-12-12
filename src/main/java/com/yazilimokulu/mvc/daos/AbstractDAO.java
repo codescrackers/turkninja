@@ -44,12 +44,12 @@ public abstract class AbstractDAO<T> {
 		}
 	}
 
-	public Object find(Long id) {
-		Object obj = null;
+	public T find(Class clazz,Long id) {
+		T obj = null;
 		try {
 			startOperation();
 			T value=null;
-			obj = session.load(value.getClass(), id);
+			obj = (T) session.load(clazz, id);
 			tx.commit();
 		} catch (HibernateException e) {
 			logger.error(e);

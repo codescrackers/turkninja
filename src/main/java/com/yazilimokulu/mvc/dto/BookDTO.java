@@ -4,21 +4,30 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 public class BookDTO implements Serializable {
 
 	private static final long serialVersionUID = 6764166886762499254L;
 
+	@NotEmpty(message = "Boş bırakılamaz")
 	private String name;
 	
+	@NotEmpty(message = "Boş bırakılamaz")
+	@Range(min = 1, max = 1500, message = " Lütfen 1-1500 arasında değer giriniz")
 	private Long pageNumber;
 	
 	/*
 	 * author data must parse by ","
 	 */
+	@NotEmpty(message = "Boş bırakılamaz")
 	private String author;
 	
+	@NotEmpty(message = "Boş bırakılamaz")
 	private String publisher;
 	
+	@NotEmpty(message = "Boş bırakılamaz")
 	private String edition;
 
 	public String getName() {
