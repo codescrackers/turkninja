@@ -5,12 +5,11 @@
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<spring:url value="/resources/css/home.css"/>" type="text/css"/>
+	<link rel="stylesheet" href="<spring:url value="/resources/css/simple-sidebar.css"/>"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	<link  rel="stylesheet" href="<spring:url value="/resources/css/simple-sidebar.css"/>"/>
 </head>
 <body>		
-<body>
 
     <div id="wrapper">
 	<jsp:include page="../../views/fragments/admin_sidebar.jsp"></jsp:include>	
@@ -31,21 +30,5 @@
 
     </div>
     <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Menu Toggle Script -->
-    <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
-
-</body>
 </body>
 </html>

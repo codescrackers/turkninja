@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
@@ -14,7 +16,7 @@ public class BookDTO implements Serializable {
 	@NotEmpty(message = "Boş bırakılamaz")
 	private String name;
 	
-	@NotEmpty(message = "Boş bırakılamaz")
+	@NotNull(message = "Boş bırakılamaz")
 	@Range(min = 1, max = 1500, message = " Lütfen 1-1500 arasında değer giriniz")
 	private Long pageNumber;
 	

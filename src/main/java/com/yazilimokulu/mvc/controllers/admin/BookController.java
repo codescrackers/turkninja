@@ -27,10 +27,10 @@ public class BookController {
 
 
 	@RequestMapping(value="")
-	public String adminHome( Model model){
+	public String bookHome( Model model){
 		BookDTO bookDTO = new BookDTO();
 		model.addAttribute("bookDTO", bookDTO);
-		return "book/book";
+		return "book/book_list";
 	}
 	
 	@RequestMapping(value="/add", method = RequestMethod.POST)
@@ -41,8 +41,15 @@ public class BookController {
 		} else {
 			bookService.saveOrUpdateBook(bookDTO);
 		}
-		return "book/book";
+		return "book/book_add";
 		
+	}
+	
+	@RequestMapping(value="/add")
+	public String addPage( Model model){
+		BookDTO bookDTO = new BookDTO();
+		model.addAttribute("bookDTO", bookDTO);
+		return "book/book_add";
 	}
 	
 }

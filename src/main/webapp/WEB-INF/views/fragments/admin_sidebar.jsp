@@ -8,22 +8,22 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
+                    <a href="${pageContext.servletContext.contextPath}/admin">
                         ADMIN PANEL
                     </a>
                 </li>
                 <li>
-                    <a href="admin/book">Kitaplar</a>
+                    <a href="${pageContext.servletContext.contextPath}/admin/book">Kitaplar</a>
+                    <ul>
+                    	<li><a href="${pageContext.servletContext.contextPath}/admin/book">Kitapları Listele</a></li>
+                    	<li><a href="${pageContext.servletContext.contextPath}/admin/book/add">Kitap Ekle</a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="admin/question-chapter/add">Kitap Bölümleri</a>
+                    <a href="${pageContext.servletContext.contextPath}/admin/question-chapter/add">Kitap Bölümleri</a>
                 </li>
                 <li>
                     <a href="#">Overview</a>
-                    <ul>
-                    	<li><a href="#">Ekle</a></li>
-                    	<li><a href="#">sub2</a></li>
-                    </ul>
                 </li>
                 <li>
                     <a href="#">Events</a>
@@ -39,4 +39,12 @@
                 </li>
             </ul>
         </div>
+        
+    <script>
+	    $("#menu-toggle").click(function(e) {
+	        e.preventDefault();
+	        $("#wrapper").toggleClass("toggled");
+	    });
+    </script>
+        
         <!-- /#sidebar-wrapper -->
