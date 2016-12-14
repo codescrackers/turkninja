@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="wrapper">
-	<jsp:include page="../../views/fragments/admin_sidebar.jsp"></jsp:include>	
+	<jsp:include page="../fragments/admin_sidebar.jsp"></jsp:include>	
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">

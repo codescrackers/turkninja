@@ -11,7 +11,8 @@
     		
     		<ul class="nav navbar-nav">
     		
-    			<li><a href="#">Ana Sayfa</a></li>
+    			<li><a href="<spring:url 
+								value="/"/>">Ana Sayfa</a></li>
     		
     			<li class="dropdown">
           			
@@ -35,11 +36,11 @@
           		
           			<a href="#" class="dropdown-toggle" 
           				data-toggle="dropdown" role="button" 
-          				aria-expanded="false">Cracking Interview Questions Çözümleri <span class="caret"></span></a>
+          				aria-expanded="false">Kitap Çözümleri <span class="caret"></span></a>
           			<ul class="dropdown-menu" role="menu">
-	          		<c:forEach items="${questionChapter}" var="chapter">
+	          		<c:forEach items="${books}" var="book">
 						<li><a href="<spring:url 
-								value="/${chapter.id}/${chapter.urlUniqueName}"/>">${chapter.name}</a></li>
+								value="/book/${book.urlUniqueName}?bookId=${book.id}"/>">${book.name}</a></li>
 					</c:forEach>
           			</ul>
         		

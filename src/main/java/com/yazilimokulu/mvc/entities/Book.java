@@ -18,39 +18,32 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table( name = "BOOK")
+@Table(name = "BOOK")
 public class Book extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = -5542605971086015454L;
 
+	private Long id;
+
+	private String name;
+
+	private String urlUniqueName;
+
+	private Long pageNumber;
+
+	private Collection<String> author = new ArrayList<>();
+
+	private String publisher;
+
+	private String edition;
+
+	private Boolean isDeleted;
+
+	List<BookChapter> chapters = new ArrayList<>();
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "BOOK_ID")
-	private Long id;
-	
-	@Column(name = "NAME")
-	private String name;
-	
-	@Column(name = "PAGE_NUMBER")
-	private Long pageNumber;
-	
-	@ElementCollection
-	@CollectionTable(name = "BOOK_AUTHOR", joinColumns = @JoinColumn(name = "BOOK_ID"))
-	@Column(name = "AUTHOR_NAME")
-	private Collection<String> author = new ArrayList<>();
-	
-	@Column(name = "PUBLISHER")
-	private String publisher;
-	
-	@Column(name = "EDITION")
-	private String edition;
-	
-	@Column(name = "DELETED")
-	private Boolean isDeleted;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="book")
-	List<BookQuestionChapter> chapters = new ArrayList<>();
-
 	public Long getId() {
 		return id;
 	}
@@ -59,6 +52,7 @@ public class Book extends BaseEntity implements Serializable {
 		this.id = id;
 	}
 
+	@Column(name = "NAME")
 	public String getName() {
 		return name;
 	}
@@ -67,6 +61,25 @@ public class Book extends BaseEntity implements Serializable {
 		this.name = name;
 	}
 
+	@Column(name = "URL_NAME")
+	public String getUrlUniqueName() {
+		return name.toLowerCase().replace(" ", "-");
+	}
+
+	public void setUrlUniqueName(String urlUniqueName) {
+		this.urlUniqueName = urlUniqueName;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
+	public List<BookChapter> getChapters() {
+		return chapters;
+	}
+
+	public void setChapters(List<BookChapter> chapters) {
+		this.chapters = chapters;
+	}
+
+	@Column(name = "PAGE_NUMBER")
 	public Long getPageNumber() {
 		return pageNumber;
 	}
@@ -75,6 +88,7 @@ public class Book extends BaseEntity implements Serializable {
 		this.pageNumber = pageNumber;
 	}
 
+	@Column(name = "PUBLISHER")
 	public String getPublisher() {
 		return publisher;
 	}
@@ -83,6 +97,7 @@ public class Book extends BaseEntity implements Serializable {
 		this.publisher = publisher;
 	}
 
+	@Column(name = "EDITION")
 	public String getEdition() {
 		return edition;
 	}
@@ -91,6 +106,7 @@ public class Book extends BaseEntity implements Serializable {
 		this.edition = edition;
 	}
 
+	@Column(name = "DELETED")
 	public Boolean getIsDeleted() {
 		return isDeleted;
 	}
@@ -99,6 +115,9 @@ public class Book extends BaseEntity implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
+	@ElementCollection
+	@CollectionTable(name = "BOOK_AUTHOR", joinColumns = @JoinColumn(name = "BOOK_ID"))
+	@Column(name = "AUTHOR_NAME")
 	public Collection<String> getAuthor() {
 		return author;
 	}
@@ -106,6 +125,5 @@ public class Book extends BaseEntity implements Serializable {
 	public void setAuthor(Collection<String> author) {
 		this.author = author;
 	}
-	
-	
+
 }

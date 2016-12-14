@@ -3,34 +3,43 @@ package com.yazilimokulu.mvc.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
+import com.yazilimokulu.mvc.entities.BookChapter;
+
 public class BookDTO implements Serializable {
 
 	private static final long serialVersionUID = 6764166886762499254L;
 
-	@NotEmpty(message = "Boş bırakılamaz")
+	private Long id;
+
+	@NotEmpty(message = "{error.required}")
 	private String name;
-	
-	@NotNull(message = "Boş bırakılamaz")
+
+	@NotNull(message = "{error.required}")
 	@Range(min = 1, max = 1500, message = " Lütfen 1-1500 arasında değer giriniz")
 	private Long pageNumber;
-	
+
 	/*
 	 * author data must parse by ","
 	 */
-	@NotEmpty(message = "Boş bırakılamaz")
+	@NotEmpty(message = "{error.required}")
 	private String author;
-	
-	@NotEmpty(message = "Boş bırakılamaz")
+
+	@NotEmpty(message = "{error.required}")
 	private String publisher;
-	
-	@NotEmpty(message = "Boş bırakılamaz")
+
+	@NotEmpty(message = "{error.required}")
 	private String edition;
+
+	private String urlUniqueName;
+	
+	private List<BookChapterDTO> chapters;
 
 	public String getName() {
 		return name;
@@ -38,6 +47,14 @@ public class BookDTO implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getUrlUniqueName() {
+		return urlUniqueName;
+	}
+
+	public void setUrlUniqueName(String urlUniqueName) {
+		this.urlUniqueName = urlUniqueName;
 	}
 
 	public Long getPageNumber() {
@@ -51,14 +68,14 @@ public class BookDTO implements Serializable {
 	public Collection<String> getAuthorList() {
 		Collection<String> authorList = new ArrayList<>();
 		String[] authors = this.author.split(",");
-		
+
 		for (String author : authors) {
 			authorList.add(author);
 		}
-		
+
 		return authorList;
 	}
-	
+
 	public String getAuthor() {
 		return author;
 	}
@@ -82,5 +99,22 @@ public class BookDTO implements Serializable {
 	public void setEdition(String edition) {
 		this.edition = edition;
 	}
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<BookChapterDTO> getChapters() {
+		return chapters;
+	}
+
+	public void setChapters(List<BookChapterDTO> chapters) {
+		this.chapters = chapters;
+	}
+
+
 }

@@ -13,9 +13,9 @@ public abstract class AbstractDAO<T> {
 
 	final static Logger logger = Logger.getLogger(HibernateUtil.class);
 
-	private Session session;
-	private Transaction tx;
-	private Class<T> type;
+	protected Session session;
+	protected Transaction tx;
+	protected Class<T> type;
 
 	public AbstractDAO() {
 	}

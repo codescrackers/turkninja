@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.yazilimokulu.mvc.entities.BookQuestionChapter;
-import com.yazilimokulu.mvc.services.BookQuestionChapterService;
+import com.yazilimokulu.mvc.dto.BookDTO;
+import com.yazilimokulu.mvc.services.BookService;
 
 @ControllerAdvice(annotations=Controller.class)
 public class GlobalControllerAdvice {
 
 	@Autowired
-	BookQuestionChapterService bookQuestionChapterService;
+	BookService bookService;
 	
 	
-	@ModelAttribute("questionChapter")
-	public List<BookQuestionChapter> getQuestionChapter(){
-		return bookQuestionChapterService.findAll();
+	@ModelAttribute("books")
+	public List<BookDTO> getQuestionChapter(){
+		return bookService.findAll();
 	}
 	
 	@ModelAttribute("currentDate")

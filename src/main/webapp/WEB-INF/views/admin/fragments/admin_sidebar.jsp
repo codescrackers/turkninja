@@ -20,7 +20,11 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="${pageContext.servletContext.contextPath}/admin/question-chapter/add">Kitap Bölümleri</a>
+                    <a href="${pageContext.servletContext.contextPath}/admin/book-chapter">Kitap Bölümleri</a>
+                    <ul>
+                    	<li><a href="${pageContext.servletContext.contextPath}/admin/book-chapter">Kitap Bölümleri Listele</a></li>
+                    	<li><a href="${pageContext.servletContext.contextPath}/admin/book-chapter/add">Kitap Bölümleri Ekle</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#">Overview</a>

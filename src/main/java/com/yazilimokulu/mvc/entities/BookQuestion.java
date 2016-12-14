@@ -1,5 +1,7 @@
 package com.yazilimokulu.mvc.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "BOOK_QUESTION")
-public class BookQuestion extends BaseEntity {
+public class BookQuestion extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = -1479634973428504940L;
 
 	private Long id;
 	
@@ -19,7 +23,7 @@ public class BookQuestion extends BaseEntity {
 
 	private String urlUniqueName;
 
-	private BookQuestionChapter bookChapter;
+	private BookChapter bookChapter;
 
 	private String answer;
 
@@ -43,11 +47,11 @@ public class BookQuestion extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "BOOK_CHAPTER_ID")
-	public BookQuestionChapter getBookChapter() {
+	public BookChapter getBookChapter() {
 		return bookChapter;
 	}
 
-	public void setBookChapter(BookQuestionChapter bookChapter) {
+	public void setBookChapter(BookChapter bookChapter) {
 		this.bookChapter = bookChapter;
 	}
 

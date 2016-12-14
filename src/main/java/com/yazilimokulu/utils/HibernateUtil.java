@@ -12,7 +12,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.yazilimokulu.mvc.entities.Book;
 import com.yazilimokulu.mvc.entities.BookQuestion;
-import com.yazilimokulu.mvc.entities.BookQuestionChapter;
+import com.yazilimokulu.mvc.entities.BookChapter;
 
 public class HibernateUtil {
 
@@ -23,11 +23,12 @@ public class HibernateUtil {
 	private static SessionFactory buildSessionFactory() {
 		try {
 			Configuration configuration = new Configuration();
-			configuration.addAnnotatedClass(BookQuestionChapter.class);
+			configuration.addAnnotatedClass(BookChapter.class);
 			configuration.addAnnotatedClass(BookQuestion.class);
 			configuration.addAnnotatedClass(Book.class);
 			configuration.setProperties(new Properties() {
 				{
+					put("hibernate.enable_lazy_load_no_trans","true");
 					put("hibernate.hbm2ddl.auto", "update");
 					put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
 					put("hibernate.connection.characterEncoding", "utf8");

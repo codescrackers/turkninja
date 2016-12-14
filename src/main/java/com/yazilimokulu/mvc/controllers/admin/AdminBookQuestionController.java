@@ -1,4 +1,4 @@
-package com.yazilimokulu.mvc.controllers;
+package com.yazilimokulu.mvc.controllers.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value="/book-questions")
-public class BookQuestionController {
+@RequestMapping(value="/admin/book-questions")
+public class AdminBookQuestionController {
 	
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value="")
 	public String goHomeAgain(@PathVariable String type, Model model){
 		
 		

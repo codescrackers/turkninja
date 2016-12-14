@@ -18,19 +18,19 @@ import com.yazilimokulu.mvc.services.BookService;
 
 @Controller
 @RequestMapping(value = "/admin/book")
-public class BookController {
+public class AdminBookController {
 	
 	@Autowired
 	BookService bookService;
 	
-	private static final Logger logger = LogManager.getLogger(BookController.class.getName());
+	private static final Logger logger = LogManager.getLogger(AdminBookController.class.getName());
 
 
 	@RequestMapping(value="")
 	public String bookHome( Model model){
 		BookDTO bookDTO = new BookDTO();
 		model.addAttribute("bookDTO", bookDTO);
-		return "book/book_list";
+		return "admin/book/book_list";
 	}
 	
 	@RequestMapping(value="/add", method = RequestMethod.POST)
@@ -41,7 +41,7 @@ public class BookController {
 		} else {
 			bookService.saveOrUpdateBook(bookDTO);
 		}
-		return "book/book_add";
+		return "admin/book/book_add";
 		
 	}
 	
@@ -49,7 +49,7 @@ public class BookController {
 	public String addPage( Model model){
 		BookDTO bookDTO = new BookDTO();
 		model.addAttribute("bookDTO", bookDTO);
-		return "book/book_add";
+		return "admin/book/book_add";
 	}
 	
 }

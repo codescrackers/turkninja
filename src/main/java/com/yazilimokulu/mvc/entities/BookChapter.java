@@ -1,5 +1,6 @@
 package com.yazilimokulu.mvc.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,9 +16,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "BOOK_QUESTION_CHAPTER")
-public class BookQuestionChapter extends BaseEntity {
+public class BookChapter extends BaseEntity implements Serializable {
 
-	
+	private static final long serialVersionUID = 9024812200347805777L;
+
 	private Long id;
 	
 	private String name;

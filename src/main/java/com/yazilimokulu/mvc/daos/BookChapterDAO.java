@@ -2,11 +2,13 @@ package com.yazilimokulu.mvc.daos;
 
 import java.util.List;
 
-import com.yazilimokulu.mvc.entities.BookQuestionChapter;
+import com.yazilimokulu.mvc.entities.BookChapter;
 
 public interface BookChapterDAO {
 	
-	List<BookQuestionChapter> findAll();
-	void saveOrUpdate(BookQuestionChapter chapter);
+	List<BookChapter> findAll();
+	void saveOrUpdate(BookChapter chapter);
+	BookChapter find(Long id);
+	List<BookChapter> findByBookId(Long id);
 
 }
