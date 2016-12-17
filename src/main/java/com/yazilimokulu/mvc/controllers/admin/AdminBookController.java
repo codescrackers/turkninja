@@ -26,6 +26,9 @@ public class AdminBookController {
 	private static final Logger logger = LogManager.getLogger(AdminBookController.class.getName());
 
 
+	/*
+	 * this resource contain book list
+	 */
 	@RequestMapping(value="")
 	public String bookHome( Model model){
 		BookDTO bookDTO = new BookDTO();
@@ -33,6 +36,9 @@ public class AdminBookController {
 		return "admin/book/book_list";
 	}
 	
+	/*
+	 * this resource add book from book page
+	 */
 	@RequestMapping(value="/add", method = RequestMethod.POST)
 	public String bookAdd( @Valid @ModelAttribute BookDTO bookDTO, BindingResult result){
 		
@@ -45,6 +51,9 @@ public class AdminBookController {
 		
 	}
 	
+	/*
+	 * this resource contain add book page
+	 */
 	@RequestMapping(value="/add")
 	public String addPage( Model model){
 		BookDTO bookDTO = new BookDTO();

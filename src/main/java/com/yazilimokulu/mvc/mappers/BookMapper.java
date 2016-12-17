@@ -11,6 +11,9 @@ import com.yazilimokulu.mvc.entities.BookChapter;
 
 public class BookMapper {
 
+	/*
+	 * this method convert BookDTO to Book Entity Object
+	 */
 	public static Book convertBookDTOToBook (BookDTO bookDTO) {
 		Book book = new Book();
 		book.setCreateDate(new Date());
@@ -25,6 +28,9 @@ public class BookMapper {
 		return book;
 	}
 	
+	/*
+	 * this method convert Book to BookDTO Object
+	 */
 	public static BookDTO convertBookToBookDTO (Book book){
 		BookDTO bookDTO= new BookDTO();
 		bookDTO.setId(book.getId());
