@@ -30,28 +30,21 @@ public class BookChapterServiceImpl implements BookChapterService{
 			chapters.add(BookChapterMapper.convertBookChapterToBookChapterDTO(chapter));
 		} ;
 		return chapters;
+		
 	}
 
 	@Override
 	public void saveOrUpdate(BookChapterDTO bookChapterDTO) {
-		Book book = bookDAO.find(bookChapterDTO.getBook().getId());
+		Book book = bookDAO.findOne(bookChapterDTO.getBook().getId());
 		bookChapterDTO.setBook(book);
-		bookChapterDao.saveOrUpdate(BookChapterMapper.convertBookChapterDTOToBookChapter(bookChapterDTO));
+		bookChapterDao.save(BookChapterMapper.convertBookChapterDTOToBookChapter(bookChapterDTO));
 	}
 
 	@Override
 	public BookChapterDTO find(Long id) {
-		return (BookChapterMapper.convertBookChapterToBookChapterDTO(bookChapterDao.find(id)));
+		return (BookChapterMapper.convertBookChapterToBookChapterDTO(bookChapterDao.findOne(id)));
 	}
 
-	@Override
-	public List<BookChapterDTO> findByBookId(Long bookId) {
-		List<BookChapterDTO> chapters= new ArrayList<>();
-		for (BookChapter chapter : bookChapterDao.findByBookId(bookId)) {
-			chapters.add(BookChapterMapper.convertBookChapterToBookChapterDTO(chapter));
-		}
-		return chapters;
-	}
 	
 	
 	

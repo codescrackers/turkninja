@@ -3,6 +3,7 @@ package com.yazilimokulu.mvc.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -28,8 +29,8 @@ public class BookDTO implements Serializable {
 	/*
 	 * author data must parse by ","
 	 */
-	@NotEmpty(message = "{error.required}")
-	private String author;
+	
+	private List<String> authors;
 
 	@NotEmpty(message = "{error.required}")
 	private String publisher;
@@ -40,6 +41,9 @@ public class BookDTO implements Serializable {
 	private String urlUniqueName;
 	
 	private List<BookChapterDTO> chapters;
+	
+	@NotEmpty(message = "{error.required}")
+	private String author;
 
 	public String getName() {
 		return name;
@@ -65,8 +69,23 @@ public class BookDTO implements Serializable {
 		this.pageNumber = pageNumber;
 	}
 
-	public Collection<String> getAuthorList() {
-		Collection<String> authorList = new ArrayList<>();
+	
+
+	public String getAuthors() {
+		String authorList="";
+		for (int i = 0; i < authors.size(); i++) {
+			if(i !=authors.size()-1){
+			authorList +=authors.get(i)+", ";
+			}else{
+				authorList +=authors.get(i);
+			}
+		}
+		return authorList;
+	}
+
+	
+	public List<String> getAuthorList() {
+		List<String> authorList = new ArrayList<>();
 		String[] authors = this.author.split(",");
 
 		for (String author : authors) {
@@ -75,13 +94,9 @@ public class BookDTO implements Serializable {
 
 		return authorList;
 	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
+	
+	public void setAuthors(List<String> authors) {
+		this.authors = authors;
 	}
 
 	public String getPublisher() {
@@ -116,5 +131,14 @@ public class BookDTO implements Serializable {
 		this.chapters = chapters;
 	}
 
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	
 
 }

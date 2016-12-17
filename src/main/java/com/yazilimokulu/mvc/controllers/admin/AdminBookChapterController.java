@@ -1,6 +1,5 @@
 package com.yazilimokulu.mvc.controllers.admin;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yazilimokulu.mvc.dto.BookChapterDTO;
 import com.yazilimokulu.mvc.dto.BookDTO;
-import com.yazilimokulu.mvc.entities.BookChapter;
 import com.yazilimokulu.mvc.services.BookChapterService;
 import com.yazilimokulu.mvc.services.BookService;
 

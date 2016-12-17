@@ -31,7 +31,7 @@ public class Book extends BaseEntity implements Serializable {
 
 	private Long pageNumber;
 
-	private Collection<String> author = new ArrayList<>();
+	private List<String> author = new ArrayList<>();
 
 	private String publisher;
 
@@ -118,11 +118,11 @@ public class Book extends BaseEntity implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "BOOK_AUTHOR", joinColumns = @JoinColumn(name = "BOOK_ID"))
 	@Column(name = "AUTHOR_NAME")
-	public Collection<String> getAuthor() {
+	public List<String> getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(Collection<String> author) {
+	public void setAuthor(List<String> author) {
 		this.author = author;
 	}
 

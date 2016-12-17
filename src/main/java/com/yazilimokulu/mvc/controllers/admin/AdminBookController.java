@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yazilimokulu.mvc.dto.BookDTO;
 import com.yazilimokulu.mvc.services.BookService;
+
+
 
 @Controller
 @RequestMapping(value = "/admin/book")
@@ -41,9 +42,11 @@ public class AdminBookController {
 	 */
 	@RequestMapping(value="/add", method = RequestMethod.POST)
 	public String bookAdd( @Valid @ModelAttribute BookDTO bookDTO, BindingResult result){
+		System.out.println(bookDTO.getAuthor());
 		
 		if (result.hasErrors()) {
 			logger.error("user could not entry valid value");
+			logger.error(result.getFieldErrorCount());
 		} else {
 			bookService.saveOrUpdateBook(bookDTO);
 		}

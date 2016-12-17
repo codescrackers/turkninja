@@ -16,21 +16,21 @@ public class BookServiceImpl implements BookService {
 
 	@Autowired
 	BookDAO bookDAO;
-	
+
 	/**
 	 * this method save or update book to database.
 	 */
 	@Override
 	public void saveOrUpdateBook(BookDTO bookDTO) {
 		Book book = BookMapper.convertBookDTOToBook(bookDTO);
-		bookDAO.saveOrUpdate(book);
+		bookDAO.save(book);
 	}
 
 	@Override
 	public List<BookDTO> findAll() {
 		// TODO Auto-generated method stub
-		List<Book> books=bookDAO.findAll();
-		List<BookDTO> bookDTOs=new ArrayList<>();
+		List<Book> books = bookDAO.findAll();
+		List<BookDTO> bookDTOs = new ArrayList<>();
 		for (Book book : books) {
 			bookDTOs.add(BookMapper.convertBookToBookDTO(book));
 		}
@@ -39,8 +39,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public BookDTO find(Long id) {
-		return BookMapper.convertBookToBookDTO(bookDAO.find(id));
+		return BookMapper.convertBookToBookDTO(bookDAO.findOne(id));
 	}
-	
 
 }

@@ -31,6 +31,7 @@ public class BookController {
 		BookDTO bookDTO=bookService.find(Long.parseLong(bookId) );
 		List<BookChapterDTO> bookChapterDTOs=bookDTO.getChapters(); 
 		model.addAttribute("bookChapters", bookChapterDTOs);
+		System.out.println(bookDTO.getAuthors());
 		model.addAttribute("book", bookDTO);
 		return "book_chapter_list";
 		

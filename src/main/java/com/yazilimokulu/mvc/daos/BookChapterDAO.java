@@ -1,14 +1,10 @@
 package com.yazilimokulu.mvc.daos;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
 import com.yazilimokulu.mvc.entities.BookChapter;
 
-public interface BookChapterDAO {
+@Repository
+public interface BookChapterDAO  extends BaseRepository<BookChapter, Long> {
 	
-	List<BookChapter> findAll();
-	void saveOrUpdate(BookChapter chapter);
-	BookChapter find(Long id);
-	List<BookChapter> findByBookId(Long id);
-
 }

@@ -41,6 +41,10 @@ public class BookMapper {
 			chapters.add(BookChapterMapper.convertBookChapterToBookChapterDTO(chapter));
 		}
 		bookDTO.setChapters(chapters);
+		bookDTO.setAuthors(book.getAuthor());
+		bookDTO.setEdition(book.getEdition());
+		bookDTO.setPageNumber(book.getPageNumber());
+		bookDTO.setPublisher(book.getPublisher());
 		return bookDTO;
 	}
 	

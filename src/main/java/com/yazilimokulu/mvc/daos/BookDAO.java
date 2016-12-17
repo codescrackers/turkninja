@@ -1,14 +1,11 @@
 package com.yazilimokulu.mvc.daos;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
 import com.yazilimokulu.mvc.entities.Book;
 
-public interface BookDAO {
+@Repository
+public interface BookDAO  extends BaseRepository<Book, Long>{
 
-	void saveOrUpdate(Book book);
-	Book find(Long id);
-	List<Book> findAll();
-	
 	
 }

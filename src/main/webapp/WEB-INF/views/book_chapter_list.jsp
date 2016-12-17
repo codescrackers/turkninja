@@ -15,11 +15,15 @@
 
 	<div class="container">
 		
-		<h2>Resources</h2>
+		<h1>${book.name}</h1>
+		<p><b>Yazar / Yazarlar :</b>${book.authors }</p>
+		<p><b>Sayfa Sayısı :</b> ${book.pageNumber }</p>
+		<p><b>Yayımcı : </b>${book.publisher}</p>
+		<p><b>Baskı :</b> ${book.edition}</p>
 		<table class="table table-hover">
 			<tbody>
 				<tr>
-					<th>Name</th>
+					<th>Bölümler</th>
 				</tr>
 				<c:forEach items="${bookChapters}" var="chapter">
 					<tr>
