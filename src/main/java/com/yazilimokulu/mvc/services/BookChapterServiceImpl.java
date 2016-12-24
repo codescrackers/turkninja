@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yazilimokulu.mvc.daos.BookChapterDAO;
-import com.yazilimokulu.mvc.daos.BookDAO;
+import com.yazilimokulu.mvc.daos.BookChapterRepository;
+import com.yazilimokulu.mvc.daos.BookRepository;
 import com.yazilimokulu.mvc.dto.BookChapterDTO;
 import com.yazilimokulu.mvc.entities.Book;
 import com.yazilimokulu.mvc.entities.BookChapter;
@@ -17,16 +17,16 @@ import com.yazilimokulu.mvc.mappers.BookChapterMapper;
 public class BookChapterServiceImpl implements BookChapterService{
 
 	@Autowired
-	BookChapterDAO bookChapterDao;
+	BookChapterRepository bookChapterRepository;
 	
 	@Autowired
-	BookDAO bookDAO;
+	BookRepository bookDAO;
 	
 	@Override
 	public List<BookChapterDTO> findAll() {
 		List<BookChapterDTO> chapters=new ArrayList<>();
 		
-		for (BookChapter chapter : bookChapterDao.findAll()) {
+		for (BookChapter chapter : bookChapterRepository.findAll()) {
 			chapters.add(BookChapterMapper.convertBookChapterToBookChapterDTO(chapter));
 		} ;
 		return chapters;
@@ -37,12 +37,12 @@ public class BookChapterServiceImpl implements BookChapterService{
 	public void saveOrUpdate(BookChapterDTO bookChapterDTO) {
 		Book book = bookDAO.findOne(bookChapterDTO.getBook().getId());
 		bookChapterDTO.setBook(book);
-		bookChapterDao.save(BookChapterMapper.convertBookChapterDTOToBookChapter(bookChapterDTO));
+		bookChapterRepository.save(BookChapterMapper.convertBookChapterDTOToBookChapter(bookChapterDTO));
 	}
 
 	@Override
 	public BookChapterDTO find(Long id) {
-		return (BookChapterMapper.convertBookChapterToBookChapterDTO(bookChapterDao.findOne(id)));
+		return (BookChapterMapper.convertBookChapterToBookChapterDTO(bookChapterRepository.findOne(id)));
 	}
 
 	

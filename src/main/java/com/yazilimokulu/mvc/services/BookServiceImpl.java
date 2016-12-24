@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yazilimokulu.mvc.daos.BookDAO;
+import com.yazilimokulu.mvc.daos.BookRepository;
 import com.yazilimokulu.mvc.dto.BookDTO;
 import com.yazilimokulu.mvc.entities.Book;
 import com.yazilimokulu.mvc.mappers.BookMapper;
@@ -15,7 +15,7 @@ import com.yazilimokulu.mvc.mappers.BookMapper;
 public class BookServiceImpl implements BookService {
 
 	@Autowired
-	BookDAO bookDAO;
+	BookRepository bookRepository;
 
 	/**
 	 * this method save or update book to database.
@@ -23,13 +23,13 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void saveOrUpdateBook(BookDTO bookDTO) {
 		Book book = BookMapper.convertBookDTOToBook(bookDTO);
-		bookDAO.save(book);
+		bookRepository.save(book);
 	}
 
 	@Override
 	public List<BookDTO> findAll() {
 		// TODO Auto-generated method stub
-		List<Book> books = bookDAO.findAll();
+		List<Book> books = bookRepository.findAll();
 		List<BookDTO> bookDTOs = new ArrayList<>();
 		for (Book book : books) {
 			bookDTOs.add(BookMapper.convertBookToBookDTO(book));
@@ -39,7 +39,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public BookDTO find(Long id) {
-		return BookMapper.convertBookToBookDTO(bookDAO.findOne(id));
+		return BookMapper.convertBookToBookDTO(bookRepository.findOne(id));
 	}
 
 }
