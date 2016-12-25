@@ -43,7 +43,7 @@
                 <div class="post-maincontent" th:utext="${post.fullPostTextHtml()}"></div>
 
                 <th:block th:if="${post.hidden}">
-                    <div class="hidden-post"><span>Not visible for users</span></div>
+                    <div class="hidden-post"><span>Kullanıcılar için görünür değil</span></div>
                 </th:block>
             </div>
 
@@ -74,7 +74,7 @@
 
                 <a sec:authorize="hasRole('ROLE_ADMIN')" href="javascript:void(0)" th:style="${post.hidden} ? '' : 'display: none;'"
                    th:attr="data-href=@{|/posts/${post.id}/delete|}"
-                   data-action="deletePost">delete forever</a>
+                   data-action="deletePost">Sonsuza kadar sil</a>
             </div>
             <div class="postaction-loading-indicator" style="display: none">
                 <img  th:src="@{/images/ajax-loader.gif}" />
@@ -83,12 +83,12 @@
     </div>
 
     <div class="comments">
-        <p class="lead">Comments</p>
+        <p class="lead">Yorumlar</p>
 
         <div id="commentList" th:include="fragments/comments :: commentList (comments=${post.topLevelComments()})"></div>
 
         <div class="comment-form">
-            <p class="lead">Add a comment</p>
+            <p class="lead">Bir yorum ekle</p>
 
             <div class="col-sm-4" th:unless="${#authorization.expression('isAuthenticated()')}">
                 <th:block th:include="fragments/loginform :: form ('comments')"/>
@@ -109,7 +109,7 @@
                             <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
                         </div>
 
-                        <button type="submit" class="btn btn-default">Send</button>
+                        <button type="submit" class="btn btn-default">Gönder</button>
 
                         <div>
                             <img th:src="@{/images/ajax-loader.gif}" class="loading-indicator" style="display:none" />

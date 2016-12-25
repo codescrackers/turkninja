@@ -35,20 +35,20 @@
 
         <div th:if="${success}" class="settings-success">
             <img width="32" height="32" src="../../images/success-tick.png" th:src="@{/images/success-tick.png}"/>
-            <div>Changes successfully saved</div>
+            <div>Değişiklikler kaydedildi</div>
         </div>
 
-        <h3>Public info</h3>
+        <h3>Genel Bilgi</h3>
 
         <form th:action="@{/edit_profile}" th:object="${user}" method="post" id="profileForm">
             <div th:if="${#fields.hasErrors('*')}">
                 <ul class="list-no-indent">
-                    <li class="error-line" th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                    <li class="error-line" th:each="err : ${#fields.errors('*')}" th:text="${err}">Input hatalı</li>
                 </ul>
             </div>
 
             <div class="form-group wmd-panel">
-                <label for="wmd-input">About me:</label>
+                <label for="wmd-input">Hakkımda:</label>
                 <div id="wmd-button-bar"></div>
                 <textarea class="wmd-input" id="wmd-input"  th:field="*{aboutText}"></textarea>
                 <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
@@ -59,7 +59,7 @@
                 <input type="text" class="form-control" id="websiteLink" th:field="*{websiteLink}"/>
             </div>
 
-            <button type="submit" class="btn btn-default">Apply</button>
+            <button type="submit" class="btn btn-default">Uygula</button>
 
         </form>
 
@@ -71,14 +71,14 @@
             </div>
 
             <div>
-                <label>JPG or PNG, preferably square (will be resized to 160x160 and 28x28), max size 1 MB</label>
+                <label>JPG veya PNG, kare foto terch ediniz (160x160 and 28x28 formatına resize edilecektir), maksimum boyut 1 MB</label>
                 <div>
                     <span role="button" class="btn btn-default fileinput-button" id="uploadAvatar">
-                        <span>Change picture</span>
+                        <span>Profil fotosonu değiştir</span>
                         <input type="file" accept="image/jpeg, image/png" id="avatarFileUploadInput" name="avatarFile"/>
                     </span>
                     <span role="button" class="btn btn-default" id="removeAvatar" th:style="${#strings.isEmpty(user.bigAvatarLink)} ? 'display: none'"
-                          th:attr="data-href=@{/remove_avatar}">Remove</span>
+                          th:attr="data-href=@{/remove_avatar}">Kaldır</span>
                 </div>
             </div>
 
@@ -95,7 +95,7 @@
 
             <div class="settings-success" id="avatarSuccess" style="display: none">
                 <img width="24" height="24" src="../../images/success-tick.png" th:src="@{/images/success-tick.png}"/>
-                Avatar successfully saved
+                Avatar başarılı bir şekilde kaydedildi.
             </div>
         </div>
     </div>

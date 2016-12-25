@@ -19,22 +19,22 @@
 
         <div th:if="${success}" class="settings-success">
             <img width="32" height="32" src="../../images/success-tick.png" th:src="@{/images/success-tick.png}"/>
-            <div th:if="${isEmailForm}">Email successfully changed</div>
-            <div th:if="${isPasswordForm}">Password successfully changed</div>
+            <div th:if="${isEmailForm}">Email başarılı bir şekilde kaydedildi</div>
+            <div th:if="${isPasswordForm}">Şifre başarılı bir şekilde değiştirldi</div>
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">Change email</div>
+            <div class="panel-heading">Email'i değiştir</div>
             <div class="panel-body">
                 <form th:action="@{/change_email}" th:object="${user}" method="post" id="emailForm">
                         <div th:if="${#fields.hasErrors('*')} and ${isEmailForm}">
                             <ul class="list-no-indent">
-                                <li class="error-line" th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                                <li class="error-line" th:each="err : ${#fields.errors('*')}" th:text="${err}">Giriş hatalı</li>
                             </ul>
                         </div>
 
                         <div class="form-group">
-                            <label for="currentPassword">Current password:</label>
+                            <label for="currentPassword">Şimdiki şifre:</label>
                             <input type="password" class="form-control" id="currentPassword" name="currentPassword"/>
                         </div>
 
@@ -43,35 +43,35 @@
                             <input type="email" class="form-control" id="email" th:field="*{email}"/>
                         </div>
 
-                        <button type="submit" class="btn btn-default">Apply</button>
+                        <button type="submit" class="btn btn-default">Uygula</button>
                 </form>
             </div>
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">Change password</div>
+            <div class="panel-heading">Şifreyi değiştir</div>
             <div class="panel-body">
                 <form th:action="@{/change_password}" th:object="${user}" method="post" id="passwordForm">
                     <div th:if="${#fields.hasErrors('*')} and ${isPasswordForm}">
                         <ul class="list-no-indent">
-                            <li class="error-line" th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                            <li class="error-line" th:each="err : ${#fields.errors('*')}" th:text="${err}">Giriş hatalı</li>
                         </ul>
                     </div>
 
                     <div class="form-group">
-                        <label for="oldPassword">Current password:</label>
+                        <label for="oldPassword">Şimdiki şifre:</label>
                         <input type="password" class="form-control" id="oldPassword" name="currentPassword"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Password:</label>
+                        <label for="password">Şifre:</label>
                         <input type="password" class="form-control" id="password" th:field="*{password}"/>
                     </div>
                     <div class="form-group">
-                        <label for="password2">Repeat password:</label>
+                        <label for="password2">Şifre'yi tekrarla:</label>
                         <input type="password" class="form-control" id="password2" name="password2"/>
                     </div>
-                    <button type="submit" class="btn btn-default">Apply</button>
+                    <button type="submit" class="btn btn-default">Uygula</button>
 
                 </form>
             </div>

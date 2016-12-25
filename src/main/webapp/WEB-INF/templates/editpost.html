@@ -32,7 +32,7 @@
             </div>
 
             <div class="form-group">
-                <label for="title">Title:</label>
+                <label for="title">Başlık:</label>
                 <input type="text" class="form-control" id="title" th:field="*{title}"/>
             </div>
 
@@ -43,11 +43,11 @@
             </div>
 
             <div class="form-group">
-                <label for="tags">Tags:</label>
+                <label for="tags">Tag'ler:</label>
                 <input type="text" class="form-control" id="tags" th:field="*{tags}" placeholder="c++, php"/>
             </div>
 
-            <button type="submit" class="btn btn-default" th:text="${edit} ? 'Save' : 'Submit'"></button>
+            <button type="submit" class="btn btn-default" th:text="${edit} ? 'Kaydet' : 'Gönder'"></button>
 
         </form>
     </div>

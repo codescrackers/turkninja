@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class PostRating extends Rating {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -9,7 +9,7 @@ import java.util.Collection;
 public class Tag {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     @Column(length = 30, nullable = false, unique = true)

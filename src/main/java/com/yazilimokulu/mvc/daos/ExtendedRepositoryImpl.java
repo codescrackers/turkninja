@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
+@SuppressWarnings("unchecked")
 public class ExtendedRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T,ID>
 implements BaseRepository<T, ID>{
 	
@@ -22,6 +23,7 @@ implements BaseRepository<T, ID>{
 		this.entityInformation = entityInformation;
 	}
 
+	
 	@Override
 	public List<T> findByIds(ID... ids) {
 		Query query = this.entityManger.createQuery("select e from " + this.entityInformation.getEntityName() 

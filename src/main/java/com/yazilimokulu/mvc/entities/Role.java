@@ -8,7 +8,7 @@ import java.util.Collection;
 @Table(name = "roles")
 public class Role {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     @Column(unique = true, nullable = false, length = 50)

@@ -12,6 +12,7 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -29,7 +30,7 @@ import com.yazilimokulu.utils.LocalDateTimePersistenceConverter;
 public class Comment {
 
     @javax.persistence.Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     @Lob

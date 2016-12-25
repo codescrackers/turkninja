@@ -4,22 +4,18 @@ import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 
-import org.apache.catalina.core.ApplicationContext;
-import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.log4j.lf5.util.Resource;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
 
 import com.yazilimokulu.mvc.daos.ExtendedRepositoryImpl;
 
@@ -34,7 +30,11 @@ public class DataConfiguration {
 	public org.springframework.jdbc.datasource.DriverManagerDataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/yazilimokulu?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/yazilimokulu?createDatabaseIfNotExist=true");
+		Properties props= new Properties();
+		props.setProperty("useUnicode", "true");
+		props.setProperty("characterEncoding", "utf-8");
+		dataSource.setConnectionProperties(props);
 		dataSource.setUsername("root");
 		dataSource.setPassword("password");
 		System.out.println("***************************************");
