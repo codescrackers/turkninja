@@ -53,6 +53,7 @@ public class DataConfiguration {
 		jpaProperties.put("hibernate.connection.characterEncoding", "utf8");
 		jpaProperties.put("hibernate.connection.CharSet", "utf8");
 		jpaProperties.put("hibernate.connection.useUnicode", "true");
+		jpaProperties.put("hibernate.hbm2ddl.import_files", "/security-tables.sql,/dummy-data.sql");
 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setDataSource(dataSource());
