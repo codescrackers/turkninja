@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+    <div th:fragment="form(id)">
+        <script src="../../../js/login.js" th:src="@{/js/login.js}"></script>
+
+        <script th:inline="javascript">
+            var id = /*[[${id}]]*/ '';
+
+            setupLoginForm(id);
+        </script>
+
+        <a href="#" class="lead dotted-link" th:id="'loginToggler' + ${id}">Log in</a>
+
+        <form style="display: none" th:action="@{/login_check}" method="post" th:id="'loginForm' + ${id}">
+            <div class="form-group">
+                <label th:for="'username' + ${id}">Username or E-mail:</label>
+                <input type="text" class="form-control" name="username" th:id="'username' + ${id}" autocomplete="on" />
+            </div>
+            <div class="form-group">
+                <label th:for="'password' + ${id}">Password:</label>
+                <input type="password" class="form-control" name="password" th:id="'password' + ${id}"/>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" name="remember"/>Remember me</label>
+            </div>
+            <button type="submit" class="btn btn-default" th:id="'loginbtn' + ${id}">Log in</button>
+            <div>
+                <img th:src="@{/images/ajax-loader.gif}" th:id="'loadingIndicator' + ${id}" style="display:none" />
+            </div>
+            <div>
+                <label class="error" th:id="'loginError' + ${id}"></label>
+            </div>
+        </form>
+
+        <p class="lead reg-link">
+            <a th:href="@{/register}">or Register</a>
+        </p>
+    </div>
+
+</body>
+</html>

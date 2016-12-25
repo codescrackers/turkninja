@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+
+<body>
+    <th:block th:fragment="commentList" th:with="isUser=${#authorization.expression('hasRole(''ROLE_USER'')')}">
+        <div class="comment-node" th:each="comment : ${comments}">
+            <div class="comment" th:attr="data-commentId=${comment.id}">
+                <div class="comment-header">
+                    <th:block th:unless="${comment.deleted}">
+                        <a class="avatar" th:href="@{|/users/${comment.user.username}|}">
+                            <img class="img-rounded"  width="28" height="28"
+                                 th:src="${#strings.isEmpty(comment.user.smallAvatarLink)} ? @{/images/no-avatar-small.png} :
+                                     (${#strings.startsWith(comment.user.smallAvatarLink, 'http')} ? ${comment.user.smallAvatarLink} : (@{/uploads/} + ${comment.user.smallAvatarLink}))" />
+                        </a>
+                        <a class="comment-username" th:href="@{|/users/${comment.user.username}|}" th:text="${comment.user.username}"
+                                th:classappend="${comment.user.hasRole('ROLE_ADMIN')} ? 'comment-username-admin'"></a>
+                    </th:block>
+                    <span th:if="${comment.deleted}" class="deleted">[deleted]</span>
+
+                    <span class="post-date">
+                        <span th:text="${#temporals.format(comment.dateTime, 'MMM dd, yyyy HH:mm')}"></span>
+                        <i th:unless="${comment.modifiedDateTime == null}" th:text="' (modified ' + ${#temporals.format(comment.modifiedDateTime, 'MMM dd, yyyy HH:mm')} + ')'"></i>
+                    </span>
+
+                    <div th:unless="${comment.deleted}" class="comment-rating-block" th:title="${isUser} ? '' : 'Log in or register to vote'"
+                         th:with="ratingSum=${comment.getRatingSum()}, userVoteValue=${comment.getUserVoteValue(userId)}">
+                        <a class=" rating-arrow like-arrow" href="javascript:void(0)"
+                           th:attr="data-action=${isUser and userVoteValue == 0} ? 'vote' : '', data-href=@{|/posts/${post.id}/comments/${comment.id}/like|}"
+                           th:classappend="${userVoteValue == 1} ? 'voted'"
+                           data-vote-type="like">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                        </a>
+                    <span class="rating-value" th:text="${ratingSum}"
+                          th:classappend="${ratingSum == 0} ? 'rating-value-no' : (${ratingSum lt 0} ? 'rating-value-negative' : 'rating-value-positive')"></span>
+                        <a class="rating-arrow dislike-arrow" href="javascript:void(0)"
+                           th:attr="data-action=${isUser and userVoteValue == 0} ? 'vote' : '', data-href=@{|/posts/${post.id}/comments/${comment.id}/dislike|}"
+                           th:classappend="${userVoteValue == -1} ? 'voted'"
+                           data-vote-type="dislike">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="comment-content" th:classappend="${comment.deleted} ? 'deleted'" th:utext="${comment.deleted} ? '[deleted]' : ${comment.getCommentTextHtml()}"></div>
+                </div>
+
+                <div class="post-actions" th:if="${#authorization.expression('isAuthenticated()')}">
+                    <th:block th:unless="${comment.deleted}">
+                        <a class="comment-reply-btn" href="javascript:void(0)"
+                                data-action="addReply"
+                                th:attr="data-href=@{|/posts/${post.id}/comments/create|}">reply</a>
+
+                        <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')') or (#authentication.name == comment.user.username and comment.userCanEdit())}"
+                           href="javascript:void(0)"
+                           data-action="editComment"
+                           th:attr="data-href=@{|/posts/${post.id}/comments/${comment.id}/edit|},
+                               data-maxDate=(${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? '' : ${comment.maxEditTimeUnixTimestamp()})">edit</a>
+
+                        <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')') or (#authentication.name == comment.user.username and comment.userCanDelete())}"
+                           href="javascript:void(0)"
+                           data-action="deleteComment"
+                           th:attr="data-href=@{|/posts/${post.id}/comments/${comment.id}/delete|},
+                               data-maxDate=(${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? '' : ${comment.maxDeleteTimeUnixTimestamp()})">delete</a>
+                    </th:block>
+                </div>
+                <div class="loading-indicator" style="display: none">
+                    <img th:src="@{/images/ajax-loader.gif}" />
+                </div>
+            </div>
+            <div class="child-comment-node" th:include="fragments/comments :: commentList (comments=${comment.getChildrenComments()})"></div>
+        </div>
+    </th:block>
+
+</body>
+</html>

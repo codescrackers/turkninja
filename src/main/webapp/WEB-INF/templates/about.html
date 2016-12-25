@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+      layout:decorator="layouts/blog">
+
+<head>
+    <title>Blog — About</title>
+
+</head>
+
+<body>
+
+<section layout:fragment="content">
+    <h2>About</h2>
+
+    <p>
+        <a href="https://github.com/AlexP11223/JavaSpringMvcBlog">github.com/AlexP11223/JavaSpringMvcBlog</a>
+    </p>
+
+    <p>
+        Yet another blog about programming and some random cute pictures.
+        <strong style="font-size: 40px">☃</strong>
+    </p>
+
+    <p>
+        Feel free to add comments or contact me.
+    </p>
+
+    <p>
+        <a href="mailto:alex.pantec@gmail.com">alex.pantec@gmail.com</a>
+    </p>
+
+    <p>
+        <img class="img-responsive" src="../../images/cat-working.png" th:src="@{/images/cat-working.png}"/>
+    </p>
+</section>
+
+</body>
+</html>

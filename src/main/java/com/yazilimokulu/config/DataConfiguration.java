@@ -6,8 +6,12 @@ import javax.persistence.EntityManagerFactory;
 
 import org.apache.catalina.core.ApplicationContext;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.log4j.lf5.util.Resource;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -66,4 +70,29 @@ public class DataConfiguration {
 		return txManager;
 	}
 
+	
+	 @Bean 
+	 @Profile("dev")
+     public static PropertyPlaceholderConfigurer configurerDevPpc() { 
+          PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+          ppc.setLocation(new ClassPathResource("uploading-dev.properties"));
+          return ppc; 
+     }
+	 
+	 @Bean 
+	 @Profile("prod")
+     public static PropertyPlaceholderConfigurer configurerProdPpc() { 
+          PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+          ppc.setLocation(new ClassPathResource("uploading-prod.properties"));
+          return ppc; 
+     } 
+	 
+	 @Bean 
+	 @Profile("dev")
+     public static PropertyPlaceholderConfigurer configurerTestPpc() { 
+          PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+          ppc.setLocation(new ClassPathResource("uploading-test.properties"));
+          return ppc; 
+     } 
+	 
 }

@@ -26,6 +26,10 @@
 			<ref bean="validationMessageSource" />
 		</property>
 	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="Messages" />
+    </bean>
 
 
 	<bean id="conversion-service"
@@ -44,15 +48,12 @@
 	<context:component-scan base-package="com.yazilimokulu.mvc.controllers" />
 	<context:component-scan base-package="com.yazilimokulu.mvc.resolvers" />
 
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
 
 
 
-	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
+	<mvc:resources location="/images/" mapping="/images/**" />
+    <mvc:resources location="/css/" mapping="/css/**" />
+    <mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/favicon.ico" mapping="/favicon.ico" />
 
     <mvc:resources location="file:${uploading.dirpath}" mapping="/uploads/**" />
@@ -90,24 +91,22 @@
         <property name="characterEncoding" value="UTF-8" />
     </bean>
     
-     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="Messages" />
-    </bean>
+     
 
     <!-- view that do not require any controller logic -->
     <mvc:view-controller path="/about" view-name="about"/>
     <mvc:view-controller path="/403" view-name="403"/>
 
     <beans profile="dev">
-        <context:property-placeholder location="classpath:/uploading-dev.properties"/>
+        <context:property-placeholder location="classpath*:/uploading-dev.properties"/>
     </beans>
 
     <beans profile="prod">
-        <context:property-placeholder location="classpath:/uploading-prod.properties"/>
+        <context:property-placeholder location="classpath*:/uploading-prod.properties"/>
     </beans>
 
     <beans profile="test">
-        <context:property-placeholder location="classpath:/uploading-test.properties"/>
+        <context:property-placeholder location="classpath*:/uploading-test.properties"/>
     </beans>
     
     

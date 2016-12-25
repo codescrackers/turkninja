@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
+<link rel="icon" href="/favicon.ico" th:href="@{/favicon.ico}"
+	type="image/x-icon" />
+
+<title>Blog</title>
+
+<!-- jQuery -->
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+<!-- jQuery validation plugin -->
+<script
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+
+<!-- Bootstrap -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" />
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<!-- jQuery ui -->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+<script src="../../../js/external/bootbox.min.js"
+	th:src="@{/js/external/bootbox.min.js}"></script>
+
+<script src="../../../js/common.js" th:src="@{/js/common.js}"></script>
+
+<link rel="stylesheet" type="text/css" href="../../../css/blog.css"
+	th:href="@{/css/blog.css}" />
+</head>
+
+<body>
+
+	<script th:inline="javascript">
+		window.postsUrl = /*[[@{/posts}]]*/'';
+		window.popularPostsUrl = /*[[@{/posts/top}]]*/'';
+	</script>
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<header class="page-header">
+					<div class="col-padding">
+						<ul class="nav navbar-nav">
+
+							<li><a th:href="@{/}">Ana Sayfa</a></li>
+
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-expanded="false">Kategoriler
+									<span class="caret"></span>
+							</a>
+
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="">Java</a></li>
+									<li><a href="">JavaEE</a></li>
+									<li><a href="">Spring-core</a></li>
+									<li><a href="">Spring-MVC</a></li>
+									<li><a href="">Spring-Data</a></li>
+									<li><a href="">Spring-Security</a></li>
+									<li><a href="">MongoDB</a></li>
+								</ul></li>
+
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-expanded="false">Kitap
+									Çözümleri <span class="caret"></span>
+							</a>
+								<ul class="dropdown-menu" role="menu" th:each="book,iterationStatus  : ${books}">
+									
+										<li><a th:href="@{/book/{bookUrl}?bookId={bookId}(bookUrl=${book.urlUniqueName},bookId=${book.id})}"  th:text="${book.name}">book</a></li>
+								</ul></li>
+
+						</ul>
+					</div>
+				</header>
+			</div>
+		</div>
+
+		<div class="row">
+			<section class="col-sm-2">
+				<div class="col-padding">
+
+					<div th:unless="${#authorization.expression('isAuthenticated()')}">
+						<th:block th:include="fragments/loginform :: form ('leftcol')" />
+					</div>
+
+					<div th:if="${#authorization.expression('isAuthenticated()')}">
+						Logged as <strong sec:authentication="name"></strong>
+
+						<div>
+							<a th:href="@{/logout}">Logout</a>
+						</div>
+
+						<div class="user-menu">
+							<div class="user-menu-item" sec:authorize="hasRole('ROLE_ADMIN')">
+								<a th:href="@{/posts/create}" role="button"
+									class="btn btn-primary"> <span
+									class="glyphicon glyphicon-pencil"></span> Create post
+								</a>
+							</div>
+							<div class="user-menu-item">
+								<a th:href="@{/settings}" role="button" class="btn btn-primary">
+									<span class="glyphicon glyphicon-cog"></span> Edit settings
+								</a>
+							</div>
+							<div class="user-menu-item">
+								<a th:href="@{/edit_profile}" role="button"
+									class="btn btn-primary"> <span
+									class="glyphicon glyphicon-user"></span> Edit profile
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="col-sm-8">
+
+				<div class="col-padding">
+					<section id="pageContent" layout:fragment="content"></section>
+				</div>
+			</section>
+
+			<section class="col-sm-2">
+				<div class="col-padding">
+					<form th:action="@{/posts}" method="get">
+						<div class="form-group">
+							<label for="tagSearchInput">Search by tag</label> <input
+								type="text" class="form-control" id="tagSearchInput"
+								name="tagged" placeholder="php, programming" />
+						</div>
+
+						<button type="submit" class="btn btn-default">Search</button>
+					</form>
+
+					<div id="latestPosts" class="panel panel-default">
+						<div class="panel-body">
+							<h4>Latest posts</h4>
+
+
+						</div>
+					</div>
+
+					<div id="popularPosts" class="panel panel-default">
+						<div class="panel-body">
+							<h4>Popular posts</h4>
+
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<footer class="page-footer">
+		<p>&copy; 2015 Aleksas Pantechovskis</p>
+		<p>
+			<a href="https://github.com/AlexP11223/JavaSpringMvcBlog">github.com/AlexP11223/JavaSpringMvcBlog</a>
+		</p>
+	</footer>
+
+</body>
+</html>
