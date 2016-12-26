@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorator="/admin/layouts/admin">
+	<head>
+	</head>
+<body>
+	<section layout:fragment="admin_content">
+	<div>
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+
+				<div class="container">
+					<div class="row">
+						<h1>Kitap Başlığı Ekle</h1>
+					</div>
+					<div class="row">
+
+						<form th:action="@{/admin/book-chapter/add}" method="POST"
+							 th:object="${chapter}">
+
+							<div class="form-group">
+								<select th:field="*{book.id}">
+								 <option th:each="var : ${books}" 
+                  					th:value="${var.id}" 
+                  					th:text="${var.name}">Thymus Thymi</option>
+							
+								</select>
+							</div>
+							
+							<div class="form-group">
+								<label for="chapter-name">Bölüm İsmi</label> <input
+									type="text" th:field="*{name}" class="form-control" id="chapter-name" />
+							</div>
+
+							<button type="submit" class="btn btn-default">Ekle</button>
+
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- /#page-content-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+		</section>
+</body>
+</html>

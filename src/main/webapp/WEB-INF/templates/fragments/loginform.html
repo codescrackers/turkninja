@@ -16,21 +16,21 @@
             setupLoginForm(id);
         </script>
 
-        <a href="#" class="lead dotted-link" th:id="'loginToggler' + ${id}">Log in</a>
+        <a href="#" class="lead dotted-link" th:id="'loginToggler' + ${id}">Giriş Yap</a>
 
         <form style="display: none" th:action="@{/login_check}" method="post" th:id="'loginForm' + ${id}">
             <div class="form-group">
-                <label th:for="'username' + ${id}">Username or E-mail:</label>
+                <label th:for="'username' + ${id}">Kullanıcı adı  veya E-mail:</label>
                 <input type="text" class="form-control" name="username" th:id="'username' + ${id}" autocomplete="on" />
             </div>
             <div class="form-group">
-                <label th:for="'password' + ${id}">Password:</label>
+                <label th:for="'password' + ${id}">Şifre:</label>
                 <input type="password" class="form-control" name="password" th:id="'password' + ${id}"/>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" name="remember"/>Remember me</label>
+                <label><input type="checkbox" name="remember"/>Beni hatırla</label>
             </div>
-            <button type="submit" class="btn btn-default" th:id="'loginbtn' + ${id}">Log in</button>
+            <button type="submit" class="btn btn-default" th:id="'loginbtn' + ${id}">Giriş Yap</button>
             <div>
                 <img th:src="@{/images/ajax-loader.gif}" th:id="'loadingIndicator' + ${id}" style="display:none" />
             </div>
@@ -40,7 +40,7 @@
         </form>
 
         <p class="lead reg-link">
-            <a th:href="@{/register}">or Register</a>
+            <a th:href="@{/register}">veya Kaydol</a>
         </p>
     </div>
 

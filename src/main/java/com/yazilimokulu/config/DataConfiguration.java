@@ -37,7 +37,6 @@ public class DataConfiguration {
 		dataSource.setConnectionProperties(props);
 		dataSource.setUsername("root");
 		dataSource.setPassword("password");
-		System.out.println("***************************************");
 		return dataSource;
 	}
 
@@ -89,7 +88,7 @@ public class DataConfiguration {
      } 
 	 
 	 @Bean 
-	 @Profile("dev")
+	 @Profile("test")
      public static PropertyPlaceholderConfigurer configurerTestPpc() { 
           PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
           ppc.setLocation(new ClassPathResource("uploading-test.properties"));

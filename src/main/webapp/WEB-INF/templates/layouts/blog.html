@@ -103,28 +103,28 @@
 					</div>
 
 					<div th:if="${#authorization.expression('isAuthenticated()')}">
-						Logged as <strong sec:authentication="name"></strong>
+						<strong sec:authentication="name"> ile giriş yapıldı</strong>
 
 						<div>
-							<a th:href="@{/logout}">Logout</a>
+							<a th:href="@{/logout}">Çıkış</a>
 						</div>
 
 						<div class="user-menu">
 							<div class="user-menu-item" sec:authorize="hasRole('ROLE_ADMIN')">
 								<a th:href="@{/posts/create}" role="button"
 									class="btn btn-primary"> <span
-									class="glyphicon glyphicon-pencil"></span> Create post
+									class="glyphicon glyphicon-pencil"></span> Gönderi Ekle
 								</a>
 							</div>
 							<div class="user-menu-item">
 								<a th:href="@{/settings}" role="button" class="btn btn-primary">
-									<span class="glyphicon glyphicon-cog"></span> Edit settings
+									<span class="glyphicon glyphicon-cog"></span> Ayarlar
 								</a>
 							</div>
 							<div class="user-menu-item">
 								<a th:href="@{/edit_profile}" role="button"
 									class="btn btn-primary"> <span
-									class="glyphicon glyphicon-user"></span> Edit profile
+									class="glyphicon glyphicon-user"></span> Profil Ayarları
 								</a>
 							</div>
 						</div>
@@ -143,17 +143,17 @@
 				<div class="col-padding">
 					<form th:action="@{/posts}" method="get">
 						<div class="form-group">
-							<label for="tagSearchInput">Search by tag</label> <input
+							<label for="tagSearchInput">Tag'e göre ara</label> <input
 								type="text" class="form-control" id="tagSearchInput"
-								name="tagged" placeholder="php, programming" />
+								name="tagged" placeholder="php, spring" />
 						</div>
 
-						<button type="submit" class="btn btn-default">Search</button>
+						<button type="submit" class="btn btn-default">Ara</button>
 					</form>
 
 					<div id="latestPosts" class="panel panel-default">
 						<div class="panel-body">
-							<h4>Latest posts</h4>
+							<h4>Son Gönderiler</h4>
 
 
 						</div>
@@ -161,7 +161,7 @@
 
 					<div id="popularPosts" class="panel panel-default">
 						<div class="panel-body">
-							<h4>Popular posts</h4>
+							<h4>Popüler Gönderiler</h4>
 
 
 						</div>
@@ -172,9 +172,9 @@
 	</div>
 
 	<footer class="page-footer">
-		<p>&copy; 2015 Aleksas Pantechovskis</p>
+		<p>&copy; 2016 Yazılım Okulu</p>
 		<p>
-			<a href="https://github.com/AlexP11223/JavaSpringMvcBlog">github.com/AlexP11223/JavaSpringMvcBlog</a>
+			<a href="https://github.com/codescrackers/yazilim-okulu">https://github.com/codescrackers/yazilim-okulu</a>
 		</p>
 	</footer>
 

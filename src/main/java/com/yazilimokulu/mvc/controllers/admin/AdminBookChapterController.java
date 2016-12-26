@@ -38,12 +38,6 @@ public class AdminBookChapterController {
 	@RequestMapping(value="/add")
 	public String addBookQuestionChapter( Model model){
 		
-		List<BookDTO> books=bookService.findAll();
-		Map<String,String> bookMap= new HashMap<>();
-		for (BookDTO bookDTO : books) {
-			bookMap.put(bookDTO.getId().toString(), bookDTO.getName());	
-		}
-		model.addAttribute("books", bookMap);
 		BookChapterDTO chapter = new BookChapterDTO();
 		model.addAttribute("chapter", chapter);
 		return "admin/book/book_chapter_add";

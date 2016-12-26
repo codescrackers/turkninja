@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+
+      layout:decorator="layouts/blog">
+<head>
+	
+</head>
+<body>
+	
+
+<section layout:fragment="content">
+	<div class="container">
+		
+		<h1 th:text="${book.name}">Kitap</h1>
+		<table>
+		<tr><td><b>Yazar / Yazarlar :</b></td><td th:text="${book.authors }"></td></tr>
+		<tr><td><b>Sayfa Sayısı :</b></td><td th:text="${book.pageNumber }"></td></tr>
+		<tr><td><b>Yayımcı : </b></td><td th:text="${book.publisher}"></td></tr>
+		<tr><td><b>Baskı :</b></td><td th:text="${book.edition}"></td></tr>
+		</table>
+		<table class="table table-hover">
+			<tbody>
+				<tr>
+					<th>Bölümler</th>
+				</tr>
+				<tr  th:each="chapter,iterationStatus  : ${bookChapters}">
+					<td>
+					<a th:href="@{/book/{bookUrl}/{chapterUrl}?chapterId={chapterId}(bookUrl=${book.urlUniqueName},chapterUrl=${chapter.urlUniqueName },chapterId=${chapter.id})}" 
+					th:text="${chapter.name}">chapter</a></td>
+						
+				</tr>	
+			</tbody>
+		</table>
+		
+	</div>
+</section>
+</body>
+</html>
