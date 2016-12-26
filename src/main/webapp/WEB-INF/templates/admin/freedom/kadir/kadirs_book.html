@@ -14,11 +14,16 @@
 			<div id="page-content-wrapper">
 				<div class="container-fluid">
 
-					<div class="container">
-						<h2>Kadir!</h2>
-				</div>
+					<div class="form-group">
+						<select>
+						 <option th:each="var : ${books}" 
+                					th:value="${var.id}" 
+                					th:text="${var.name}">Books</option>
+					
+						</select>
+					</div>
 
-			</div>
+				</div>
 		</div>
 		</div>
 		<!-- /#wrapper -->
@@ -26,5 +31,3 @@
 </body>
 
 </html>
-
-

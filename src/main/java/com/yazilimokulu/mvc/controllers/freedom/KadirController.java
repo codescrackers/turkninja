@@ -17,11 +17,13 @@ public class KadirController {
 	
 	
 	@RequestMapping(value="/util/test")
-	public String bookHome( Model model){
-		System.out.println(util.turkishToEnglishChars("ali"));
-		BookDTO bookDTO = new BookDTO();
-		model.addAttribute("bookDTO", bookDTO);
+	public String freeKadir( Model model){
 		return "admin/freedom/kadir/kadir_page";
+	}
+	
+	@RequestMapping(value="/books")
+	public String getKadirBook( Model model){
+		return "admin/freedom/kadir/kadirs_book";
 	}
 	
 
