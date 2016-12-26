@@ -21,7 +21,7 @@ public class KadirController {
 		System.out.println(util.turkishToEnglishChars("ali"));
 		BookDTO bookDTO = new BookDTO();
 		model.addAttribute("bookDTO", bookDTO);
-		return "admin/book/book_list";
+		return "admin/freedom/kadir/kadir_page";
 	}
 	
 
