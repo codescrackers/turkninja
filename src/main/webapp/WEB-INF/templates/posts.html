@@ -29,7 +29,7 @@
         <div th:attr="data-post-id=${post.id}, data-post-title=${post.title}" class="post" th:each="post, iterStat : ${postsPage.getContent()}">
             <div class="post-content">
                 <a class="h2 post-title" th:text="${post.title}" th:href="@{|/posts/${post.id}|}"></a>
-                <p class="post-date" th:text="${#temporals.format(post.dateTime, 'MMM dd, yyyy HH:mm')}"></p>
+                <p class="post-date" th:text="${post.dateStr}"></p>
 
                 <div class="post-tags">
                     <a class="post-tag" th:each="tag : ${post.getTags()}" th:text="${tag.name}" th:href="@{/posts(tagged=${tag.name})}"></a>
@@ -66,13 +66,13 @@
                 </div>
 
                 <a class="comments-link" th:href="@{|/posts/${post.id}#comments|}"
-                   th:text="${post.comments.size() == 0} ? 'comments' : (${post.comments.size()} + ' comment' + (${post.comments.size() &gt; 1} ? 's' : ''))"></a>
+                   th:text="${post.comments.size() == 0} ? 'yorumlar' : (${post.comments.size()} + ' yorum' + (${post.comments.size() &gt; 1} ? 's' : ''))"></a>
 
-                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/posts/${post.id}/edit|}">edit</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/posts/${post.id}/edit|}">düzenle</a>
 
                 <a sec:authorize="hasRole('ROLE_ADMIN')" href="javascript:void(0)"
                    th:attr="data-action=${post.hidden} ? 'unhidePost' : 'hidePost', data-href=@{|/posts/${post.id}/|} + (${post.hidden} ? 'unhide' : 'hide')"
-                   th:text="${post.hidden} ? 'unhide' : 'hide'"></a>
+                   th:text="${post.hidden} ? 'göster' : 'gizle'"></a>
 
                 <a sec:authorize="hasRole('ROLE_ADMIN')" href="javascript:void(0)" th:style="${post.hidden} ? '' : 'display: none;'"
                    th:attr="data-href=@{|/posts/${post.id}/delete|}"

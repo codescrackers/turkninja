@@ -7,7 +7,7 @@
       layout:decorator="layouts/blog">
 
 <head>
-    <title>Blog — Registration</title>
+    <title>Yazılım Okulu — Kayıt</title>
 
     <script src="../../js/external/xregexp-all-min.js" th:src="@{/js/external/xregexp-all-min.js}"></script>
     <script src="../../js/registration.js" th:src="@{/js/registration.js}"></script>
@@ -22,7 +22,7 @@
     </script>
 
     <div class="col-sm-4 no-padding-col">
-        <h2>Registration</h2>
+        <h2>Kayıt</h2>
 
         <form th:action="@{/register}" th:object="${user}" method="post" id="regForm">
             <div th:if="${#fields.hasErrors('*')}">

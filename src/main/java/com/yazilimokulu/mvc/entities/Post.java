@@ -1,9 +1,12 @@
 package com.yazilimokulu.mvc.entities;
 
+import java.text.DateFormat;
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -21,7 +24,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.hibernate.annotations.Formula;
 import org.springframework.util.StringUtils;
 
 import com.yazilimokulu.mvc.converters.MarkdownConverter;
@@ -66,6 +71,9 @@ public class Post {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<PostRating> postRatings = new ArrayList<>();
+    
+    @Transient
+    private String dateStr;
 
     public static String shortPartSeparator() {
         return "===cut===";
@@ -140,7 +148,7 @@ public class Post {
     }
 
     public LocalDateTime getDateTime() {
-        return dateTime;
+    	return dateTime;
     }
 
     public void setDateTime(LocalDateTime dateTime) {
@@ -170,4 +178,13 @@ public class Post {
     public void setPostRatings(List<PostRating> postRatings) {
         this.postRatings = postRatings;
     }
+
+	public String getDateStr() {
+		return getDateTime().getDayOfMonth()+" "+getDateTime().getMonth().getDisplayName(TextStyle.FULL, new Locale("tr", "TR")) +" "+getDateTime().getYear();
+	}
+
+	public void setDateStr(String dateStr) {
+		this.dateStr = dateStr;
+	}
+    
 }
