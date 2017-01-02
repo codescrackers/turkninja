@@ -236,7 +236,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>yazilim-okulu</finalName>
+		<finalName>ROOT</finalName>
 	</build>
 
 </project>
