@@ -143,13 +143,17 @@
 				<div class="col-padding">
 					<form th:action="@{/posts}" method="get">
 						<div class="form-group">
-							<label for="tagSearchInput">Tag'e göre ara</label> <input
-								type="text" class="form-control" id="tagSearchInput" ng-model="tagCtrl.deneme"
-								name="tagged" placeholder="php, spring" />
-								
+							<label for="tagSearchInput">Tag'e göre ara</label> 
+							<input type="text" class="form-control" id="tagSearchInput" ng-model="tagCtrl.tagName" ng-focus="tagCtrl.getAllTags()"
+								name="tagged" placeholder="php, spring"/>
 						</div>
-						<label>{{tagCtrl.deneme}}</label>
-						<button type="submit" class="btn btn-default">Ara</button>
+							
+							
+							<div class="btn-group" role="group" aria-label="...">
+							  <button type="button" class="btn btn-default" ng-repeat="tag in tagCtrl.tagList">{{ tag }}</button>
+							</div>
+							
+						<!--  <button type="submit" class="btn btn-default">Ara</button> -->
 					</form>
 
 					<div id="latestPosts" class="panel panel-default">

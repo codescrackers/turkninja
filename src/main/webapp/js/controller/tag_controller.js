@@ -4,6 +4,25 @@ angular.module('blog').controller('TagController', ['$scope', 'TagService', func
 	
 	var vm = this;
 	
-	vm.deneme = "Java";
+	var tagFocusControl = false;
+	vm.tagName = "";
+	vm.tagList = [];
+	
+	vm.getAllTags = function() {
+		if (!tagFocusControl) {
+			TagService.getAllTags()
+			.then(function(response) {
+				response.data.data.forEach(function(tag) {
+				    console.log(tag);
+				    vm.tagList.push(tag);
+				});
+	        })
+			.catch(function(response) {
+				var errObj = response.data || {};	
+			});
+			tagFocusControl = true;
+		}
+		
+	}
 	
 }]);
