@@ -10,7 +10,7 @@ angular.module('blog').factory('TagService', ['$http', '$q', '$window' , functio
     return factory;
 	
         function getAllTags() {
-    		var list = $http.get('http://localhost:8080/yazilim-okulu/tag/all');
+    		var list = $http.get(rootContext + '/tag/all');
         	return list;
         }
         
