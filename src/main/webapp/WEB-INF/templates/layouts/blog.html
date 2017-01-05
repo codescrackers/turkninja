@@ -56,12 +56,14 @@
 		window.popularPostsUrl = /*[[@{/posts/top}]]*/'';
 	</script>
 
-	<div class="container-fluid" ng-controller="TagController as tagCtrl">
-
+	<div class="container" ng-controller="TagController as tagCtrl">
 		<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
 				<header class="page-header">
 					<div class="col-padding">
+						<ul class="nav navbar-nav">
+							<li><a th:href="@{/}"><img class="img-responsive" width="80" height="80" th:src="@{/images/turkninja_logo.png}"/> </a></li>
+						</ul>
 						<ul class="nav navbar-nav">
 
 							<li><a th:href="@{/}">Ana Sayfa</a></li>
