@@ -1,6 +1,12 @@
 package com.yazilimokulu.mvc.controllers;
 
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -9,7 +15,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,10 +31,6 @@ import com.yazilimokulu.mvc.services.UnsupportedFormatException;
 import com.yazilimokulu.mvc.services.UploadedAvatarInfo;
 import com.yazilimokulu.mvc.services.UserService;
 import com.yazilimokulu.utils.JsonUtils;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 @Controller
 public class UsersController {
@@ -207,6 +214,13 @@ public class UsersController {
         userService.removeAvatar();
 
         return "ok";
+    }
+    
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String allUsers(ModelMap model){
+    	List<User> users=userService.findAll();
+    	model.addAttribute("users", users);
+    	return "users";
     }
 
     @RequestMapping(value = "/users/{username}", method = RequestMethod.GET)

@@ -182,4 +182,9 @@ public class UserServiceImpl implements UserService {
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
+
+	@Override
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
 }

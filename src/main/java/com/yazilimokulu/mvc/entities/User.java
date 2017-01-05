@@ -1,8 +1,10 @@
 package com.yazilimokulu.mvc.entities;
 
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -94,6 +97,9 @@ public class User {
 
     @Column(nullable = true)
     private String bigAvatarLink;
+    
+    @Transient
+    private String dateStr;
 
     public Long getId() {
         return Id;
@@ -199,6 +205,10 @@ public class User {
     public void setBigAvatarLink(String bigAvatarLink) {
         this.bigAvatarLink = bigAvatarLink;
     }
+    
+    public String getDateStr() {
+		return getRegistrationDate().getDayOfMonth()+" "+getRegistrationDate().getMonth().getDisplayName(TextStyle.FULL, new Locale("tr", "TR")) +" "+getRegistrationDate().getYear();
+	}
 
     public boolean hasRole(String role) {
         role = role.toUpperCase();

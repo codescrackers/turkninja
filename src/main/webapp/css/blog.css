@@ -207,6 +207,10 @@ label.error {
 
 .profile-info h3 {
     margin-top: 0;
+    
+}
+.profile-info{
+	min-height:250px;
 }
 
 .website-link a {

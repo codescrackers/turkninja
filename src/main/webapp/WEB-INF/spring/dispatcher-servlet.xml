@@ -97,7 +97,17 @@
     <mvc:view-controller path="/about" view-name="about"/>
     <mvc:view-controller path="/403" view-name="403"/>
 
-    
+    <beans profile="dev">
+        <context:property-placeholder location="classpath*:/uploading-dev.properties"/>
+    </beans>
+
+    <beans profile="prod">
+        <context:property-placeholder location="classpath*:/uploading-prod.properties"/>
+    </beans>
+
+    <beans profile="test">
+        <context:property-placeholder location="classpath*:/uploading-test.properties"/>
+    </beans>
     
     
 </beans>

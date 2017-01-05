@@ -1,5 +1,7 @@
 package com.yazilimokulu.mvc.services;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.yazilimokulu.mvc.entities.User;
@@ -33,6 +35,8 @@ public interface UserService extends UserDetailsService {
     boolean isAdmin();
 
     User currentUser();
+
+	List<User> findAll();
 
 }
 
