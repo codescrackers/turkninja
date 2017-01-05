@@ -25,4 +25,8 @@ angular.module('blog').controller('TagController', ['$scope', 'TagService', func
 		
 	}
 	
+	vm.getPostsByTagName = function(tagName) {
+		TagService.getPostsByTagName(tagName);
+	}
+	
 }]);

@@ -43,6 +43,8 @@
 
 <script src="../../../js/common.js" th:src="@{/js/common.js}"></script>
 
+<script th:inline="javascript"> var rootContext = [[${#httpServletRequest.getContextPath()}]]; </script>
+
 <link rel="stylesheet" type="text/css" href="../../../css/blog.css"
 	th:href="@{/css/blog.css}" />
 </head>
@@ -141,20 +143,20 @@
 
 			<section class="col-sm-2">
 				<div class="col-padding">
-					<form th:action="@{/posts}" method="get">
+			
 						<div class="form-group">
 							<label for="tagSearchInput">Tag'e göre ara</label> 
-							<input type="text" class="form-control" id="tagSearchInput" ng-model="tagCtrl.tagName" ng-focus="tagCtrl.getAllTags()"
+							<input type="text" class="form-control" id="tagSearchInput" ng-model="tagCtrl.tagName" ng-keydown="tagCtrl.getAllTags()"
 								name="tagged" placeholder="php, spring"/>
 						</div>
 							
 							
-							<div class="btn-group" role="group" aria-label="...">
-							  <button type="button" class="btn btn-default" ng-repeat="tag in tagCtrl.tagList">{{ tag }}</button>
+							<div class="btn-group" role="group" aria-label="..." ng-if="tagCtrl.tagName.length > 1">
+							  <button type="button" class="btn btn-default" ng-click="tagCtrl.getPostsByTagName(tag)" ng-repeat="tag in tagCtrl.tagList | filter:tagCtrl.tagName as results">{{ tag }}</button>
 							</div>
 							
 						<!--  <button type="submit" class="btn btn-default">Ara</button> -->
-					</form>
+
 
 					<div id="latestPosts" class="panel panel-default">
 						<div class="panel-body">

@@ -1,9 +1,10 @@
 'use strict';
  
-angular.module('blog').factory('TagService', ['$http', '$q', function($http, $q){
+angular.module('blog').factory('TagService', ['$http', '$q', '$window' , function($http, $q, $window){
  
     var factory = {
     		getAllTags: getAllTags,
+    		getPostsByTagName: getPostsByTagName
     };
     
     return factory;
@@ -13,6 +14,9 @@ angular.module('blog').factory('TagService', ['$http', '$q', function($http, $q)
         	return list;
         }
         
+        function getPostsByTagName(tagName) {
+        	$window.location.href = rootContext + '/posts?tagged='+tagName;
+        }
         
        
 }]);
