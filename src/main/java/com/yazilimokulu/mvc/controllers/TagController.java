@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yazilimokulu.mvc.dto.ResponseDTO;
+import com.yazilimokulu.mvc.dto.TagDTO;
 import com.yazilimokulu.mvc.services.TagService;
 
 @Controller
@@ -23,19 +24,19 @@ public class TagController {
 	private static final Logger logger = LogManager.getLogger(TagController.class.getName());
 	
 	@RequestMapping(value="/all", method = RequestMethod.GET)
-	public @ResponseBody ResponseDTO<String> getAllTag(){
+	public @ResponseBody ResponseDTO<TagDTO> getAllTag(){
 		
 		logger.info("tag name all list run");
-		List<String> tagNameList = null;
+		List<TagDTO> tagList = null;
 		
 		try {
-			tagNameList = tagService.getAllTagName();
+			tagList = tagService.getAllTag();
 		} catch (Exception e) {
-			logger.error("Tag isim listesi getirilirken hata oluştu. /tag/all" + e.getMessage());
+			logger.error("Tüm Tag listesi getirilirken hata oluştu. /tag/all" + e.getMessage());
 		}
 		
-		ResponseDTO<String> response = new ResponseDTO<>();
-		response.setData(tagNameList);
+		ResponseDTO<TagDTO> response = new ResponseDTO<>();
+		response.setData(tagList);
 		
 		return  response;
 		

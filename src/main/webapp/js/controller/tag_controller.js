@@ -13,8 +13,8 @@ angular.module('blog').controller('TagController', ['$scope', 'TagService', func
 			TagService.getAllTags()
 			.then(function(response) {
 				response.data.data.forEach(function(tag) {
-				    console.log(tag);
-				    vm.tagList.push(tag);
+				    console.log(tag.tagName + " x" + tag.postCount);
+				    vm.tagList.push(tag.tagName + " x" + tag.postCount);
 				});
 	        })
 			.catch(function(response) {

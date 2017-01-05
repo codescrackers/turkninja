@@ -45,11 +45,13 @@
 
 <script th:inline="javascript"> var rootContext = [[${#httpServletRequest.getContextPath()}]]; </script>
 
+<script src="../../../js/external/angular.min.js" th:src="@{/js/external/angular.min.js}"></script>
+
 <link rel="stylesheet" type="text/css" href="../../../css/blog.css"
 	th:href="@{/css/blog.css}" />
 </head>
 
-<body ng-app="blog">
+<body class="ng-cloak" ng-app="blog">
 
 	<script th:inline="javascript">
 		window.postsUrl = /*[[@{/posts}]]*/'';
@@ -153,8 +155,11 @@
 						</div>
 							
 							
-							<div class="btn-group" role="group" aria-label="..." ng-if="tagCtrl.tagName.length > 1">
-							  <button type="button" class="btn btn-default" ng-click="tagCtrl.getPostsByTagName(tag)" ng-repeat="tag in tagCtrl.tagList | filter:tagCtrl.tagName as results">{{ tag }}</button>
+							<div class="btn-group" role="group" aria-label="..." ng-if="tagCtrl.tagName.length > 0">
+							  <button type="button" class="btn btn-default" ng-click="tagCtrl.getPostsByTagName(tag)" ng-repeat="tag in tagData = (tagCtrl.tagList | filter:tagCtrl.tagName)">{{ tag }}</button>
+							  <div ng-if="tagData.length == 0"> 
+								Sonuç bulunamadı 
+							  </div> 
 							</div>
 							
 
