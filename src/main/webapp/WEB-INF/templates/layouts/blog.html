@@ -150,13 +150,13 @@
 			
 						<div class="form-group">
 							<label for="tagSearchInput">Etikete göre ara</label> 
-							<input type="text"  autocomplete="off" class="form-control" id="tagSearchInput" ng-model="tagCtrl.tagName" ng-keydown="tagCtrl.getAllTags()"
+							<input type="text"  autocomplete="off" class="form-control" id="tagSearchInput" ng-model="tagCtrl.tagName" ng-focus="tagCtrl.getAllTags()"
 								name="tagged" placeholder="php, spring"/>
 						</div>
 							
 							
 							<div class="btn-group" role="group" aria-label="..." ng-if="tagCtrl.tagName.length > 0">
-							  <button type="button" class="btn btn-default" ng-click="tagCtrl.getPostsByTagName(tag)" ng-repeat="tag in tagData = (tagCtrl.tagList | filter:{tagName: tagCtrl.tagName})">{{ tag.tagName }} <span class="badge"> {{ tag.postCount }}</span></button>
+							  <button type="button" class="btn btn-default" ng-click="tagCtrl.getPostsByTagName(tag.tagName)" ng-repeat="tag in tagData = (tagCtrl.tagList | filter:{tagName: tagCtrl.tagName})">{{ tag.tagName }} <span class="badge"> {{ tag.postCount }}</span></button>
 							  <div ng-if="tagData.length == 0"> 
 								Sonuç bulunamadı 
 							  </div> 
