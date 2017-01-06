@@ -156,7 +156,7 @@
 							
 							
 							<div class="btn-group" role="group" aria-label="..." ng-if="tagCtrl.tagName.length > 0">
-							  <button type="button" class="btn btn-default" ng-click="tagCtrl.getPostsByTagName(tag)" ng-repeat="tag in tagData = (tagCtrl.tagList | filter:tagCtrl.tagName)">{{ tag }}</button>
+							  <button type="button" class="btn btn-default" ng-click="tagCtrl.getPostsByTagName(tag)" ng-repeat="tag in tagData = (tagCtrl.tagList | filter:{tagName: tagCtrl.tagName})">{{ tag.tagName }} <span class="badge"> {{ tag.postCount }}</span></button>
 							  <div ng-if="tagData.length == 0"> 
 								Sonuç bulunamadı 
 							  </div> 
