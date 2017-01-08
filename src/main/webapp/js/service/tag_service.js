@@ -1,5 +1,3 @@
-'use strict';
- 
 angular.module('blog').factory('TagService', ['$http', '$q', '$window' , function($http, $q, $window){
  
     var factory = {
