@@ -82,6 +82,19 @@ public class User {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
+    
+    @OneToMany
+    @JoinTable(name = "users_followings",
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "following_id", referencedColumnName = "id"))
+    private List<User> following = null;
+    
+    @OneToMany
+    @JoinTable(name = "users_followers",
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "id"))
+    private List<User> followers = null;
+
 
     @Column(nullable = true, length = 1000)
     @Size(max = 1000, groups = {ProfileInfoValidationGroup.class})
@@ -97,6 +110,9 @@ public class User {
 
     @Column(nullable = true)
     private String bigAvatarLink;
+    
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
     
     @Transient
     private String dateStr;
@@ -209,8 +225,32 @@ public class User {
     public String getDateStr() {
 		return getRegistrationDate().getDayOfMonth()+" "+getRegistrationDate().getMonth().getDisplayName(TextStyle.FULL, new Locale("tr", "TR")) +" "+getRegistrationDate().getYear();
 	}
+    
+	public List<User> getFollowing() {
+		return following;
+	}
 
-    public boolean hasRole(String role) {
+	public void setFollowing(List<User> following) {
+		this.following = following;
+	}
+
+	public List<User> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(List<User> followers) {
+		this.followers = followers;
+	}
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
+	public boolean hasRole(String role) {
         role = role.toUpperCase();
 
         if (!role.startsWith("ROLE_"))

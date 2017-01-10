@@ -1,6 +1,5 @@
 package com.yazilimokulu.mvc.entities;
 
-import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -21,12 +20,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Formula;
 import org.springframework.util.StringUtils;
 
 import com.yazilimokulu.mvc.converters.MarkdownConverter;
@@ -71,6 +70,10 @@ public class Post {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<PostRating> postRatings = new ArrayList<>();
+    
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
     
     @Transient
     private String dateStr;
@@ -186,5 +189,15 @@ public class Post {
 	public void setDateStr(String dateStr) {
 		this.dateStr = dateStr;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
     
 }

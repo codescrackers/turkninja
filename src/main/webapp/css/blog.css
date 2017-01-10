@@ -69,7 +69,8 @@ label.error {
 }
 
 .post-title {
-
+	padding: 3px 10px;
+    margin: 15px 0 15px 0 !important;
 }
 
 .post-date {

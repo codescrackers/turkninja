@@ -33,8 +33,25 @@
     <div id="postsContainer">
         <div th:attr="data-post-id=${post.id}, data-post-title=${post.title}" class="post">
             <div class="post-content">
-                <h2 class="post-title" th:text="${post.title}"></h2>
-                <p class="post-date" th:text="${post.dateStr}"></p>
+
+	            <div class=" row">
+	                <div class="col-sm-3 avatar-big">
+	                	<img class="img-responsive img-circle" width="80" height="80" th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${post.user.bigAvatarLink})"/>
+	                </div>
+	                <div class="col-sm-9">
+	                	<div class="row">
+	                		<div class="col-sm-6"><h3 th:text="${post.user.username}"></h3></div>
+	                	</div>
+	                	<div class="row">
+	                		<div class="col-sm-6"><span>Gönderi Oluşturulma Tarihi :</span></div>
+	                		<div class="col-sm-6"><p class="post-date" th:text="${post.dateStr}"></p></div>
+	                	</div>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="post-title">
+	                	<a class="h2" th:text="${post.title}" th:href="@{|/posts/${post.id}|}"></a>
+	                </div>
 
                 <div class="post-tags">
                     <a class="post-tag" th:each="tag : ${post.getTags()}" th:text="${tag.name}" th:href="@{/posts(tagged=${tag.name})}"></a>
@@ -45,6 +62,7 @@
                 <th:block th:if="${post.hidden}">
                     <div class="hidden-post"><span>Kullanıcılar için görünür değil</span></div>
                 </th:block>
+                </div>
             </div>
 
             <div class="post-actions">
