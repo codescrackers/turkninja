@@ -36,7 +36,7 @@ public class PostsController {
     @RequestMapping(value = { "/","/posts"}, method = RequestMethod.GET)
     public String showPostsList(@RequestParam(value = "page", defaultValue = "0") Integer pageNumber, ModelMap model) {
     	System.out.println("works...!!");
-        Page<Post> postsPage = postService.getPostsPage(pageNumber, 10);
+        Page<Post> postsPage = postService.getPostsPage(pageNumber, 3);
 
         model.addAttribute("postsPage", postsPage);
 
