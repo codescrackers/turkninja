@@ -130,7 +130,6 @@ public class PostsController {
 
             return "editpost";
         }
-
         postService.saveNewPost(post);
 
         return "redirect:/posts";

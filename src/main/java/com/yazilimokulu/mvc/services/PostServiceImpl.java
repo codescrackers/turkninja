@@ -1,12 +1,8 @@
 package com.yazilimokulu.mvc.services;
 
-import java.text.DateFormat;
 import java.time.LocalDateTime;
-import java.time.format.TextStyle;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,6 +159,7 @@ public class PostServiceImpl implements PostService {
 		postEditDto.setId(post.getId());
 		postEditDto.setText(post.getFullPostText());
 		postEditDto.setTitle(post.getTitle());
+		postEditDto.setUser(post.getUser());
 
 		postEditDto.setTags(post.getTags().stream().map(Tag::getName).collect(Collectors.joining(", ")));
 
@@ -173,6 +170,16 @@ public class PostServiceImpl implements PostService {
 		post.setId(postEditDto.getId());
 		post.setTitle(postEditDto.getTitle());
 		post.setFullPostText(postEditDto.getText());
+		User currentUser =null;
+		if(post.getUser()==null){
+			currentUser=userService.currentUser();
+			currentUser.getPosts().add(post);
+		}else{
+			currentUser=post.getUser();
+			currentUser.getPosts().add(post);
+		}
+		post.setUser(currentUser);
+		
 
 		int cutInd = postEditDto.getText().indexOf(Post.shortPartSeparator());
 		if (cutInd > 0) {

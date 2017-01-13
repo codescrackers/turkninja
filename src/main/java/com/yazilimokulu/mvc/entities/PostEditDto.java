@@ -22,6 +22,8 @@ public class PostEditDto {
 
     @NotBlank
     private String tags = "";
+    
+    private User user;
 
     public Long getId() {
         return Id;
@@ -54,4 +56,14 @@ public class PostEditDto {
     public void setTags(String tags) {
         this.tags = tags;
     }
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+    
+    
 }
