@@ -19,16 +19,16 @@
         <a href="#" class="lead dotted-link" th:id="'loginToggler' + ${id}">Giriş Yap</a>
 
         <form style="display: none" th:action="@{/login_check}" method="post" th:id="'loginForm' + ${id}">
-            <div class="form-group">
-                <label th:for="'username' + ${id}">Kullanıcı adı  veya E-mail:</label>
-                <input type="text" class="form-control" name="username" th:id="'username' + ${id}" autocomplete="on" />
+            <div class="form-group has-feedback inner-addon left-addon">
+                <i class="glyphicon glyphicon-user"></i>
+                <input type="text" th:id="'username' + ${id}"  class="form-control" name="username" autocomplete="on" placeholder=" Mail yada kullanıcı adı"/>
             </div>
-            <div class="form-group">
-                <label th:for="'password' + ${id}">Şifre:</label>
-                <input type="password" class="form-control" name="password" th:id="'password' + ${id}"/>
+            <div class="form-group has-feedback inner-addon left-addon">
+                <i class="glyphicon glyphicon-lock"></i>
+                <input type="password" class="form-control" name="password" th:id="'password' + ${id}" placeholder=" Şifre"/>
             </div>
-            <div class="checkbox">
-                <label><input type="checkbox" name="remember"/>Beni hatırla</label>
+            <div class="checkbox icheck">
+                <label><input type="checkbox" name="remember"/> Beni hatırla</label>
             </div>
             <button type="submit" class="btn btn-default" th:id="'loginbtn' + ${id}">Giriş Yap</button>
             <div>

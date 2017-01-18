@@ -1,50 +1,73 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-
-      layout:decorator="layouts/blog">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/blog">
 
 <head>
-    <title th:text="'Türkninja Kullanıcılar'"></title>
+<title th:text="'Türkninja Kullanıcılar'"></title>
 
-    <link rel="stylesheet" type="text/css" href="../../css/external/pagedown.css" th:href="@{/css/external/pagedown.css}"/>
-    
+<link rel="stylesheet" type="text/css"
+	href="../../css/external/pagedown.css"
+	th:href="@{/css/external/pagedown.css}" />
+
 </head>
 
 <body>
 
-<section layout:fragment="content" >
-<div ng-controller="UserController as usrCtrl">
-		<div class="row">
-	        <div class="col-sm-3 no-padding-col profile-info " ng-repeat="user in userData = (usrCtrl.userList)"> 
-	            <p>{{user.userName}} / {{user.email}}</p>
-	        </div>
-        </div>
-        <div class="row">
-        <ul class="pagination">
-            <li ng-show="usrCtrl.pageNumber - 2 >= 0">
-                <a ng-href="#userPage" ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber- 2)">{{usrCtrl.pageNumber- 1}}</a>
-            </li>
-             <li ng-show="usrCtrl.pageNumber - 1 >= 0">
-                <a ng-href="#userPage" ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber -1)">{{usrCtrl.pageNumber}}</a>
-            </li>
-            <li class="active">
-                <a ng-href="#userPage" ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber)">{{usrCtrl.pageNumber+ 1}}</a>
-            </li>
-            	  
-            <li ng-show="usrCtrl.pageNumber + 1 &#60; usrCtrl.totalPageNumber">
-                <a ng-href="#userPage" ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber+1)">{{usrCtrl.pageNumber+ 2}}</a>
-            </li>
-            <li ng-show="usrCtrl.pageNumber + 2 &#60; usrCtrl.totalPageNumber">
-                <a ng-href="#userPage" ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber+2)">{{usrCtrl.pageNumber+ 3}} </a>
-            </li>
-        </ul>
-        </div>
-        
-        </div>
-</section>
+	<section layout:fragment="content">
+		<div ng-controller="UserController as usrCtrl">
+			<div class="row ">
+				<div class="col-md-4 col-sm-6 col-xs-12"
+					ng-repeat="user in userData = (usrCtrl.userList)">
+
+					<div class="info-box">
+						<span class="info-box-user">
+ 						<img  class="img-responsive img-rounded z-depth-5" width="48" height="48" ng-src="/uploads/{{user.bigAvatarLink}}" onerror="this.src='/uploads/noavatar.jpg'"/>
+						</span>
+
+						<div class="info-box-content">
+							<span class="info-box-text"><a ng-href="/users/{{user.userName}}">{{user.userName}}</a></span> 
+							<span class="info-box-text">{{user.registerDate}}</span>
+							<span class="info-box-text"><a ng-href="{{user.website}}">{{user.website}}</a></span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+
+				</div>
+
+
+			</div>
+			<div class="row">
+				<ul class="pagination">
+					<li ng-show="usrCtrl.pageNumber - 2 >= 0"><a
+						ng-href="#userPage"
+						ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber- 2)">{{usrCtrl.pageNumber-
+							1}}</a></li>
+					<li ng-show="usrCtrl.pageNumber - 1 >= 0"><a
+						ng-href="#userPage"
+						ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber -1)">{{usrCtrl.pageNumber}}</a>
+					</li>
+					<li class="active"><a ng-href="#userPage"
+						ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber)">{{usrCtrl.pageNumber+
+							1}}</a></li>
+
+					<li ng-show="usrCtrl.pageNumber + 1 &#60; usrCtrl.totalPageNumber">
+						<a ng-href="#userPage"
+						ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber+1)">{{usrCtrl.pageNumber+
+							2}}</a>
+					</li>
+					<li ng-show="usrCtrl.pageNumber + 2 &#60; usrCtrl.totalPageNumber">
+						<a ng-href="#userPage"
+						ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber+2)">{{usrCtrl.pageNumber+
+							3}} </a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</section>
 
 </body>
 </html>

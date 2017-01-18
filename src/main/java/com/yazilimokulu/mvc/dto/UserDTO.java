@@ -10,6 +10,12 @@ public class UserDTO implements Serializable  {
 	
 	private String email;
 
+	private String bigAvatarLink;
+	
+	private String registerDate;
+	
+	private String website;
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -25,8 +31,29 @@ public class UserDTO implements Serializable  {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
-	
 
+	public String getBigAvatarLink() {
+		return bigAvatarLink;
+	}
+
+	public void setBigAvatarLink(String bigAvatarLink) {
+		this.bigAvatarLink = bigAvatarLink;
+	}
+
+	public String getRegisterDate() {
+		return registerDate;
+	}
+
+	public void setRegisterDate(String registerDate) {
+		this.registerDate = registerDate;
+	}
+
+	public String getWebsite() {
+		return website;
+	}
+
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+	
 }

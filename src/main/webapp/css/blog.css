@@ -1,3 +1,15 @@
+.box {
+	background-color: white;
+	margin-top: 50px;
+    box-shadow: 0 0 30px black;
+    padding:0 15px 0 15px;
+    
+}
+
+.user-detail {
+	margin: 20px;
+}
+
 .page-header {
     padding-bottom: 10px;
 }
@@ -43,7 +55,7 @@
 }
 
 label.error {
-    color: red;
+    color: #c56666;
     margin-top: 5px;
     display: inline;
 }

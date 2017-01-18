@@ -17,10 +17,10 @@ function setupLoginForm(id) {
             },
             messages: {
                 username: {
-                    required: "Enter username or e-mail"
+                    required: "Kullanıcı adı veya email giriniz"
                 },
                 password: {
-                    required: "Enter password"
+                    required: "Şifre giriniz"
                 }
             }
         });
@@ -58,18 +58,26 @@ function setupLoginForm(id) {
                         else {
                             $loginBtn.prop('disabled', false);
                             $loadingIndicator.hide();
-                            $loginErrorLabel.text('Failed to log in. Check username/e-mail and password.');
+                            $loginErrorLabel.text("Giriş başarısız. Lütfen kullanıcı adı/email'inizi kontrol ediniz");
                             $loginErrorLabel.show();
                         }
                     },
                     error: function () {
                         $loginBtn.prop('disabled', true);
                         $loadingIndicator.hide();
-                        $loginErrorLabel.text('Failed to send request.');
+                        $loginErrorLabel.text('İstek gönderilemedi.');
                         $loginErrorLabel.show();
                     }
                 });
             }
         });
+        
+        
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+          });
+        
     });
 }

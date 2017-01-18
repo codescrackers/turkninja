@@ -222,7 +222,7 @@ public class UsersController {
     @RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
     @ResponseBody
     public ResponsePageDTO<UserDTO> getAllUsers(@RequestParam(value = "page", defaultValue = "0") Integer pageNumber,ModelMap model){
-    	return userService.findUsersPage(pageNumber, 2);
+    	return userService.findUsersPage(pageNumber, 9);
     	
     }
     

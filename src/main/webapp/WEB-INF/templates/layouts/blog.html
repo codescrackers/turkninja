@@ -26,13 +26,19 @@
 	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 
 <!-- Bootstrap -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" />
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+	
+	<link rel="stylesheet" type="text/css" href="../../../css/bootstrap/css/bootstrap.min.css"/>
+	
+	<link rel="stylesheet" type="text/css" href="../../../css/bootstrap/css/bootstrap-theme.min.css"/>
+	
+	<link rel="stylesheet" type="text/css" href="../../../css/ninja.css"/>
+	
+<!--  third Party -->
+	<link rel="stylesheet" type="text/css" href="../../../css/icheck/blue.css"/>
+	<script src="../../../js/external/icheck.min.js"
+	th:src="@{/js/external/icheck.min.js}"></script>
 <!-- jQuery ui -->
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
@@ -70,20 +76,7 @@
 
 							<li><a th:href="@{/}">Ana Sayfa</a></li>
 
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown" role="button" aria-expanded="false">Kategoriler
-									<span class="caret"></span>
-							</a>
-
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="">Java</a></li>
-									<li><a href="">JavaEE</a></li>
-									<li><a href="">Spring-core</a></li>
-									<li><a href="">Spring-MVC</a></li>
-									<li><a href="">Spring-Data</a></li>
-									<li><a href="">Spring-Security</a></li>
-									<li><a href="">MongoDB</a></li>
-								</ul></li>
+							
 
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-expanded="false">Kitap
@@ -95,7 +88,11 @@
 								</ul></li>
 								
 								<li><a th:href="@{/users}">Tüm Kullanıcılar</a></li>
-
+								<li th:if="${#authorization.expression('isAuthenticated()')}">
+									<a th:href="@{'/users/'+${#authentication.name}}">
+									Profilim
+									</a>
+								</li>
 						</ul>
 					</div>
 				</header>
@@ -103,11 +100,18 @@
 		</div>
 
 		<div class="row">
-			<section class="col-sm-2">
+			<section class="col-sm-8">
+
 				<div class="col-padding">
+					<section id="pageContent" layout:fragment="content"></section>
+				</div>
+			</section>
+
+			<section class="col-sm-4">
+			<div class="col-padding">
 
 					<div th:unless="${#authorization.expression('isAuthenticated()')}">
-						<th:block th:include="fragments/loginform :: form ('leftcol')" />
+						<th:block th:include="fragments/loginform :: form ('login')" />
 					</div>
 
 					<div th:if="${#authorization.expression('isAuthenticated()')}">
@@ -138,16 +142,6 @@
 						</div>
 					</div>
 				</div>
-			</section>
-
-			<section class="col-sm-6">
-
-				<div class="col-padding">
-					<section id="pageContent" layout:fragment="content"></section>
-				</div>
-			</section>
-
-			<section class="col-sm-4">
 				<div class="col-padding">
 			
 						<div class="form-group">
