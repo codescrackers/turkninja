@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import com.yazilimokulu.mvc.dto.ResponsePageDTO;
+import com.yazilimokulu.mvc.dto.UserDTO;
 import com.yazilimokulu.mvc.entities.User;
 
 public interface UserService extends UserDetailsService {
@@ -37,6 +39,8 @@ public interface UserService extends UserDetailsService {
     User currentUser();
 
 	List<User> findAll();
+	
+	ResponsePageDTO<UserDTO> findUsersPage(int pageNumber, int pageSize);
 
 }
 

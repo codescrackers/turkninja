@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.yazilimokulu.mvc.dto.ResponseDTO;
+import com.yazilimokulu.mvc.dto.ResponsePageDTO;
+import com.yazilimokulu.mvc.dto.UserDTO;
 import com.yazilimokulu.mvc.entities.User;
 import com.yazilimokulu.mvc.services.AuthException;
 import com.yazilimokulu.mvc.services.AvatarService;
@@ -214,6 +217,13 @@ public class UsersController {
         userService.removeAvatar();
 
         return "ok";
+    }
+    
+    @RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponsePageDTO<UserDTO> getAllUsers(@RequestParam(value = "page", defaultValue = "0") Integer pageNumber,ModelMap model){
+    	return userService.findUsersPage(pageNumber, 2);
+    	
     }
     
     @RequestMapping(value = "/users", method = RequestMethod.GET)

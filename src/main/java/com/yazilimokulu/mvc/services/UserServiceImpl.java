@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,8 +22,11 @@ import org.springframework.stereotype.Service;
 
 import com.yazilimokulu.mvc.daos.RoleRepository;
 import com.yazilimokulu.mvc.daos.UserRepository;
+import com.yazilimokulu.mvc.dto.ResponsePageDTO;
+import com.yazilimokulu.mvc.dto.UserDTO;
 import com.yazilimokulu.mvc.entities.Role;
 import com.yazilimokulu.mvc.entities.User;
+import com.yazilimokulu.mvc.mappers.UserMapper;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -186,5 +192,24 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findAll() {
 		return userRepository.findAll();
+	}
+
+	@Override
+	public ResponsePageDTO<UserDTO> findUsersPage(int pageNumber, int pageSize) {
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.ASC, "username");
+		Page<User> users=userRepository.findAll(pageRequest);
+		List<UserDTO> userDtos=new ArrayList<>();
+		for(User user : users){
+			UserMapper mapper= new UserMapper();
+			userDtos.add(mapper.userToUserDTO(user));
+		}
+		
+		ResponsePageDTO<UserDTO> response= new ResponsePageDTO<>();
+		response.setData(userDtos);
+		response.setPageNumber(users.getNumber());
+		response.setFirst(users.isFirst());
+		response.setLast(users.isLast());
+		response.setTotalPageNumber(users.getTotalPages());
+		return response;
 	}
 }

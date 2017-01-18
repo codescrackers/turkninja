@@ -10,26 +10,39 @@
     <title th:text="'Türkninja Kullanıcılar'"></title>
 
     <link rel="stylesheet" type="text/css" href="../../css/external/pagedown.css" th:href="@{/css/external/pagedown.css}"/>
+    
 </head>
 
 <body>
 
-<section layout:fragment="content">
-        <div class="col-sm-3 no-padding-col profile-info" th:each="user : ${users}">
-            <h3 th:text="${user.username}"></h3>
-
-            <div class="avatar-big">
-                <img class="img-responsive img-rounded" width="80" height="80" th:src="${#strings.isEmpty(user.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${user.bigAvatarLink})"/>
-            </div>
-
-            <div class="website-link" th:unless="${#strings.isEmpty(user.websiteLink)}">
-                <span class="glyphicon glyphicon-link"></span>
-                <a th:href="${user.websiteLink}" th:text="${user.websiteLinkTitle}"></a>
-            </div>
-
-            <div class="reg-date">
-                <span th:text="'Kayıt : ' + ${user.getDateStr()}"></span>
-            </div>
+<section layout:fragment="content" >
+<div ng-controller="UserController as usrCtrl">
+		<div class="row">
+	        <div class="col-sm-3 no-padding-col profile-info " ng-repeat="user in userData = (usrCtrl.userList)"> 
+	            <p>{{user.userName}} / {{user.email}}</p>
+	        </div>
+        </div>
+        <div class="row">
+        <ul class="pagination">
+            <li ng-show="usrCtrl.pageNumber - 2 >= 0">
+                <a ng-href="#userPage" ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber- 2)">{{usrCtrl.pageNumber- 1}}</a>
+            </li>
+             <li ng-show="usrCtrl.pageNumber - 1 >= 0">
+                <a ng-href="#userPage" ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber -1)">{{usrCtrl.pageNumber}}</a>
+            </li>
+            <li class="active">
+                <a ng-href="#userPage" ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber)">{{usrCtrl.pageNumber+ 1}}</a>
+            </li>
+            	  
+            <li ng-show="usrCtrl.pageNumber + 1 &#60; usrCtrl.totalPageNumber">
+                <a ng-href="#userPage" ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber+1)">{{usrCtrl.pageNumber+ 2}}</a>
+            </li>
+            <li ng-show="usrCtrl.pageNumber + 2 &#60; usrCtrl.totalPageNumber">
+                <a ng-href="#userPage" ng-click="usrCtrl.getPageUsers(usrCtrl.pageNumber+2)">{{usrCtrl.pageNumber+ 3}} </a>
+            </li>
+        </ul>
+        </div>
+        
         </div>
 </section>
 
