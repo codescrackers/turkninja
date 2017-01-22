@@ -23,10 +23,10 @@ body {
   font-weight: 400;
   overflow-x: hidden;
   overflow-y: auto;
+  background: #f7f7f5;
 }
 /* Layout */
 .wrapper {
-  height: 100%;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
@@ -47,7 +47,7 @@ body {
   position: relative;
 }
 .layout-boxed {
-  background: url('../img/boxed-bg.jpg') repeat fixed;
+  background: url('../images/boxed-bg.png') repeat fixed;
 }
 /*
  * Content Wrapper - contains the main content
@@ -63,6 +63,8 @@ body {
   margin-left: 230px;
   z-index: 820;
 }
+
+
 .layout-top-nav .content-wrapper,
 .layout-top-nav .right-side,
 .layout-top-nav .main-footer {
@@ -92,6 +94,13 @@ body {
     transform: translate(230px, 0);
   }
 }
+
+.bs-docs-nav {
+    margin-bottom: 30px;
+    background-color: #00405d;
+    border-bottom: 0;
+}
+
 .content-wrapper,
 .right-side {
   min-height: 100%;

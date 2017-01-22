@@ -17,7 +17,7 @@ $(document).ready(function() {
 
     $.validator.addMethod("username", function(value, element) {
         return this.optional( element ) || XRegExp("^[\\p{L}0-9\\._\\- ]+$").test( value );
-    }, 'Only letters, numbers, space, ".", "-" and "_" are allowed.');
+    }, 'Sadece harfler, rakamlar, boşluk, ".", "-" ve "_" izin veriliyor.');
 
     $("#regForm").validate({
         rules: {
@@ -58,25 +58,25 @@ $(document).ready(function() {
         },
         messages: {
             username: {
-                required: "Enter username",
-                minlength: "Too short username",
+                required: "Kullanıcı adı giriniz",
+                minlength: "Kullanıcı adı çok kısa",
                 remote: function (params) {
-                    return "Username " + params + " already registered. Have you already registered? Contact admin if you forgot your password";
+                    return "Kullanıcı adı " + params + " zaten kayıtlı. Daha önce kaydoldunuz mu? Şifrenizi unuttuysanız admin ile iletişime geçin";
                 }
             },
             email: {
                 required: "Enter e-mail",
                 remote: function (params) {
-                    return "Email " + params + " already registered. Have you already registered? Contact admin if you forgot your password";
+                    return "Email " + params + " zaten kayıtlı. Daha önce kaydoldunuz mu? Şifrenizi unuttuysanız admin ile iletişime geçin";
                 }
             },
             password: {
-                required: "Enter password",
-                minlength: "Password too short"
+                required: "Şifre giriniz",
+                minlength: "Şifre çok kısa"
             },
             password2: {
-                required: "Enter password",
-                equalTo: "Passwords do not match"
+                required: "Şifre giriniz",
+                equalTo: "Şifreler eşleşmiyor"
             }
         }
     });

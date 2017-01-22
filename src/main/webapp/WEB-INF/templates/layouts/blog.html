@@ -28,16 +28,21 @@
 <!-- Bootstrap -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="../../../css/bootstrap/css/bootstrap.min.css"/>
-	
-	<link rel="stylesheet" type="text/css" href="../../../css/bootstrap/css/bootstrap-theme.min.css"/>
-	
-	<link rel="stylesheet" type="text/css" href="../../../css/ninja.css"/>
-	
+
+<link rel="stylesheet" type="text/css"
+	href="../../../css/bootstrap/css/bootstrap.min.css" />
+
+<link rel="stylesheet" type="text/css"
+	href="../../../css/bootstrap/css/bootstrap-theme.min.css" />
+
+<link rel="stylesheet" type="text/css" href="../../../css/ninja.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../../css/skins/skin-ninja-light.css" />
+
 <!--  third Party -->
-	<link rel="stylesheet" type="text/css" href="../../../css/icheck/blue.css"/>
-	<script src="../../../js/external/icheck.min.js"
+<link rel="stylesheet" type="text/css"
+	href="../../../css/icheck/blue.css" />
+<script src="../../../js/external/icheck.min.js"
 	th:src="@{/js/external/icheck.min.js}"></script>
 <!-- jQuery ui -->
 <link rel="stylesheet"
@@ -51,53 +56,49 @@
 
 <script th:inline="javascript"> var rootContext = [[${#httpServletRequest.getContextPath()}]]; </script>
 
-<script src="../../../js/external/angular.min.js" th:src="@{/js/external/angular.min.js}"></script>
+<script src="../../../js/external/angular.min.js"
+	th:src="@{/js/external/angular.min.js}"></script>
 
 <link rel="stylesheet" type="text/css" href="../../../css/blog.css"
 	th:href="@{/css/blog.css}" />
 </head>
 
-<body class="ng-cloak" ng-app="blog">
+<body class="ng-cloak " ng-app="blog">
 
 	<script th:inline="javascript">
 		window.postsUrl = /*[[@{/posts}]]*/'';
 		window.popularPostsUrl = /*[[@{/posts/top}]]*/'';
 	</script>
+	<div class="wrapper skin-ninja-light ">
 
-	<div class="container" ng-controller="TagController as tagCtrl">
-		<div class="row">
-			<div class="col-sm-8 col-sm-offset-2">
-				<header class="page-header">
-					<div class="col-padding">
-						<ul class="nav navbar-nav">
-							<li><a th:href="@{/}"><img class="img-responsive" width="80" height="80" th:src="@{/images/turkninja_logo.png}"/> </a></li>
-						</ul>
-						<ul class="nav navbar-nav">
+		<header class="main-header bs-docs-nav">
+		<div class="container">
+			<a th:href="@{/}" class="logo"><img class="img-responsive"
+				width="80" height="80" th:src="@{/images/turkninja_logo.png}"></img></a>
+			<nav class="navbar navbar-static-top">
 
-							<li><a th:href="@{/}">Ana Sayfa</a></li>
+				
+				<div class="navbar-custom-menu">
 
-							
+					<ul class="nav navbar-nav">
 
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown" role="button" aria-expanded="false">Kitap
-									Çözümleri <span class="caret"></span>
-							</a>
-								<ul class="dropdown-menu" role="menu" th:each="book,iterationStatus  : ${books}">
-									
-										<li><a th:href="@{/book/{bookUrl}?bookId={bookId}(bookUrl=${book.urlUniqueName},bookId=${book.id})}"  th:text="${book.name}">book</a></li>
-								</ul></li>
-								
-								<li><a th:href="@{/users}">Tüm Kullanıcılar</a></li>
-								<li th:if="${#authorization.expression('isAuthenticated()')}">
-									<a th:href="@{'/users/'+${#authentication.name}}">
-									Profilim
-									</a>
-								</li>
-						</ul>
+						<li><a th:href="@{/}">Ana Sayfa</a></li>
+						<!-- Messages: style can be found in dropdown.less-->
+
+
+						<li><a th:href="@{/users}">Tüm Kullanıcılar</a></li>
+						<li th:if="${#authorization.expression('isAuthenticated()')}">
+							<a th:href="@{'/users/'+${#authentication.name}}"> Profilim </a>
+						</li>
+					</ul>
 					</div>
-				</header>
-			</div>
+			</nav>
 		</div>
+		</header>
+
+	<div class="container skin-ninja-light" style="padding:30px;"
+		ng-controller="TagController as tagCtrl">
+
 
 		<div class="row">
 			<section class="col-sm-8">
@@ -108,7 +109,7 @@
 			</section>
 
 			<section class="col-sm-4">
-			<div class="col-padding">
+				<div class="col-padding">
 
 					<div th:unless="${#authorization.expression('isAuthenticated()')}">
 						<th:block th:include="fragments/loginform :: form ('login')" />
@@ -143,21 +144,26 @@
 					</div>
 				</div>
 				<div class="col-padding">
-			
-						<div class="form-group">
-							<label for="tagSearchInput">Etikete göre ara</label> 
-							<input type="text"  autocomplete="off" class="form-control" id="tagSearchInput" ng-model="tagCtrl.tagName" ng-focus="tagCtrl.getAllTags()"
-								name="tagged" placeholder="php, spring"/>
-						</div>
-							
-							
-							<div class="btn-group" role="group" aria-label="..." ng-if="tagCtrl.tagName.length > 0">
-							  <button type="button" class="btn btn-default" ng-click="tagCtrl.getPostsByTagName(tag.tagName)" ng-repeat="tag in tagData = (tagCtrl.tagList | filter:{tagName: tagCtrl.tagName})">{{ tag.tagName }} <span class="badge"> {{ tag.postCount }}</span></button>
-							  <div ng-if="tagData.length == 0"> 
-								Sonuç bulunamadı 
-							  </div> 
-							</div>
-							
+
+					<div class="form-group">
+						<label for="tagSearchInput">Etikete göre ara</label> <input
+							type="text" autocomplete="off" class="form-control"
+							id="tagSearchInput" ng-model="tagCtrl.tagName"
+							ng-focus="tagCtrl.getAllTags()" name="tagged"
+							placeholder="php, spring" />
+					</div>
+
+
+					<div class="btn-group" role="group" aria-label="..."
+						ng-if="tagCtrl.tagName.length > 0">
+						<button type="button" class="btn btn-default"
+							ng-click="tagCtrl.getPostsByTagName(tag.tagName)"
+							ng-repeat="tag in tagData = (tagCtrl.tagList | filter:{tagName: tagCtrl.tagName})">
+							{{ tag.tagName }} <span class="badge"> {{ tag.postCount }}</span>
+						</button>
+						<div ng-if="tagData.length == 0">Sonuç bulunamadı</div>
+					</div>
+
 
 					<div id="latestPosts" class="panel panel-default">
 						<div class="panel-body">
@@ -178,7 +184,7 @@
 			</section>
 		</div>
 	</div>
-
+	</div>
 	<footer class="page-footer">
 		<p>&copy; 2016 Yazılım Okulu</p>
 		<p>
@@ -186,9 +192,13 @@
 		</p>
 	</footer>
 	<script src="../../../js/app.js" th:src="@{/js/app.js}"></script>
-	<script src="../../../js/service/tag_service.js" th:src="@{/js/service/tag_service.js}"></script>
-	<script src="../../../js/controller/tag_controller.js" th:src="@{/js/controller/tag_controller.js}"></script>
-	<script src="../../../js/service/user_service.js" th:src="@{/js/service/user_service.js}"></script>
-	<script src="../../../js/controller/user_controller.js" th:src="@{/js/controller/user_controller.js}"></script>
+	<script src="../../../js/service/tag_service.js"
+		th:src="@{/js/service/tag_service.js}"></script>
+	<script src="../../../js/controller/tag_controller.js"
+		th:src="@{/js/controller/tag_controller.js}"></script>
+	<script src="../../../js/service/user_service.js"
+		th:src="@{/js/service/user_service.js}"></script>
+	<script src="../../../js/controller/user_controller.js"
+		th:src="@{/js/controller/user_controller.js}"></script>
 </body>
 </html>

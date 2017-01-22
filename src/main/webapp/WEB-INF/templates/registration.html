@@ -1,57 +1,61 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-
-      layout:decorator="layouts/blog">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/blog">
 
 <head>
-    <title>Yazılım Okulu — Kayıt</title>
+<title>Yazılım Okulu — Kayıt</title>
 
-    <script src="../../js/external/xregexp-all-min.js" th:src="@{/js/external/xregexp-all-min.js}"></script>
-    <script src="../../js/registration.js" th:src="@{/js/registration.js}"></script>
+<script src="../../js/external/xregexp-all-min.js"
+	th:src="@{/js/external/xregexp-all-min.js}"></script>
+<script src="../../js/registration.js" th:src="@{/js/registration.js}"></script>
 </head>
 
 <body>
 
-<section layout:fragment="content">
-    <script th:inline="javascript">
-        window.emailCheckUrl = /*[[@{/check_email}]]*/ '';
-        window.usernameCheckUrl = /*[[@{/check_username}]]*/ '';
-    </script>
+	<section layout:fragment="content">
+		<script th:inline="javascript">
+			window.emailCheckUrl = /*[[@{/check_email}]]*/'';
+			window.usernameCheckUrl = /*[[@{/check_username}]]*/'';
+		</script>
 
-    <div class="col-sm-4 no-padding-col">
-        <h2>Kayıt</h2>
+		<div class="box box-success">
+			<div class="box-header with-border">
+				<h3 class="box-title">Kayıt</h3>
+			</div>
 
-        <form th:action="@{/register}" th:object="${user}" method="post" id="regForm">
-            <div th:if="${#fields.hasErrors('*')}">
-                <ul class="list-no-indent">
-                    <li class="error-line" th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
-                </ul>
-            </div>
+			<form role="form" method="post" id="regForm" action="/register"
+				class="ng-pristine ng-valid" novalidate="novalidate">
+				<div class="box-body">
+					<div class="form-group">
+						<label for="username">Kullanıcı adı:</label> <input type="text"
+							class="form-control" id="username" name="username" value=""/>
+					</div>
+					<div class="form-group">
+						<label for="email">Email:</label> <input type="email"
+							class="form-control" id="email" name="email" value=""/>
+					</div>
+					<div class="form-group">
+						<label for="password">Şifre:</label> <input type="password"
+							class="form-control" id="password" name="password" value=""/>
+					</div>
+					<div class="form-group">
+						<label for="password2">Şifre tekrar:</label> <input
+							type="password" class="form-control" id="password2"
+							name="password2"/>
+					</div>
+				</div>
+				<div class="box-footer">
+					<button class="btn btn-primary" type="submit">
+						Kayıt ol
+					</button>
+				</div>
+			</form>
 
-            <div class="form-group">
-                <label for="username">Kullanıcı adı:</label>
-                <input type="text" class="form-control" id="username" th:field="*{username}"/>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" th:field="*{email}"/>
-            </div>
-            <div class="form-group">
-                <label for="password">Şifre:</label>
-                <input type="password" class="form-control" id="password" th:field="*{password}"/>
-            </div>
-            <div class="form-group">
-                <label for="password2">Şifre tekrar:</label>
-                <input type="password" class="form-control" id="password2" name="password2"/>
-            </div>
-            <button type="submit" class="btn btn-default">Kayıt ol</button>
-
-        </form>
-    </div>
-</section>
+		</div>
+	</section>
 
 </body>
 </html>
