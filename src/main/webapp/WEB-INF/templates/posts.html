@@ -24,6 +24,17 @@
             <span class="h4" th:text="${postsPage.getTotalElements() == 0} ? 'Tag not found' :(${postsPage.getTotalElements()} + ' post' + (${postsPage.getTotalElements() &gt; 1 ? 's' : ''}))"></span>
         </div>
     </div>
+    
+	            <!-- /.box-header -->
+	            <div class="box-body">
+	              <div class="alert alert-success alert-dismissible">
+	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	                <h4><i class="icon fa fa-ban"></i>Bilgilendirme</h4>
+	                Sitemiz açık kaynak kodlu bir uygulamadır ve açık kaynak kodlu projeler kullanılmaktadır. Geliştirme aşamasındadır. <br/>Destekleriniz için Teşekkürler!
+	               <a style="color:black;" href="https://github.com/codescrackers/yazilim-okulu">Github adresimiz</a>
+	              </div>
+	            </div>
+	            <!-- /.box-body -->
 
     <div id="postsContainer" th:with="isUser=${#authorization.expression('hasRole(''ROLE_USER'')')}">
         <div th:attr="data-post-id=${post.id}, data-post-title=${post.title}" class="post" th:each="post, iterStat : ${postsPage.getContent()}">

@@ -4,40 +4,135 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 
-      layout:decorator="layouts/blog">
+      layout:decorator="layouts/no-right-content">
 
 <head>
     <title th:text="'Blog — User ' + ${user.username}"></title>
 
     <link rel="stylesheet" type="text/css" href="../../css/external/pagedown.css" th:href="@{/css/external/pagedown.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../css/skins/_all-skins.min.css" th:href="@{/css/skins/_all-skins.min.css}"/>
+    <script src="../../js/external/fastclick.js" th:src="@{/js/external/fastclick.js}"></script>
+    <script src="../../js/external/dist/app.min.js" th:src="@{/js/external/dist/app.min.js}"></script>
+    <script src="../../js/external/dist/demo.js" th:src="@{/js/external/dist/demo.js}"></script>
 </head>
 
 <body>
+    <!-- Main content -->
+    <section layout:fragment="profile-content" class="content">
 
-<section layout:fragment="content">
-    <div>
-        <div class="col-sm-3 no-padding-col profile-info">
-            <h3 th:text="${user.username}"></h3>
+      <div class="row">
+        <div class="col-md-3">
 
-            <div class="avatar-big" th:unless="${#strings.isEmpty(user.bigAvatarLink)}">
-                <img class="img-responsive img-rounded" width="160" height="160" th:src="${#strings.startsWith(user.bigAvatarLink, 'http')} ? ${user.bigAvatarLink} : (@{/uploads/} + ${user.bigAvatarLink})"/>
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+              <div class="avatar-big" th:unless="${#strings.isEmpty(user.bigAvatarLink)}">
+                <img class="img-responsive img-rounded profile-user-img img-responsive" width="160" height="160" th:src="${#strings.startsWith(user.bigAvatarLink, 'http')} ? ${user.bigAvatarLink} : (@{/uploads/} + ${user.bigAvatarLink})"/>
+              </div>
+
+              <h3 class="profile-username text-center" th:text="${user.username}"></h3>
+
+              <p class="text-muted text-center">Software Engineer</p>
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Followers</b> <a class="pull-right">1,322</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Following</b> <a class="pull-right">543</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Friends</b> <a class="pull-right">13,287</a>
+                </li>
+              </ul>
+
+              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
             </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
 
-            <div class="website-link" th:unless="${#strings.isEmpty(user.websiteLink)}">
-                <span class="glyphicon glyphicon-link"></span>
-                <a th:href="${user.websiteLink}" th:text="${user.websiteLinkTitle}"></a>
+          <!-- About Me Box -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Hakkımda</h3>
             </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+	            <div class="website-link" th:unless="${#strings.isEmpty(user.websiteLink)}">
+	                <span class="glyphicon glyphicon-link"></span>
+	                <a th:href="${user.websiteLink}" th:text="${user.websiteLinkTitle}"></a>
+	            </div>
+	        	<div class="reg-date">
+	               <p class="text-muted" th:text="'Kayıt : ' + ${user.getDateStr()}"></p>
+	           </div>
+              <strong><i class="fa fa-book margin-r-5"></i> Öğrenim</strong>
 
-            <div class="reg-date">
-                <span th:text="'Kayıt : ' + ${user.getDateStr()}"></span>
+              <p class="text-muted">
+               	London University of Science Informations
+              </p>
+
+
+              <strong><i class="fa fa-map-marker margin-r-5"></i> Yer</strong>
+
+              <p class="text-muted">Etiler, İstanbul</p>
+
+
+              <strong><i class="fa fa-pencil margin-r-5"></i> Yetenekler</strong>
+
+              <p>
+                <span class="label label-danger">UI Design</span>
+                <span class="label label-success">Coding</span>
+                <span class="label label-info">Javascript</span>
+                <span class="label label-warning">PHP</span>
+                <span class="label label-primary">Node.js</span>
+              </p>
+
+
+              <strong><i class="fa fa-file-text-o margin-r-5"></i> Not</strong>
+
+              <p th:utext="${user.getAboutTextHtml()}"></p>
             </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
         </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">Aktiviteler</a></li>
+              <li><a href="#timeline" data-toggle="tab">Zaman Tüneli</a></li>
+              <li><a href="#settings" data-toggle="tab">Ayarlar</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="activity">
+                Aktiviteler Alanı
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="timeline">
+              Zaman Tüneli
+              </div>
+              <!-- /.tab-pane -->
 
-        <div class="col-sm-9 no-padding-col">
-            <div th:utext="${user.getAboutTextHtml()}"></div>
+              <div class="tab-pane" id="settings">
+                Ayarlar
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
         </div>
-    </div>
-</section>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+
+
+
 
 </body>
 </html>

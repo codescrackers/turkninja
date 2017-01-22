@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
+<link rel="icon" href="/favicon.ico" th:href="@{/favicon.ico}"
+	type="image/x-icon" />
+
+<title>Yazılım Okulu</title>
+
+<!-- jQuery -->
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+<!-- jQuery validation plugin -->
+<script
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+
+<!-- Bootstrap -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css"
+	href="../../../css/bootstrap/css/bootstrap.min.css" />
+
+<link rel="stylesheet" type="text/css"
+	href="../../../css/bootstrap/css/bootstrap-theme.min.css" />
+
+<link rel="stylesheet" type="text/css" href="../../../css/ninja.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../../css/skins/skin-ninja-light.css" />
+
+<!--  third Party -->
+
+<!-- jQuery ui -->
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+<script src="../../../js/external/bootbox.min.js"
+	th:src="@{/js/external/bootbox.min.js}"></script>
+
+<script src="../../../js/common.js" th:src="@{/js/common.js}"></script>
+
+<script th:inline="javascript"> var rootContext = [[${#httpServletRequest.getContextPath()}]]; </script>
+
+<link rel="stylesheet" type="text/css" href="../../../css/blog.css"
+	th:href="@{/css/blog.css}" />
+</head>
+
+<body>
+
+	<div class="wrapper skin-ninja-light ">
+
+		<header class="main-header bs-docs-nav">
+		<div class="container">
+			<a th:href="@{/}" class="logo"><img class="img-responsive"
+				width="80" height="80" th:src="@{/images/turkninja_logo.png}"></img></a>
+			<nav class="navbar navbar-static-top">
+
+				
+				<div class="navbar-custom-menu">
+
+					<ul class="nav navbar-nav">
+
+						<li><a th:href="@{/}">Ana Sayfa</a></li>
+						<!-- Messages: style can be found in dropdown.less-->
+
+
+						<li><a th:href="@{/users}">Tüm Kullanıcılar</a></li>
+						<li th:if="${#authorization.expression('isAuthenticated()')}">
+							<a th:href="@{'/users/'+${#authentication.name}}"> Profilim </a>
+						</li>
+					</ul>
+					</div>
+			</nav>
+		</div>
+		</header>
+	</div>
+	<div class="container skin-ninja-light" style="padding:30px;">
+		<div class="row">
+			<div class="">
+			
+				<section class="col-sm-12">
+	
+					<div class="col-padding">
+						<section id="pageContent" layout:fragment="profile-content"></section>
+					</div>
+				</section>
+			
+				
+			</div>
+		</div>
+	</div>
+	<footer class="page-footer">
+		<p>&copy; 2016 Yazılım Okulu</p>
+		<p>
+			<a href="https://github.com/codescrackers/yazilim-okulu">https://github.com/codescrackers/yazilim-okulu</a>
+		</p>
+	</footer>
+</body>
+</html>
