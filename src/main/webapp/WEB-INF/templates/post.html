@@ -35,15 +35,15 @@
             <div class="post-content">
 
 	            <div class=" row">
-	                <div class="col-sm-3 avatar-big">
+	                <div class="col-sm-2 avatar-big">
 	                	<img class="img-responsive img-circle" width="80" height="80" th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${post.user.bigAvatarLink})"/>
 	                </div>
-	                <div class="col-sm-9">
+	                <div class="col-sm-4">
 	                	<div class="row">
-	                		<div class="col-sm-6"><h3 th:text="${post.user.username}"></h3></div>
+	                		<div class="col-sm-6"><a th:href="@{|/users/${post.user.username}|}"><h3 th:text="${post.user.username}"></h3></a></div>
 	                	</div>
 	                	<div class="row">
-	                		<div class="col-sm-6"><span>Gönderi Oluşturulma Tarihi :</span></div>
+	                		<div class="col-sm-6"><span>Gönderi Tarihi :</span></div>
 	                		<div class="col-sm-6"><p class="post-date" th:text="${post.dateStr}"></p></div>
 	                	</div>
 	                </div>
