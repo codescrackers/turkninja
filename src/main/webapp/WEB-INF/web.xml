@@ -50,6 +50,11 @@
 	<error-page>
 		<location>/error</location>
 	</error-page>
+	
+	<mime-mapping>
+    	<extension>ico</extension>
+    <mime-type>image/x-icon</mime-type>
+	</mime-mapping>
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
