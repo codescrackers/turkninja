@@ -82,7 +82,7 @@ $(document).ready(function() {
                                     commentLoadingIndicator.hide();
                                 },
                                 error: function() {
-                                    showErrorDialog('Failed to send reload request. Try reloading page.');
+                                    showErrorDialog('Tekrar yükleme istemi başarısız. Lütfen sayfayı yeniden yüklemeyi deneyin.');
                                 }
                             });
                         }
@@ -96,7 +96,7 @@ $(document).ready(function() {
                     error: function () {
                         buttons.prop('disabled', false);
                         commentLoadingIndicator.hide();
-                        commentErrorLabel.text('Failed to send request.');
+                        commentErrorLabel.text('İstek gönderimi başarısız.');
                         commentErrorLabel.show();
                     }
                 });

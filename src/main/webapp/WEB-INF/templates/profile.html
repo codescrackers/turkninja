@@ -7,7 +7,7 @@
       layout:decorator="layouts/no-right-content">
 
 <head>
-    <title th:text="'Blog — User ' + ${user.username}"></title>
+    <title th:text="'Türkninja — Kullanıcı: ' + ${user.username}"></title>
 
     <link rel="stylesheet" type="text/css" href="../../css/external/pagedown.css" th:href="@{/css/external/pagedown.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/skins/_all-skins.min.css" th:href="@{/css/skins/_all-skins.min.css}"/>
@@ -36,17 +36,14 @@
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Followers</b> <a class="pull-right">1,322</a>
+                  <b>Takipçiler</b> <a class="pull-right">1,322</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Following</b> <a class="pull-right">543</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Friends</b> <a class="pull-right">13,287</a>
+                  <b>Takip ettikleri</b> <a class="pull-right">543</a>
                 </li>
               </ul>
 
-              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+              <a href="#" class="btn btn-primary btn-block"><b>Takip et</b></a>
             </div>
             <!-- /.box-body -->
           </div>

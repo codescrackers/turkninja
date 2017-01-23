@@ -17,7 +17,7 @@
 <section layout:fragment="content">
     <div th:if="${searchTags != null}" class="search-header">
         <div>
-            <h3>Gönderi tag'leri </h3>
+            <h3>Gönderi etiketleri </h3>
             <a class="post-tag" th:each="tag : ${searchTags}" th:text="${tag}" th:href="@{/posts(tagged=${tag})}"></a>
         </div>
         <div class="search-result">
@@ -31,7 +31,7 @@
 	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 	                <h4><i class="icon fa fa-ban"></i>Bilgilendirme</h4>
 	                Sitemiz açık kaynak kodlu bir uygulamadır ve açık kaynak kodlu projeler kullanılmaktadır. Geliştirme aşamasındadır. <br/>Destekleriniz için Teşekkürler!
-	               <a style="color:black;" href="https://github.com/codescrackers/yazilim-okulu">Github adresimiz</a>
+	               <a style="color:black;" href="https://github.com/codescrackers/turkninja">Github adresimiz</a>
 	              </div>
 	            </div>
 	            <!-- /.box-body -->

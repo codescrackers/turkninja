@@ -37,10 +37,10 @@ $(document).ready(function() {
                     btn.removeClass('voted');
 
                     if (data == 'own_comment') {
-                        showErrorDialog('Cannot vote for your own comments!');
+                        showErrorDialog('Kendi yorumunuza oylama yapamazsınız!');
                     }
                     else {
-                        showErrorDialog('Voting failed. Try reloading page.');
+                        showErrorDialog('Oylama başarısız. Sayfayı yeniden yüklemeyi deneyin.');
                     }
                 }
             },

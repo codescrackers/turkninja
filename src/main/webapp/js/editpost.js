@@ -61,7 +61,7 @@ $(document).ready(function() {
 
     $(window).bind('beforeunload', function(){
         if ($.trim($('#wmd-input').val()) != '')
-            return 'You have not submitted your post.';
+            return 'Postunuzu göndermediniz.';
     });
 
     $(document).on("submit", "form", function(event){

@@ -48,10 +48,10 @@ $(document).ready(function() {
             else {
                 pb.switchClass('progress-bar-success', 'progress-bar-danger');
 
-                var errMsg = 'Failed to upload, ' + data.result.status;
+                var errMsg = 'Yükleme başarısız, ' + data.result.status;
 
                 if (data.result.status == 'invalid_format') {
-                    errMsg = 'Only JPG and PNG allowed.';
+                    errMsg = "Sadece JPG ve PNG'ye izin veriliyor.";
                 }
 
                 avatarErrorLabel.text(errMsg);
@@ -61,7 +61,7 @@ $(document).ready(function() {
         fail: function (e, data) {
             pb.switchClass('progress-bar-success', 'progress-bar-danger');
 
-            avatarErrorLabel.text('Failed to upload picture. Check that it is PNG or JPG and not exceeds 1 MB');
+            avatarErrorLabel.text("Resim yükleme başarısız. Lütfrn resmin PNG veya JPG olduğundan ve and 1 MB'ı geçmediğinden emin olunuz");
             avatarErrorLabel.show();
         },
         always: function (e, data) {
@@ -97,11 +97,11 @@ $(document).ready(function() {
                     removeBtn.hide();
                 }
                 else {
-                    avatarErrorLabel.text('Error: ' + data + '. Try reloading page.');
+                    avatarErrorLabel.text('Hata: ' + data + '. Sayfayı yeniden yüklemeyi deneyiniz.');
                 }
             },
             error: function () {
-                avatarErrorLabel.text('Failed to send request. Try reloading page.');
+                avatarErrorLabel.text('İstek gönderimi başarısız. Sayfayı yeniden yüklemeyi deneyiniz.');
             },
             complete: function() {
                 loadingIndicator.hide();

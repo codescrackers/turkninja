@@ -11,10 +11,10 @@ $(document).ready(function() {
         },
         messages: {
             email: {
-                required: "Enter e-mail"
+                required: "Email giriniz"
             },
             currentPassword: {
-                required: "Enter password"
+                required: "Şifre giriniz"
             }
         }
     });
@@ -35,15 +35,15 @@ $(document).ready(function() {
         },
         messages: {
             password: {
-                required: "Enter password",
-                minlength: "Password too short"
+                required: "Şifre giriniz",
+                minlength: "Şifre çok kısa"
             },
             password2: {
-                required: "Enter password",
-                equalTo: "Passwords do not match"
+                required: "Şifre giriniz",
+                equalTo: "Şifreler eşleşmiyor"
             },
             currentPassword: {
-                required: "Enter password"
+                required: "Şifre giriniz"
             }
         }
     });

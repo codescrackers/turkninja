@@ -13,14 +13,14 @@ $(document).ready(function() {
         var delBtn = btn.closest('.post-actions').find('a[data-action="deletePost"]');
 
         bootbox.dialog({
-            title: 'Hide post',
-            message: 'Are you sure you want to hide post <b>' + postTitle + '</b> from other users?',
+            title: 'Gönderiyi gizle',
+            message: 'ABu gönderiyi diğer kullanıcılardan gizlmek istediğinizden emin misiniz? Gönderi : <b>' + postTitle + '</b> ',
             buttons: {
                 cancel: {
-                    label: 'Cancel'
+                    label: 'İptal'
                 },
                 main: {
-                    label: 'Hide',
+                    label: 'Gizle',
                     className: 'btn-primary',
                     callback: function() {
                         loadingIndicator.show();
@@ -41,13 +41,13 @@ $(document).ready(function() {
                                     delBtn.show();
                                 }
                                 else {
-                                    showErrorDialog('Error: ' + data + '. Try reloading page.');
+                                    showErrorDialog('Hata: ' + data + '. Lütfen sayfayı yeniden yüklemeyi deneyin.');
                                 }
                             },
                             error: function () {
                                 loadingIndicator.hide();
 
-                                showErrorDialog('Failed to send request. Try reloading page.');
+                                showErrorDialog('İstek gönderimi balşarısız. Lütfen sayfayı yeniden yüklemeyi deneyin.');
                             }
                         });
                     }
@@ -83,13 +83,13 @@ $(document).ready(function() {
                     delBtn.hide();
                 }
                 else {
-                    showErrorDialog('Error: ' + data + '. Try reloading page.');
+                    showErrorDialog('Hata: ' + data + '. Lütfen sayfayı yeniden yüklemeyi deneyin.');
                 }
             },
             error: function () {
                 loadingIndicator.hide();
 
-                showErrorDialog('Failed to send request. Try reloading page.');
+                showErrorDialog('İstek gönderimi balşarısız. Lütfen sayfayı yeniden yüklemeyi deneyin.');
             }
         });
     });
@@ -105,8 +105,8 @@ $(document).ready(function() {
         var loadingIndicator = btn.closest('.post').find('.postaction-loading-indicator');
 
         bootbox.dialog({
-            title: 'Delete post',
-            message: 'Are you sure you want to delete post <b>' + postTitle + '</b>? You will not be able to recover it.',
+            title: 'Gönderiyi sil',
+            message: 'Gönderiyi silmeye emin misiniz? Gönderi :<b>' + postTitle + '</b>? Tekrar geri alma şansınız olmayacak.',
             buttons: {
                 cancel: {
                     label: 'Cancel'
@@ -131,13 +131,13 @@ $(document).ready(function() {
                                     }
                                 }
                                 else {
-                                    showErrorDialog('Error: ' + data + '. Try reloading page.');
+                                    showErrorDialog('Hata: ' + data + '. Lütfen sayfayı tekrar yüklemeyi deneyiniz.');
                                 }
                             },
                             error: function () {
                                 loadingIndicator.hide();
 
-                                showErrorDialog('Failed to send request. Try reloading page.');
+                                showErrorDialog('İstek gönderimi balşarısız. Lütfen sayfayı tekrar yüklemeyi deneyiniz.');
                             }
                         });
                     }
