@@ -58,7 +58,9 @@
 
 <script src="../../../js/external/angular.min.js"
 	th:src="@{/js/external/angular.min.js}"></script>
-
+<script src="../../../js/external/ng-infinite-scroll.min.js"
+	th:src="@{/js/external/ng-infinite-scroll.min.js}"></script>
+	
 <link rel="stylesheet" type="text/css" href="../../../css/blog.css"
 	th:href="@{/css/blog.css}" />
 </head>
@@ -88,7 +90,10 @@
 
 						<li><a th:href="@{/users}">Tüm Kullanıcılar</a></li>
 						<li th:if="${#authorization.expression('isAuthenticated()')}">
-							<a th:href="@{'/users/'+${#authentication.name}}"> Profilim </a>
+							<img class="img-responsive" width="45" height="45" th:src="${#strings.isEmpty(currentUser.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${currentUser.bigAvatarLink})"/>
+						</li>
+						<li th:if="${#authorization.expression('isAuthenticated()')}">
+							<a th:href="@{'/users/'+${#authentication.name}}" ><span th:text="${currentUser.username}" ></span> </a>
 						</li>
 					</ul>
 					</div>
@@ -123,7 +128,7 @@
 						</div>
 
 						<div class="user-menu">
-							<div class="user-menu-item" sec:authorize="hasRole('ROLE_ADMIN')">
+							<div class="user-menu-item" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
 								<a th:href="@{/posts/create}" role="button"
 									class="btn btn-primary"> <span
 									class="glyphicon glyphicon-pencil"></span> Gönderi Ekle

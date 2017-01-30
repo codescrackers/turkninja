@@ -1,7 +1,6 @@
 package com.yazilimokulu.mvc.controllers;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,20 +10,20 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.yazilimokulu.mvc.dto.BookDTO;
-import com.yazilimokulu.mvc.services.BookService;
+import com.yazilimokulu.mvc.entities.User;
+import com.yazilimokulu.mvc.services.UserService;
 
 @ControllerAdvice(annotations=Controller.class)
 public class GlobalControllerAdvice {
 
 	@Autowired
-	BookService bookService;
+	UserService userService;
 	
-	
-	@ModelAttribute("books")
-	public List<BookDTO> getQuestionChapter(){
-		return bookService.findAll();
+	@ModelAttribute("currentUser")
+	public User getCurrentUser(){
+		return userService.currentUser();
 	}
+	
 	
 	@ModelAttribute("currentDate")
 	public Date getCurrentDate(){

@@ -18,6 +18,10 @@ public class GlobalHandlerExceptionResolver implements HandlerExceptionResolver 
 			HttpServletResponse response, Object handler, Exception exception) {
 		logger.info(exception);
 		ModelAndView mav = new ModelAndView();
+		if(exception.getClass().getSimpleName().equals("AccessDeniedException")){
+			mav.setViewName("403");
+			return mav;
+		}
 		mav.setViewName("global_error");
 		return mav;
 	}

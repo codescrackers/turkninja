@@ -25,7 +25,7 @@ $(document).ready(function() {
                 required: true,
                 minlength: 3,
                 username: true,
-                remote: {
+                "remote": {
                     url: window.usernameCheckUrl,
                     type: "get",
                     data: {
@@ -37,7 +37,8 @@ $(document).ready(function() {
             },
             email: {
                 required: true,
-                remote: {
+                email:true,
+                "remote": {
                     url: window.emailCheckUrl,
                     type: "get",
                     data: {
@@ -65,7 +66,7 @@ $(document).ready(function() {
                 }
             },
             email: {
-                required: "Enter e-mail",
+                required: "Email giriniz",
                 remote: function (params) {
                     return "Email " + params + " zaten kayıtlı. Daha önce kaydoldunuz mu? Şifrenizi unuttuysanız admin ile iletişime geçin";
                 }

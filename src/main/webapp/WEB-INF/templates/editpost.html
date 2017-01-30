@@ -22,7 +22,7 @@
 
 <section layout:fragment="content">
     <div class="col-sm-8 no-padding-col">
-        <h2 th:text="${edit} ? 'Edit post' : 'Create post'"></h2>
+        <h2 th:text="${edit} ? 'Gönderiyi Düzenle' : 'Gönderi Oluştur'"></h2>
 
         <form th:action="${edit} ? @{|/posts/${post.id}/edit|} : @{/posts/create}" th:object="${post}" method="post" id="postForm">
             <div th:if="${#fields.hasErrors('*')}">

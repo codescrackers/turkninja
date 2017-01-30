@@ -2047,6 +2047,11 @@ a:focus {
   border-radius: 2px;
   margin-bottom: 15px;
 }
+
+.user-box {
+  min-height: 60px !important;
+}
+
 .info-box small {
   font-size: 14px;
 }
