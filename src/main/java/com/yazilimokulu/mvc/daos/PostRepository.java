@@ -25,4 +25,6 @@ public interface PostRepository extends BaseRepository<Post, Long> {
 
     @Query("SELECT p FROM Post p JOIN p.postRatings r WHERE p.hidden = false GROUP BY p ORDER BY SUM(r.value) DESC")
     List<Post> findTopPosts(Pageable pageable);
+    
+    Page<Post> findByUserUsername(String username,Pageable pageable);
 }

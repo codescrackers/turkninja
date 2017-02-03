@@ -44,7 +44,6 @@ public class PostsController {
 
 	@RequestMapping(value = { "/", "/posts" }, method = RequestMethod.GET)
 	public String showPostsList(@RequestParam(value = "page", defaultValue = "0") Integer pageNumber, ModelMap model) {
-		System.out.println("works...!!");
 		Page<Post> postsPage = postService.getPostsPage(pageNumber, 3);
 
 		model.addAttribute("postsPage", postsPage);
@@ -128,6 +127,22 @@ public class PostsController {
 		return "post";
 	}
 
+	@RequestMapping(value = "/userposts/{username}", method = RequestMethod.GET)
+	public String showUserPosts(@PathVariable("username") String username,
+			@RequestParam(value = "page", defaultValue = "0") Integer pageNumber, ModelMap model) {
+		
+		Page<Post> postsPage = postService.getPostsPageByUsername(username,pageNumber, 3);
+		model.addAttribute("postsPage", postsPage);
+		model.addAttribute("searchUsername", username);
+		// should implement custom Spring Security UserDetails instead of this,
+		// so it will be stored in session
+		User currentUser = userService.currentUser();
+		if (currentUser != null)
+			model.addAttribute("userId", currentUser.getId());
+
+		return "userposts";
+	}
+
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@RequestMapping(value = "/posts/create", method = RequestMethod.GET)
 	public String showCreatePostForm(ModelMap model) {
@@ -166,7 +181,7 @@ public class PostsController {
 				adminRole = true;
 			}
 		}
-		if (!(userRole && userService.currentUser().getUsername().equals(post.getUser().getUsername()) && !adminRole)) {
+		if (userRole && !userService.currentUser().getUsername().equals(post.getUser().getUsername()) && !adminRole) {
 			throw new AccessDeniedException("Erisim Yetkiniz Yok");
 		}
 		if (post == null)

@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.naming.ldap.PagedResultsResponseControl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -209,5 +211,11 @@ public class PostServiceImpl implements PostService {
 
 			post.getTags().add(tag);
 		}
+	}
+
+	@Override
+	public Page<Post> getPostsPageByUsername(String username,int pageNumber, int pageSize) {
+		PageRequest pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "dateTime");
+		return postRepository.findByUserUsername(username,pageRequest);
 	}
 }

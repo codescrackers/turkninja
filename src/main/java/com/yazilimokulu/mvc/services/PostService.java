@@ -12,6 +12,8 @@ public interface PostService {
     Page<Post> getPostsPage(int pageNumber, int pageSize);
 
     List<Post> getPostsList(int pageNumber, int pageSize);
+    
+    Page<Post> getPostsPageByUsername(String username,int pageNumber, int pageSize);
 
     List<Post> getTopPostsList();
 
