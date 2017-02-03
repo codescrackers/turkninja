@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yazilimokulu.mvc.daos.PostRepository;
 import com.yazilimokulu.mvc.entities.Comment;
 import com.yazilimokulu.mvc.entities.Post;
 import com.yazilimokulu.mvc.entities.PostEditDto;
@@ -199,6 +200,7 @@ public class PostsController {
 	public String updatePost(ModelMap model, @Valid @ModelAttribute("post") PostEditDto post, BindingResult result,
 			@PathVariable("postId") Long postId) {
 		post.setId(postId);
+		post.setUser(postService.getPost(postId).getUser());
 		List<Role> roles = userService.currentUser().getRoles();
 		boolean userRole = false;
 		boolean adminRole = false;
@@ -210,7 +212,7 @@ public class PostsController {
 				adminRole = true;
 			}
 		}
-		if (!(userRole && userService.currentUser().getUsername().equals(post.getUser().getUsername()) && !adminRole)) {
+		if (userRole && !userService.currentUser().getUsername().equals(post.getUser().getUsername()) && !adminRole) {
 			throw new AccessDeniedException("Erisim Yetkiniz Yok");
 		}
 		if (result.hasErrors()) {

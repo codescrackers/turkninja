@@ -100,8 +100,8 @@
                 <a class="comments-link" th:href="@{|/posts/${post.id}#comments|}"
                    th:text="${post.comments.size() == 0} ? 'yorumlar' : (${post.comments.size()} + ' yorum' + (${post.comments.size() &gt; 1} ? 's' : ''))"></a>
 
-                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/posts/${post.id}/edit|}">düzenle</a>
-				<a sec:authorize="hasRole('ROLE_USER')" th:if="${currentUser.username == post.user.username}"  th:href="@{|/posts/${post.id}/edit|}">düzenle</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" th:if="${currentUser.username != post.user.username }" th:href="@{|/posts/${post.id}/edit|}">düzenle</a>
+				<a sec:authorize="hasRole('ROLE_USER')"  th:if="${currentUser.username == post.user.username } "  th:href="@{|/posts/${post.id}/edit|}">düzenle</a>
 				
                 <a sec:authorize="hasRole('ROLE_ADMIN')" href="javascript:void(0)"
                    th:attr="data-action=${post.hidden} ? 'unhidePost' : 'hidePost', data-href=@{|/posts/${post.id}/|} + (${post.hidden} ? 'unhide' : 'hide')"
