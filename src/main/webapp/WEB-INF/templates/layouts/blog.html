@@ -93,7 +93,7 @@
 							<a th:href="@{'/userposts/'+${#authentication.name}}" ><span >Tüm Gönderilerim</span> </a>
 						</li>
 						<li th:if="${#authorization.expression('isAuthenticated()')}">
-							<img class="img-responsive" width="45" height="45" th:src="${#strings.isEmpty(currentUser.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${currentUser.bigAvatarLink})"/>
+							<img class="img-responsive" width="50" height="50" th:src="${#strings.isEmpty(currentUser.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${currentUser.bigAvatarLink})"/>
 						</li>
 						<li th:if="${#authorization.expression('isAuthenticated()')}">
 							<a th:href="@{'/users/'+${#authentication.name}}" ><span th:text="${currentUser.username}" ></span> </a>

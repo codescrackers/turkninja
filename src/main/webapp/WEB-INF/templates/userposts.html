@@ -31,11 +31,11 @@
 			<div class="box box-widget widget-user">
 				<!-- Add the bg color to the header using any of the bg-* classes -->
 				<div class="widget-user-header">
-					<h3 class="widget-user-username" ><a th:href="@{|/users/${searchUsername}|}" th:text="${searchUsername}"></a></h3>
+					<h3 class="widget-user-username" ><a th:href="@{|/users/${postUser.username}|}" th:text="${postUser.username}"></a></h3>
 					<h5 class="widget-user-desc">Founder &amp; CEO</h5>
 				</div>
 				<div class="widget-user-image">
-					<img class="img-circle" th:src="@{/uploads/noavatar.jpg}"
+					<img class="img-circle" th:src="${#strings.isEmpty(postUser.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${postUser.bigAvatarLink})"
 						alt="User Avatar" />
 				</div>
 				<div class="box-footer">
@@ -50,7 +50,7 @@
 						<!-- /.col -->
 						<div class="col-sm-4 border-right">
 							<div class="description-block">
-								 <a th:if="${(#authorization.expression('isAuthenticated()')) and (currentUser.username != searchUsername) }" href="#" class="btn btn-primary btn-block"><b>Takip et</b></a>
+								 <a th:if="${(#authorization.expression('isAuthenticated()')) and (postUser.username != postUser.username) }" href="#" class="btn btn-primary btn-block"><b>Takip et</b></a>
 							</div>
 							<!-- /.description-block -->
 						</div>
@@ -167,32 +167,32 @@
 			th:with="searchQueryParam=${searchQuery == null} ? '' : '&amp;' + ${searchQuery}">
 			<ul class="pager">
 				<li th:unless="${postsPage.isFirst()}"><a
-					th:href="@{'/userposts/'+${searchUsername}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}">&larr;
+					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}">&larr;
 						Daha yeni</a></li>
 				<li th:unless="${postsPage.isLast()}"><a
-					th:href="@{'/userposts/'+${searchUsername}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}">Daha
+					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}">Daha
 						eski &rarr;</a></li>
 			</ul>
 
 			<ul class="pagination">
 				<li th:if="${postsPage.getNumber() - 2 ge 0}"><a
-					th:href="@{'/userposts/'+${searchUsername}(page=${postsPage.getNumber() - 2})} + ${searchQueryParam}"
+					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 2})} + ${searchQueryParam}"
 					th:text="${postsPage.getNumber() - 1}"></a></li>
 				<li th:if="${postsPage.getNumber() - 1 ge 0}"><a
-					th:href="@{'/userposts/'+${searchUsername}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}"
+					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}"
 					th:text="${postsPage.getNumber()}"></a></li>
 				<li class="active"><a th:text="${postsPage.getNumber() + 1}"></a>
 				</li>
 				<li
 					th:if="${postsPage.getNumber() + 1 &lt; postsPage.getTotalPages()}">
 					<a
-					th:href="@{'/userposts/'+${searchUsername}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}"
+					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}"
 					th:text="${postsPage.getNumber() + 2}"></a>
 				</li>
 				<li
 					th:if="${postsPage.getNumber() + 2 &lt; postsPage.getTotalPages()}">
 					<a
-					th:href="@{'/userposts/'+${searchUsername}(page=${postsPage.getNumber() + 2})} + ${searchQueryParam}"
+					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 2})} + ${searchQueryParam}"
 					th:text="${postsPage.getNumber() + 3}"></a>
 				</li>
 			</ul>
