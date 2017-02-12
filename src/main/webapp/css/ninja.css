@@ -2034,6 +2034,9 @@ a:focus {
 .modal .panel-body {
   color: #444;
 }
+
+
+
 /*
  * Component: Info Box
  * -------------------
@@ -2636,53 +2639,53 @@ a:focus {
  * Component: Products List
  * ------------------------
  */
-.products-list {
+.latestposts-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.products-list > .item {
+.latestposts-list > .item {
   border-radius: 3px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   padding: 10px 0;
   background: #fff;
 }
-.products-list > .item:before,
-.products-list > .item:after {
+.latestposts-list > .item:before,
+.latestposts-list > .item:after {
   content: " ";
   display: table;
 }
-.products-list > .item:after {
+.latestposts-list > .item:after {
   clear: both;
 }
-.products-list .product-img {
+.latestposts-list .latestpost-img {
   float: left;
 }
-.products-list .product-img img {
+.latestposts-list .latestpost-img img {
   width: 50px;
   height: 50px;
 }
-.products-list .product-info {
+.latestposts-list .latestpost-info {
   margin-left: 60px;
 }
-.products-list .product-title {
+.latestposts-list .latestpost-title {
   font-weight: 600;
 }
-.products-list .product-description {
+.latestposts-list .latestpost-description {
   display: block;
   color: #999;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.product-list-in-box > .item {
+.latestpost-list-in-box > .item {
   -webkit-box-shadow: none;
   box-shadow: none;
   border-radius: 0;
   border-bottom: 1px solid #f4f4f4;
 }
-.product-list-in-box > .item:last-of-type {
+.latestpost-list-in-box > .item:last-of-type {
   border-bottom-width: 0;
 }
 /*
@@ -4992,3 +4995,10 @@ table.text-center th {
 /* add padding  */
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
+
+
+#latestPosts, #popularPosts{
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height:350px;
+}

@@ -62,7 +62,6 @@ public class PostsController {
 			"/posts" }, method = RequestMethod.GET, headers = "Accept=application/json", produces = "application/json;charset=UTF-8")
 	public @ResponseBody String getPostsList(@RequestParam(value = "page", defaultValue = "0") Integer pageNumber) {
 		List<Post> posts = postService.getPostsList(pageNumber, 10);
-
 		return "[" + posts.stream().map(this::toJsonLink).collect(Collectors.joining(", \n")) + "]";
 	}
 
@@ -252,8 +251,13 @@ public class PostsController {
 	}
 
 	private String toJsonLink(Post post) {
+		String avatar=(post.getUser().getBigAvatarLink() == null) ? "noavatar.jpg" : post.getUser().getBigAvatarLink();
 		return "{" + JsonUtils.toJsonField("id", post.getId().toString()) + ", "
-				+ JsonUtils.toJsonField("title", post.getTitle()) + "}";
+				+ JsonUtils.toJsonField("title", post.getTitle()) + ", "
+				+ JsonUtils.toJsonField("postDate", post.getDateStr()) +", "
+				+ JsonUtils.toJsonField("username",post.getUser().getUsername())+ ", "
+				+ JsonUtils.toJsonField("bigAvatarLink", avatar)
+				+ "}";
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")

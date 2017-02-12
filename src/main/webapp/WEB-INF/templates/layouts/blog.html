@@ -13,8 +13,8 @@
 <meta name="_csrf" th:content="${_csrf.token}" />
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 
-<link rel="icon" href="/images/favicon.ico" th:href="@{/images/favicon.ico}"
-	type="image/x-icon" />
+<link rel="icon" href="/images/favicon.ico"
+	th:href="@{/images/favicon.ico}" type="image/x-icon" />
 
 <title>Türkninja</title>
 
@@ -60,7 +60,7 @@
 	th:src="@{/js/external/angular.min.js}"></script>
 <script src="../../../js/external/ng-infinite-scroll.min.js"
 	th:src="@{/js/external/ng-infinite-scroll.min.js}"></script>
-	
+
 <link rel="stylesheet" type="text/css" href="../../../css/blog.css"
 	th:href="@{/css/blog.css}" />
 </head>
@@ -74,124 +74,196 @@
 	<div class="wrapper skin-ninja-light ">
 
 		<header class="main-header bs-docs-nav">
-		<div class="container">
-			<a th:href="@{/}" class="logo"><img class="img-responsive"
-				width="80" height="80" th:src="@{/images/turkninja_logo.png}"></img></a>
-			<nav class="navbar navbar-static-top">
-
-				
-				<div class="navbar-custom-menu">
-
-					<ul class="nav navbar-nav">
-
-						<li><a th:href="@{/}">Ana Sayfa</a></li>
-						<!-- Messages: style can be found in dropdown.less-->
+			<div class="container">
+				<a th:href="@{/}" class="logo"><img class="img-responsive"
+					width="80" height="80" th:src="@{/images/turkninja_logo.png}"></img></a>
+				<nav class="navbar navbar-static-top">
 
 
-						<li><a th:href="@{/users}">Tüm Kullanıcılar</a></li>
-						<li th:if="${#authorization.expression('isAuthenticated()')}">
-							<a th:href="@{'/userposts/'+${#authentication.name}}" ><span >Tüm Gönderilerim</span> </a>
-						</li>
-						<li th:if="${#authorization.expression('isAuthenticated()')}">
-							<img class="img-responsive" width="50" height="50" th:src="${#strings.isEmpty(currentUser.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${currentUser.bigAvatarLink})"/>
-						</li>
-						<li th:if="${#authorization.expression('isAuthenticated()')}">
-							<a th:href="@{'/users/'+${#authentication.name}}" ><span th:text="${currentUser.username}" ></span> </a>
-						</li>
-					</ul>
+					<div class="navbar-custom-menu">
+
+						<ul class="nav navbar-nav">
+
+							<li><a th:href="@{/}">Ana Sayfa</a></li>
+							<!-- Messages: style can be found in dropdown.less-->
+
+
+							<li><a th:href="@{/users}">Tüm Kullanıcılar</a></li>
+							<li th:if="${#authorization.expression('isAuthenticated()')}">
+								<a th:href="@{'/userposts/'+${#authentication.name}}"><span>Tüm
+										Gönderilerim</span> </a>
+							</li>
+							<li th:if="${#authorization.expression('isAuthenticated()')}">
+								<img class="img-responsive" width="50" height="50"
+								th:src="${#strings.isEmpty(currentUser.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${currentUser.bigAvatarLink})" />
+							</li>
+							<li th:if="${#authorization.expression('isAuthenticated()')}">
+								<a th:href="@{'/users/'+${#authentication.name}}"><span
+									th:text="${currentUser.username}"></span> </a>
+							</li>
+						</ul>
 					</div>
-			</nav>
-		</div>
+				</nav>
+			</div>
 		</header>
 
-	<div class="container skin-ninja-light" style="padding:30px;"
-		ng-controller="TagController as tagCtrl">
+		<div class="container skin-ninja-light" style="padding: 30px;"
+			ng-controller="TagController as tagCtrl">
 
 
-		<div class="row">
-			<section class="col-sm-8">
+			<div class="row">
+				<section class="col-sm-8">
 
-				<div class="col-padding">
-					<section id="pageContent" layout:fragment="content"></section>
-				</div>
-			</section>
-
-			<section class="col-sm-4">
-				<div class="col-padding">
-
-					<div th:unless="${#authorization.expression('isAuthenticated()')}">
-						<th:block th:include="fragments/loginform :: form ('login')" />
+					<div class="col-padding">
+						<section id="pageContent" layout:fragment="content"></section>
 					</div>
+				</section>
 
-					<div th:if="${#authorization.expression('isAuthenticated()')}">
-						<strong sec:authentication="name"> ile giriş yapıldı</strong>
+				<section class="col-sm-4">
+					<div class="col-padding">
 
-						<div>
-							<a th:href="@{/logout}">Çıkış</a>
+						<div th:unless="${#authorization.expression('isAuthenticated()')}">
+							<th:block th:include="fragments/loginform :: form ('login')" />
 						</div>
 
-						<div class="user-menu">
-							<div class="user-menu-item" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
-								<a th:href="@{/posts/create}" role="button"
-									class="btn btn-primary"> <span
-									class="glyphicon glyphicon-pencil"></span> Gönderi Ekle
-								</a>
+						<div th:if="${#authorization.expression('isAuthenticated()')}">
+							<strong sec:authentication="name"> ile giriş yapıldı</strong>
+
+							<div>
+								<a th:href="@{/logout}">Çıkış</a>
 							</div>
-							<div class="user-menu-item">
-								<a th:href="@{/settings}" role="button" class="btn btn-primary">
-									<span class="glyphicon glyphicon-cog"></span> Ayarlar
-								</a>
+
+							<div class="user-menu">
+								<div class="user-menu-item"
+									sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
+									<a th:href="@{/posts/create}" role="button"
+										class="btn btn-primary"> <span
+										class="glyphicon glyphicon-pencil"></span> Gönderi Ekle
+									</a>
+								</div>
+								<div class="user-menu-item">
+									<a th:href="@{/settings}" role="button" class="btn btn-primary">
+										<span class="glyphicon glyphicon-cog"></span> Ayarlar
+									</a>
+								</div>
+								<div class="user-menu-item">
+									<a th:href="@{/edit_profile}" role="button"
+										class="btn btn-primary"> <span
+										class="glyphicon glyphicon-user"></span> Profil Ayarları
+									</a>
+								</div>
 							</div>
-							<div class="user-menu-item">
-								<a th:href="@{/edit_profile}" role="button"
-									class="btn btn-primary"> <span
-									class="glyphicon glyphicon-user"></span> Profil Ayarları
-								</a>
+						</div>
+					</div>
+					<div class="col-padding">
+
+						<div class="form-group">
+							<label for="tagSearchInput">Etikete göre ara</label> <input
+								type="text" autocomplete="off" class="form-control"
+								id="tagSearchInput" ng-model="tagCtrl.tagName"
+								ng-focus="tagCtrl.getAllTags()" name="tagged"
+								placeholder="php, spring" />
+						</div>
+
+
+						<div class="btn-group" role="group" aria-label="..."
+							ng-if="tagCtrl.tagName.length > 0">
+							<button type="button" class="btn btn-default"
+								ng-click="tagCtrl.getPostsByTagName(tag.tagName)"
+								ng-repeat="tag in tagData = (tagCtrl.tagList | filter:{tagName: tagCtrl.tagName})">
+								{{ tag.tagName }} <span class="badge"> {{ tag.postCount
+									}}</span>
+							</button>
+							<div ng-if="tagData.length == 0">Sonuç bulunamadı</div>
+						</div>
+
+					</div>
+					<div class="col-padding">
+
+
+						<div class="box box-default">
+							<div class="box-header with-border">
+								<h3 class="box-title">Yeni Üyeler</h3>
+
 							</div>
+							<!-- /.box-header -->
+							<div class="box-body no-padding">
+								<ul class="users-list clearfix">
+									<li th:each="user, iterStat : ${latestUsers}">
+									<img th:src="${#strings.isEmpty(user.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${user.bigAvatarLink})" alt="User Image"/>
+										<a class="users-list-name" th:href="@{'/users/'+${user.username}}" th:text="${user.username}"></a> <span
+										class="users-list-date" th:text="${user.dateStr}"></span></li>
+								</ul>
+								<!-- /.users-list -->
+							</div>
+							<!-- /.box-body -->
+							<div class="box-footer text-center">
+								<a th:href="@{/users}" class="uppercase">Tüm Kullanıcıları Gör</a>
+							</div>
+							<!-- /.box-footer -->
+						</div>
+
+
+						<div class="box-header with-border">
+							<h3 class="box-title">Son Gönderiler</h3>
+						</div>
+
+						<div id="latestPosts" class="box box-default">
+
+							<div class="box-body">
+								<ul class="latestposts-list latestpost-list-in-box">
+									<li class="item" th:each="post, iterStat : ${latestPosts}">
+										<div class="latestpost-img">
+											<img
+												th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${post.user.bigAvatarLink})"
+												alt="User Image" />
+										</div>
+										<div class="latestpost-info">
+											<a th:href="@{'/posts/'+${post.id}}" class="latestpost-title"
+												th:inline="text">[[${post.title}]]<span
+												class="label label-default pull-right"
+												th:text="${post.dateStr}"></span></a><span
+												class="latestpost-description"><a
+												th:href="@{'/users/'+${post.user.username}}"
+												th:text="${post.user.username}"></a></span>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<!-- /.box-body -->
+						</div>
+
+						<div class="box-header with-border">
+							<h3 class="box-title">Popüler Gönderiler</h3>
+						</div>
+						<div id="popularPosts" class="box box-default">
+							<div class="box-body">
+								<ul class="latestposts-list latestpost-list-in-box">
+									<li class="item" th:each="toppost, iterStat : ${topPosts}">
+										<div class="latestpost-img">
+											<img
+												th:src="${#strings.isEmpty(toppost.user.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${toppost.user.bigAvatarLink})"
+												alt="User Image" />
+										</div>
+										<div class="latestpost-info">
+											<a th:href="@{'/posts/'+${toppost.id}}"
+												class="latestpost-title" th:inline="text">[[${toppost.title}]]<span
+												class="label label-default pull-right"
+												th:text="${toppost.dateStr}"></span></a><span
+												class="latestpost-description"><a
+												th:href="@{'/users/'+${toppost.user.username}}"
+												th:text="${toppost.user.username}"></a></span>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<!-- /.box-body -->
+
 						</div>
 					</div>
-				</div>
-				<div class="col-padding">
-
-					<div class="form-group">
-						<label for="tagSearchInput">Etikete göre ara</label> <input
-							type="text" autocomplete="off" class="form-control"
-							id="tagSearchInput" ng-model="tagCtrl.tagName"
-							ng-focus="tagCtrl.getAllTags()" name="tagged"
-							placeholder="php, spring" />
-					</div>
-
-
-					<div class="btn-group" role="group" aria-label="..."
-						ng-if="tagCtrl.tagName.length > 0">
-						<button type="button" class="btn btn-default"
-							ng-click="tagCtrl.getPostsByTagName(tag.tagName)"
-							ng-repeat="tag in tagData = (tagCtrl.tagList | filter:{tagName: tagCtrl.tagName})">
-							{{ tag.tagName }} <span class="badge"> {{ tag.postCount }}</span>
-						</button>
-						<div ng-if="tagData.length == 0">Sonuç bulunamadı</div>
-					</div>
-
-
-					<div id="latestPosts" class="panel panel-default">
-						<div class="panel-body">
-							<h4>Son Gönderiler</h4>
-
-
-						</div>
-					</div>
-
-					<div id="popularPosts" class="panel panel-default">
-						<div class="panel-body">
-							<h4>Popüler Gönderiler</h4>
-
-
-						</div>
-					</div>
-				</div>
-			</section>
+				</section>
+			</div>
 		</div>
-	</div>
 	</div>
 	<footer class="page-footer">
 		<p>&copy; 2016 Türkninja</p>

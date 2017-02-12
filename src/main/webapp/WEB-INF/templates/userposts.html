@@ -165,37 +165,129 @@
 
 		<div
 			th:with="searchQueryParam=${searchQuery == null} ? '' : '&amp;' + ${searchQuery}">
-			<ul class="pager">
-				<li th:unless="${postsPage.isFirst()}"><a
+			
+			<ul class="pagination" th:if="${postsPage.getNumber()  le 3}">
+			<li th:unless="${postsPage.isFirst()}"><a
 					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}">&larr;
-						Daha yeni</a></li>
-				<li th:unless="${postsPage.isLast()}"><a
-					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}">Daha
-						eski &rarr;</a></li>
-			</ul>
+						Önceki</a></li>
+        	<li th:if="${postsPage.getNumber() - 4 ge 0 }">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 4})} + ${searchQueryParam}" th:text="${postsPage.getNumber() - 3}"></a>
+            </li>
+            
+            <li th:if="${postsPage.getNumber() - 3 ge 0  }">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 3})} + ${searchQueryParam}" th:text="${postsPage.getNumber() -2}"></a>
+            </li>
+        
+            <li th:if="${postsPage.getNumber() - 2 ge 0}">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 2})} + ${searchQueryParam}" th:text="${postsPage.getNumber() - 1}"></a>
+            </li>
+            <li th:if="${postsPage.getNumber() - 1 ge 0}">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}" th:text="${postsPage.getNumber()}"></a>
+            </li>
+        	<li class="active">
+                <a th:text="${postsPage.getNumber() + 1}"></a>
+            </li>
+            <li th:if="${postsPage.getNumber()+2 le 5 and postsPage.getTotalPages() ge postsPage.getNumber()+2 }">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}" th:text="${postsPage.getNumber() + 2}"></a>
+            </li>
+            <li th:if="${postsPage.getNumber() + 3 le 5 and postsPage.getTotalPages() ge postsPage.getNumber()+3}">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 2})} + ${searchQueryParam}" th:text="${postsPage.getNumber() + 3}"></a>
+            </li>
+             <li th:if="${postsPage.getNumber() + 4 le 5 and postsPage.getTotalPages() ge postsPage.getNumber()+4}">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 3})} + ${searchQueryParam}" th:text="${postsPage.getNumber() + 4}"></a>
+            </li>
+            <li th:if="${postsPage.getNumber() + 5 le 5 and postsPage.getTotalPages() ge postsPage.getNumber()+5}">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 4})} + ${searchQueryParam}" th:text="${postsPage.getNumber() + 5}"></a>
+            </li>
+            <li th:if="${postsPage.getTotalPages() &gt; 5}">
+               <span class="page-numbers dots">…</span>
+            </li>
+            <li th:if="${postsPage.getTotalPages() &gt; 5}">
+               <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getTotalPages()})} + ${searchQueryParam}" th:text="${postsPage.getTotalPages()}"></a>
+            </li>
+            <li th:unless="${postsPage.isLast()}"><a
+					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}">Sonraki &rarr;</a></li>
+        
+        </ul>
+        
+       <ul class="pagination" th:if="${postsPage.getNumber()  ge 4 and postsPage.getTotalPages()- postsPage.getNumber() -1 gt 2}">
+       		<li th:unless="${postsPage.isFirst()}"><a
+					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}">&larr;
+						Önceki</a></li>
+       		<li >
+                <a th:href="@{'/userposts/'+${postUser.username}(page=1)} + ${searchQueryParam}" >1</a>
+            </li>
 
-			<ul class="pagination">
-				<li th:if="${postsPage.getNumber() - 2 ge 0}"><a
-					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 2})} + ${searchQueryParam}"
-					th:text="${postsPage.getNumber() - 1}"></a></li>
-				<li th:if="${postsPage.getNumber() - 1 ge 0}"><a
-					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}"
-					th:text="${postsPage.getNumber()}"></a></li>
-				<li class="active"><a th:text="${postsPage.getNumber() + 1}"></a>
-				</li>
-				<li
-					th:if="${postsPage.getNumber() + 1 &lt; postsPage.getTotalPages()}">
-					<a
-					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}"
-					th:text="${postsPage.getNumber() + 2}"></a>
-				</li>
-				<li
-					th:if="${postsPage.getNumber() + 2 &lt; postsPage.getTotalPages()}">
-					<a
-					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 2})} + ${searchQueryParam}"
-					th:text="${postsPage.getNumber() + 3}"></a>
-				</li>
-			</ul>
+       		<li>
+               <span class="page-numbers dots">…</span>
+            </li>
+       		<li >
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 2})} + ${searchQueryParam}" th:text="${postsPage.getNumber() - 1}"></a>
+            </li>
+            <li>
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}" th:text="${postsPage.getNumber()}"></a>
+            </li>
+            <li class="active">
+                <a th:text="${postsPage.getNumber() + 1}"></a>
+            </li>
+            <li>
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}" th:text="${postsPage.getNumber() + 2}"></a>
+            </li>
+            <li>
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 2})} + ${searchQueryParam}" th:text="${postsPage.getNumber() + 3}"></a>
+            </li>
+       		
+       		<li>
+               <span class="page-numbers dots">…</span>
+            </li>
+            <li>
+               <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getTotalPages()})} + ${searchQueryParam}" th:text="${postsPage.getTotalPages()}"></a>
+            </li>
+             <li th:unless="${postsPage.isLast()}"><a
+					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}">Sonraki &rarr;</a></li>
+        
+       
+       </ul>
+        
+        <ul class="pagination" th:if="${postsPage.getNumber()  ge 4 and postsPage.getTotalPages()- postsPage.getNumber() -1 le 2 and postsPage.getTotalPages()- postsPage.getNumber() -1 ge 0}">
+			<li th:unless="${postsPage.isFirst()}"><a
+					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}">&larr;
+						Önceki</a></li>
+			<li >
+                <a th:href="@{'/userposts/'+${postUser.username}(page=1)} + ${searchQueryParam}" >1</a>
+            </li>
+
+       		<li>
+               <span class="page-numbers dots">…</span>
+            </li>
+       		
+       		<li th:if="${postsPage.getTotalPages()- postsPage.getNumber() -1 ==0}">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 4})} + ${searchQueryParam}" th:text="${postsPage.getNumber() - 3}"></a>
+            </li>
+            <li th:if="${postsPage.getTotalPages()- postsPage.getNumber() -1  le 1}">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 3})} + ${searchQueryParam}" th:text="${postsPage.getNumber()-2}"></a>
+            </li>
+       		
+       		<li >
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 2})} + ${searchQueryParam}" th:text="${postsPage.getNumber() - 1}"></a>
+            </li>
+            <li>
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}" th:text="${postsPage.getNumber()}"></a>
+            </li>
+            <li class="active">
+                <a th:text="${postsPage.getNumber() + 1}"></a>
+            </li>
+            <li th:if="${postsPage.getTotalPages()- postsPage.getNumber() -1 == 2 or postsPage.getTotalPages()- postsPage.getNumber() -1 ==1}">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}" th:text="${postsPage.getNumber() + 2}"></a>
+            </li>
+            <li th:if="${postsPage.getTotalPages()- postsPage.getNumber() -1 == 2}">
+                <a th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 2})} + ${searchQueryParam}" th:text="${postsPage.getNumber() + 3}"></a>
+            </li>
+       		 <li th:unless="${postsPage.isLast()}"><a
+					th:href="@{'/userposts/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}">Sonraki &rarr;</a></li>
+        
+       </ul>
+        
 		</div>
 	</section>
 

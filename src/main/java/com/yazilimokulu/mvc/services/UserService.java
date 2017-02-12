@@ -2,10 +2,12 @@ package com.yazilimokulu.mvc.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.yazilimokulu.mvc.dto.ResponsePageDTO;
 import com.yazilimokulu.mvc.dto.UserDTO;
+import com.yazilimokulu.mvc.entities.Post;
 import com.yazilimokulu.mvc.entities.User;
 
 public interface UserService extends UserDetailsService {
@@ -41,6 +43,8 @@ public interface UserService extends UserDetailsService {
 	List<User> findAll();
 	
 	ResponsePageDTO<UserDTO> findUsersPage(int pageNumber, int pageSize);
+
+	Page<User> getLatestUsersList(int page, int count);
 
 }
 

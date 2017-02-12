@@ -24,6 +24,7 @@ import com.yazilimokulu.mvc.daos.RoleRepository;
 import com.yazilimokulu.mvc.daos.UserRepository;
 import com.yazilimokulu.mvc.dto.ResponsePageDTO;
 import com.yazilimokulu.mvc.dto.UserDTO;
+import com.yazilimokulu.mvc.entities.Post;
 import com.yazilimokulu.mvc.entities.Role;
 import com.yazilimokulu.mvc.entities.User;
 import com.yazilimokulu.mvc.mappers.UserMapper;
@@ -211,5 +212,12 @@ public class UserServiceImpl implements UserService {
 		response.setLast(users.isLast());
 		response.setTotalPageNumber(users.getTotalPages());
 		return response;
+	}
+
+	@Override
+	public Page<User> getLatestUsersList(int page,int count) {
+		PageRequest pageRequest = new PageRequest(0, 8);
+
+		return userRepository.findAllByOrderByRegistrationDateDesc(pageRequest);
 	}
 }

@@ -42,34 +42,4 @@ $(document).ready(function() {
         xhr.setRequestHeader(header, token);
     });
 
-
-    $.ajax({
-        dataType: "json",
-        url: window.postsUrl,
-        success: function (data) {
-            var items = [];
-            $.each(data, function(key, val) {
-                items.push('<li><a href="' + window.postsUrl + '/' + val.id + '">' + val.title + '</a></li>');
-            });
-            $("<ul/>", {
-                class: 'list-no-indent',
-                html: items.join('')
-            }).appendTo('#latestPosts div');
-        }
-    });
-
-    $.ajax({
-        dataType: "json",
-        url: window.popularPostsUrl,
-        success: function (data) {
-            var items = [];
-            $.each(data, function(key, val) {
-                items.push('<li><a href="' + window.postsUrl + '/' + val.id + '">' + val.title + '</a></li>');
-            });
-            $("<ul/>", {
-                class: 'list-no-indent',
-                html: items.join('')
-            }).appendTo('#popularPosts div');
-        }
-    });
 });
