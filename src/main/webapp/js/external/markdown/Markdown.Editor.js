@@ -1,4 +1,6 @@
 ﻿// needs Markdown.Converter.js at the moment
+var siteName='http://turkninja.com';
+
 
 (function () {
 
@@ -26,7 +28,7 @@
 
         link: "Hyperlink <a> Ctrl+L",
         linkdescription: "enter link description here",
-        linkdialog: "<p><b>Insert Hyperlink</b></p><p>http://example.com/ \"optional title\"</p>",
+        linkdialog: "<p><b>Insert Hyperlink</b></p><p>http://example.com/ \"optional title\"</p> ",
 
         quote: "Blockquote <blockquote> Ctrl+Q",
         quoteexample: "Blockquote",
@@ -36,7 +38,7 @@
 
         image: "Image <img> Ctrl+G",
         imagedescription: "enter image description here",
-        imagedialog: "<p><b>Insert Image</b></p><p>http://example.com/images/diagram.jpg \"optional title\"<br><br>Need <a href='http://www.google.com/search?q=free+image+hosting' target='_blank'>free image hosting?</a></p>",
+        imagedialog: '<div id="avatarForm"><div class="avatar-big"><img id="avatarImg" class="img-responsive img-rounded" width="160" height="160"/></div><div><label>JPG veya PNG, maksimum boyut 1 MB</label><div><span role="button" class="btn btn-default fileinput-button" id="uploadAvatar"><span>Gönderiye resim ekle</span><input type="file" accept="image/jpeg, image/png" id="avatarFileUploadInput" name="avatarFile"/></span><span role="button" class="btn btn-default" id="usePic" >Kullan</span></div></div><div id="avatarUploadProgress" class="progress" style="display: none"><div class="progress-bar progress-bar-success"></div></div><div class="loading-indicator" style="display: none"><img /></div> </div><div><label class="error" id="avatarError"></label><div class="settings-success" id="avatarSuccess" style="display: none"><img width="24" height="24" src="../../images/success-tick.png" />Resim başarılı bir şekilde kaydedildi. Kullan butonuna basarak kullanabilirsiniz.</div></div><p><b>Insert Image</b></p><p>http://example.com/images/diagram.jpg \"optional title\"<br><br>Need <a href="http://www.google.com/search?q=free+image+hosting" target="_blank">free image hosting?</a></p>',
 
         olist: "Numbered List <ol> Ctrl+O",
         ulist: "Bulleted List <ul> Ctrl+U",
@@ -1108,6 +1110,26 @@
             return false;
         };
 
+        
+        var closeAfterUpload = function (isCancel) {
+            util.removeEvent(doc.body, "keyup", checkEscape);
+            var text = document.getElementById('avatarImg').getAttribute('src');
+
+            if (isCancel) {
+                text = null;
+            }
+            else {
+                // Fixes common pasting errors.
+                text = text.replace(/^http:\/\/(https?|ftp):\/\//, '$1://');
+                if (!/^(?:https?|ftp):\/\//.test(text))
+                    text = siteName + text;
+            }
+
+            dialog.parentNode.removeChild(dialog);
+
+            callback(text);
+            return false;
+        };
 
 
         // Create the text input box form/window.
@@ -1188,6 +1210,70 @@
             // want it to be centered.
             dialog.style.marginTop = -(position.getHeight(dialog) / 2) + "px";
             dialog.style.marginLeft = -(position.getWidth(dialog) / 2) + "px";
+            
+            
+        	var uploadBtn = $('#uploadAvatar');
+            var removeBtn = $('#removeAvatar');
+            var pb = $('#avatarUploadProgress').find('.progress-bar');
+            var avatarImg = $('#avatarImg');
+            var avatarErrorLabel = $('#avatarError');
+            var avatarSuccessLabel = $('#avatarSuccess');
+        	$('#avatarFileUploadInput').fileupload({
+        	    url: window.avatarUploadUrl,
+        	    dataType: "json",
+        	    send: function (e, data) {
+        	        pb.css('width', '0');
+        	        pb.switchClass('progress-bar-danger', 'progress-bar-success', 0);
+        	        pb.parent().show();
+
+        	        avatarErrorLabel.hide();
+        	        avatarSuccessLabel.hide();
+
+        	        uploadBtn.addClass('disabled');
+        	        removeBtn.addClass('disabled');
+        	    },
+        	    done: function (e, data) {
+        	        if (data.result.status == 'ok') {
+        	            avatarImg.attr('src', window.imgBaseUrl + data.result.link);
+
+        	            removeBtn.show();
+
+        	            avatarSuccessLabel.show();
+        	        }
+        	        else {
+        	            pb.switchClass('progress-bar-success', 'progress-bar-danger');
+
+        	            var errMsg = 'Yükleme başarısız, ' + data.result.status;
+
+        	            if (data.result.status == 'invalid_format') {
+        	                errMsg = "Sadece JPG ve PNG'ye izin veriliyor.";
+        	            }
+
+        	            avatarErrorLabel.text(errMsg);
+        	            avatarErrorLabel.show();
+        	        }
+        	    },
+        	    fail: function (e, data) {
+        	        pb.switchClass('progress-bar-success', 'progress-bar-danger');
+
+        	        avatarErrorLabel.text("Resim yükleme başarısız. Lütfrn resmin PNG veya JPG olduğundan ve and 1 MB'ı geçmediğinden emin olunuz");
+        	        avatarErrorLabel.show();
+        	    },
+        	    always: function (e, data) {
+        	        uploadBtn.removeClass('disabled');
+        	        removeBtn.removeClass('disabled');
+        	    },
+        	    progressall: function (e, data) {
+        	        var progress = parseInt(data.loaded / data.total * 100, 10);
+        	        pb.css('width', progress + '%');
+        	    }
+        	}).prop('disabled', !$.support.fileInput)
+        	    .parent().addClass($.support.fileInput ? undefined : 'disabled');
+            
+        	$('#usePic').click(function() {
+        		closeAfterUpload(false);
+        		
+        	})
 
         };
 
@@ -1468,12 +1554,12 @@
             buttons.italic = makeButton("wmd-italic-button", getString("italic"), "-20px", bindCommand("doItalic"));
             makeSpacer(1);
             buttons.link = makeButton("wmd-link-button", getString("link"), "-40px", bindCommand(function (chunk, postProcessing) {
-                return this.doLinkOrImage(chunk, postProcessing, false);
+                return this.doLinkOrImage(chunk, postProcessing, false, false);
             }));
             buttons.quote = makeButton("wmd-quote-button", getString("quote"), "-60px", bindCommand("doBlockquote"));
             buttons.code = makeButton("wmd-code-button", getString("code"), "-80px", bindCommand("doCode"));
             buttons.image = makeButton("wmd-image-button", getString("image"), "-100px", bindCommand(function (chunk, postProcessing) {
-                return this.doLinkOrImage(chunk, postProcessing, true);
+                return this.doLinkOrImage(chunk, postProcessing, true, false);
             }));
             makeSpacer(2);
             buttons.olist = makeButton("wmd-olist-button", getString("olist"), "-120px", bindCommand(function (chunk, postProcessing) {
@@ -1733,7 +1819,7 @@
         });
     }
 
-    commandProto.doLinkOrImage = function (chunk, postProcessing, isImage) {
+    commandProto.doLinkOrImage = function (chunk, postProcessing, isImage, isUpload) {
 
         chunk.trimWhitespace();
         chunk.findTags(/\s*!?\[/, /\][ ]?(?:\n[ ]*)?(\[.*?\])?/);

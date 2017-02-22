@@ -19,11 +19,14 @@ body {
   height: 100%;
 }
 body {
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;
   font-weight: 400;
   overflow-x: hidden;
   overflow-y: auto;
-  background: #f7f7f5;
+  line-height:1.3em;
+  font-size:13px;
+  background:#FFF;
+  color:#242729;
 }
 /* Layout */
 .wrapper {
@@ -3379,7 +3382,7 @@ table.text-center th {
   border-bottom: 1px solid #d2d6de;
   margin-bottom: 15px;
   padding-bottom: 15px;
-  color: #666;
+  color: #242729;
 }
 .post:last-of-type {
   border-bottom: 0;
@@ -5002,3 +5005,26 @@ table.text-center th {
 	overflow-x: hidden;
 	height:350px;
 }
+
+.chipsdemoCustomInputs md-content.autocomplete {
+  min-height: 200px; }
+
+.chipsdemoCustomInputs input[type=number] {
+  width: 110px; }
+
+.chipsdemoCustomInputs .veggie-option {
+  float: left;
+  width: 20%;
+  box-sizing: border-box;
+  padding: 0 8px; }
+
+.chipsdemoCustomInputs .veggie-option .md-item-text {
+  padding: 8px;
+  background: #f0f0f0;
+  border-radius: 3px; }
+
+.chipsdemoCustomInputs .veggie-option .md-item-text h3,
+.chipsdemoCustomInputs .veggie-option .md-item-text p {
+  padding: 0;
+  margin: 0; }
+

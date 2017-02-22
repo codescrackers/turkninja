@@ -12,9 +12,10 @@
     <script src="../../js/external/markdown/Markdown.Converter.js" th:src="@{/js/external/markdown/Markdown.Converter.js}"></script>
     <script src="../../js/external/markdown/Markdown.Sanitizer.js" th:src="@{/js/external/markdown/Markdown.Sanitizer.js}"></script>
     <script src="../../js/external/markdown/Markdown.Editor.js" th:src="@{/js/external/markdown/Markdown.Editor.js}"></script>
-
     <link rel="stylesheet" type="text/css" href="../../css/external/pagedown.css" th:href="@{/css/external/pagedown.css}"/>
-
+    <script src="../../js/external/fileupload/jquery.iframe-transport.js" th:src="@{/js/external/fileupload/jquery.iframe-transport.js}"></script>
+    <script src="../../js/external/fileupload/jquery.fileupload.js" th:src="@{/js/external/fileupload/jquery.fileupload.js}"></script>
+	<link rel="stylesheet" type="text/css" href="../../css/external/fileupload.css" th:href="@{/css/external/fileupload.css}"/>
     <script src="../../js/editpost.js" th:src="@{/js/editpost.js}"></script>
 </head>
 
@@ -22,6 +23,11 @@
 
 <section layout:fragment="content">
     <div class="col-sm-8 no-padding-col">
+    	<script th:inline="javascript">
+            window.avatarUploadUrl = /*[[@{|/upload_post_photo|}]]*/ '';
+            window.imgBaseUrl = /*[[@{|/uploads/|}]]*/ '';
+            window.noAvatarImgUrl = /*[[@{|/images/no-avatar-big.png|}]]*/ '';
+        </script>
         <h2 th:text="${edit} ? 'Gönderiyi Düzenle' : 'Gönderi Oluştur'"></h2>
 
         <form th:action="${edit} ? @{|/posts/${post.id}/edit|} : @{/posts/create}" th:object="${post}" method="post" id="postForm">

@@ -67,4 +67,17 @@ $(document).ready(function() {
     $(document).on("submit", "form", function(event){
         $(window).off('beforeunload');
     });
+    
+    $("#profileForm").validate({
+        rules: {
+            websiteLink: {
+                url: true
+            },
+            aboutText: {
+                maxlength: 1000
+            }
+        }
+    });
+   
 });
+

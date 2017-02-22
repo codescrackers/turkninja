@@ -1,5 +1,6 @@
 package com.yazilimokulu.mvc.controllers;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -22,15 +21,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.yazilimokulu.mvc.daos.PostRepository;
 import com.yazilimokulu.mvc.entities.Comment;
 import com.yazilimokulu.mvc.entities.Post;
 import com.yazilimokulu.mvc.entities.PostEditDto;
 import com.yazilimokulu.mvc.entities.Role;
 import com.yazilimokulu.mvc.entities.User;
 import com.yazilimokulu.mvc.services.AlreadyVotedException;
+import com.yazilimokulu.mvc.services.PhotoService;
 import com.yazilimokulu.mvc.services.PostService;
+import com.yazilimokulu.mvc.services.UnsupportedFormatException;
+import com.yazilimokulu.mvc.services.UploadedAvatarInfo;
+import com.yazilimokulu.mvc.services.UploadedPhotoInfo;
 import com.yazilimokulu.mvc.services.UserService;
 import com.yazilimokulu.utils.JsonUtils;
 
@@ -42,6 +45,9 @@ public class PostsController {
 
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private PhotoService photoService;
 
 	@RequestMapping(value = { "/", "/posts" }, method = RequestMethod.GET)
 	public String showPostsList(@RequestParam(value = "page", defaultValue = "0") Integer pageNumber, ModelMap model) {
@@ -283,4 +289,24 @@ public class PostsController {
 
 		return "ok";
 	}
+	
+	 @PreAuthorize("hasRole('ROLE_USER')")
+	    @RequestMapping(value = "/upload_post_photo", method = RequestMethod.POST)
+	    public @ResponseBody String uploadAvatar(@RequestParam("avatarFile") MultipartFile file) throws IOException {
+	        try {
+	            UploadedPhotoInfo result = photoService.upload(file);
+
+	            return makePhotoUploadResponse("ok", result);
+	        } catch (UnsupportedFormatException e) {
+	            return makePhotoUploadResponse("invalid_format", null);
+	        }
+	    }
+	 
+	 private String makePhotoUploadResponse(String status, UploadedPhotoInfo uploadedPhotoInfo) {
+	        return "{" + JsonUtils.toJsonField("status", status) +
+	                (uploadedPhotoInfo == null ? "" : (", " + JsonUtils.toJsonField("link", uploadedPhotoInfo.imageLink))) +
+	                "}";
+	    }
+	
+	
 }

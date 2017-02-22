@@ -214,7 +214,7 @@
 								<ul class="latestposts-list latestpost-list-in-box">
 									<li class="item" th:each="post, iterStat : ${latestPosts}">
 										<div class="latestpost-img">
-											<img
+											<img class="img-responsive img-circle"
 												th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${post.user.bigAvatarLink})"
 												alt="User Image" />
 										</div>
@@ -241,7 +241,7 @@
 								<ul class="latestposts-list latestpost-list-in-box">
 									<li class="item" th:each="toppost, iterStat : ${topPosts}">
 										<div class="latestpost-img">
-											<img
+											<img class="img-responsive img-circle"
 												th:src="${#strings.isEmpty(toppost.user.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${toppost.user.bigAvatarLink})"
 												alt="User Image" />
 										</div>
