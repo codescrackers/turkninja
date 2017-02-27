@@ -5028,3 +5028,8 @@ table.text-center th {
   padding: 0;
   margin: 0; }
 
+.wmd-preview img {
+    max-width: 100%;
+    height: auto;
+}
+
