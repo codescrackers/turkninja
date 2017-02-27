@@ -53,13 +53,13 @@
 	                		<div class="col-sm-6"><p class="post-date" th:text="${post.dateStr}"></p></div>
 	                	</div>
 	                		<div class="row">
-	                		<div class="col-sm-6"><a th:href="@{|/userposts/${post.user.username}|}">Tüm Yazıları</a></div>
+	                		<div class="col-sm-6"><a th:href="@{|/userposts/${post.user.username}/${post.getShortUrl()}|}">Tüm Yazıları</a></div>
 	                	</div>
 	                </div>
 	            </div>
 	            <div class="row">
 	                <div class="post-title">
-	                	<a class="h2" th:text="${post.title}" th:href="@{|/posts/${post.id}|}"></a>
+	                	<a class="h2" th:text="${post.title}" th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}"></a>
 	                </div>
 	                
 	                <div class="post-tags">

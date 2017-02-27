@@ -30,6 +30,7 @@ import org.springframework.util.StringUtils;
 
 import com.yazilimokulu.mvc.converters.MarkdownConverter;
 import com.yazilimokulu.utils.LocalDateTimePersistenceConverter;
+import com.yazilimokulu.utils.StringUtil;
 
 @Entity
 @Table(name = "posts")
@@ -77,6 +78,9 @@ public class Post {
     
     @Transient
     private String dateStr;
+    
+    @Transient
+    private String shortUrl;
 
     public static String shortPartSeparator() {
         return "===cut===";
@@ -197,7 +201,8 @@ public class Post {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
-    
+
+	public String getShortUrl() {
+		return StringUtil.clearTurkishChars(this.title).toLowerCase().replace(" ", "-");
+	}
 }

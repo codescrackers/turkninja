@@ -50,7 +50,7 @@
 	            </div>
 	            <div class="row">
 	                <div class="post-title">
-	                	<a class="h2" th:text="${post.title}" th:href="@{|/posts/${post.id}|}"></a>
+	                	<a class="h2" th:text="${post.title}" th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}"></a>
 	                </div>
 
                 <div class="post-tags">

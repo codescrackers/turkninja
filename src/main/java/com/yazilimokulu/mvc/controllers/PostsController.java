@@ -108,7 +108,7 @@ public class PostsController {
 		return "posts";
 	}
 
-	@RequestMapping(value = "/posts/{postId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/posts/{postId}/{postShortUrl}", method = RequestMethod.GET)
 	public String showPost(@PathVariable("postId") Long postId, ModelMap model) {
 		Post post = postService.getPost(postId);
 
@@ -262,7 +262,8 @@ public class PostsController {
 				+ JsonUtils.toJsonField("title", post.getTitle()) + ", "
 				+ JsonUtils.toJsonField("postDate", post.getDateStr()) +", "
 				+ JsonUtils.toJsonField("username",post.getUser().getUsername())+ ", "
-				+ JsonUtils.toJsonField("bigAvatarLink", avatar)
+				+ JsonUtils.toJsonField("bigAvatarLink", avatar) + ", "
+				+ JsonUtils.toJsonField("postShortUrl", post.getShortUrl())
 				+ "}";
 	}
 

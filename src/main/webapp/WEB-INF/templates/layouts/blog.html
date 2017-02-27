@@ -219,7 +219,7 @@
 												alt="User Image" />
 										</div>
 										<div class="latestpost-info">
-											<a th:href="@{'/posts/'+${post.id}}" class="latestpost-title"
+											<a th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}" class="latestpost-title"
 												th:inline="text">[[${post.title}]]<span
 												class="label label-default pull-right"
 												th:text="${post.dateStr}"></span></a><span
@@ -246,7 +246,7 @@
 												alt="User Image" />
 										</div>
 										<div class="latestpost-info">
-											<a th:href="@{'/posts/'+${toppost.id}}"
+											<a th:href="@{|/posts/${toppost.id}/${toppost.getShortUrl()}|}"
 												class="latestpost-title" th:inline="text">[[${toppost.title}]]<span
 												class="label label-default pull-right"
 												th:text="${toppost.dateStr}"></span></a><span
