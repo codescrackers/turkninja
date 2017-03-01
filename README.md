@@ -1,1 +1,1 @@
-# yazilim-okulu
+# Turk Ninja
