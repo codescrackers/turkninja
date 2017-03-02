@@ -207,6 +207,7 @@ public class PostsController {
 			@PathVariable("postId") Long postId) {
 		post.setId(postId);
 		post.setUser(postService.getPost(postId).getUser());
+		post.setShortUrl(postService.getPost(postId).getShortUrl());
 		List<Role> roles = userService.currentUser().getRoles();
 		boolean userRole = false;
 		boolean adminRole = false;
@@ -229,7 +230,7 @@ public class PostsController {
 
 		postService.updatePost(post);
 
-		return "redirect:/posts/" + postId;
+		return "redirect:/posts/" + postId+"/"+post.getShortUrl();
 	}
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

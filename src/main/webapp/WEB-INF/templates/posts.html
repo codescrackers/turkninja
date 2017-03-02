@@ -25,16 +25,12 @@
         </div>
     </div>
     
-	            <!-- /.box-header -->
-	            <div class="box-body">
-	              <div class="alert alert-success alert-dismissible">
+	              <div class="alert whitebg alert-dismissible">
 	                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 	                <h4><i class="icon fa fa-ban"></i>Bilgilendirme</h4>
 	                Sitemiz açık kaynak kodlu bir uygulamadır ve açık kaynak kodlu projeler kullanılmaktadır. Geliştirme aşamasındadır. <br/>Destekleriniz için Teşekkürler!
-	               <a style="color:black;" href="https://github.com/codescrackers/turkninja">Github adresimiz</a>
+	               <a style="color:black;" target="_blank" href="https://github.com/codescrackers/turkninja"><img style="width:20px" src="https://i.stack.imgur.com/ShfeS.png"></img>Github adresimiz</a>
 	              </div>
-	            </div>
-	            <!-- /.box-body -->
 
     <div id="postsContainer" th:with="isUser=${#authorization.expression('hasRole(''ROLE_USER'')')}">
         <div th:attr="data-post-id=${post.id}, data-post-title=${post.title}" class="post" th:each="post, iterStat : ${postsPage.getContent()}">
@@ -52,8 +48,8 @@
 	                		<div class="col-sm-6"><span>Gönderi Tarihi :</span></div>
 	                		<div class="col-sm-6"><p class="post-date" th:text="${post.dateStr}"></p></div>
 	                	</div>
-	                		<div class="row">
-	                		<div class="col-sm-6"><a th:href="@{|/userposts/${post.user.username}/${post.getShortUrl()}|}">Tüm Yazıları</a></div>
+	                	<div class="row">
+	                		<div class="col-sm-6"><a th:href="@{|/userposts/${post.user.username}|}">Tüm Yazıları</a></div>
 	                	</div>
 	                </div>
 	            </div>
@@ -69,7 +65,7 @@
 	                <div class="post-maincontent" th:utext="${post.hasShortTextPart()}? ${post.shortTextPartHtml()} : ${post.fullPostTextHtml()}"></div>
 	
 	                <div th:if="${post.hasShortTextPart()}">
-	                    <a class="lead" th:href="@{|/posts/${post.id}|}">Devam et &rarr;</a>
+	                    <a class="lead" th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}">Devam et &rarr;</a>
 	                </div>
 	
 	                <th:block th:if="${post.hidden}">
@@ -155,7 +151,7 @@
                <span class="page-numbers dots">…</span>
             </li>
             <li th:if="${postsPage.getTotalPages() &gt; 5}">
-               <a th:href="@{/posts(page=${postsPage.getTotalPages()})} + ${searchQueryParam}" th:text="${postsPage.getTotalPages()}"></a>
+               <a th:href="@{/posts(page=${postsPage.getTotalPages()-1})} + ${searchQueryParam}" th:text="${postsPage.getTotalPages()}"></a>
             </li>
             <li th:unless="${postsPage.isLast()}"><a
 					th:href="@{/posts(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}">Sonraki &rarr;</a></li>
@@ -168,7 +164,7 @@
 					th:href="@{/posts(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}">&larr;
 						Önceki</a></li>
        		<li >
-                <a th:href="@{/posts(page=1)} + ${searchQueryParam}" >1</a>
+                <a th:href="@{/posts(page=0)} + ${searchQueryParam}" >1</a>
             </li>
 
        		<li>
@@ -194,7 +190,7 @@
                <span class="page-numbers dots">…</span>
             </li>
             <li>
-               <a th:href="@{/posts(page=${postsPage.getTotalPages()})} + ${searchQueryParam}" th:text="${postsPage.getTotalPages()}"></a>
+               <a th:href="@{/posts(page=${postsPage.getTotalPages()-1})} + ${searchQueryParam}" th:text="${postsPage.getTotalPages()}"></a>
             </li>
        		<li th:unless="${postsPage.isLast()}"><a
 					th:href="@{/posts(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}">Sonraki &rarr;</a></li>
@@ -206,7 +202,7 @@
 					th:href="@{/posts(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}">&larr;
 						Önceki</a></li>
 			<li >
-                <a th:href="@{/posts(page=1)} + ${searchQueryParam}" >1</a>
+                <a th:href="@{/posts(page=0)} + ${searchQueryParam}" >1</a>
             </li>
 
        		<li>

@@ -57,7 +57,7 @@ public class PostServiceImpl implements PostService {
 	// probably needs to be cached somehow
 	@Override
 	public List<Post> getTopPostsList() {
-		PageRequest pageRequest = new PageRequest(0, 10);
+		PageRequest pageRequest = new PageRequest(0, 5);
 
 		return postRepository.findTopPosts(pageRequest);
 	}

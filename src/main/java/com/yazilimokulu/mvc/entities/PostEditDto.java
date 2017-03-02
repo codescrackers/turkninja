@@ -24,6 +24,8 @@ public class PostEditDto {
     private String tags = "";
     
     private User user;
+    
+    private String shortUrl;
 
     public Long getId() {
         return Id;
@@ -63,6 +65,14 @@ public class PostEditDto {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getShortUrl() {
+		return shortUrl;
+	}
+
+	public void setShortUrl(String shortUrl) {
+		this.shortUrl = shortUrl;
 	}
     
     

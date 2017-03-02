@@ -98,7 +98,7 @@
 					<div class="row">
 						<div class="post-title">
 							<a class="h2" th:text="${post.title}"
-								th:href="@{|/posts/${post.id}|}"></a>
+								th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}"></a>
 						</div>
 
 						<div class="post-tags">
@@ -110,7 +110,7 @@
 							th:utext="${post.hasShortTextPart()}? ${post.shortTextPartHtml()} : ${post.fullPostTextHtml()}"></div>
 
 						<div th:if="${post.hasShortTextPart()}">
-							<a class="lead" th:href="@{|/posts/${post.id}|}">Devam et
+							<a class="lead" th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}">Devam et
 								&rarr;</a>
 						</div>
 

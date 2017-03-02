@@ -39,7 +39,7 @@ public class GlobalControllerAdvice {
 	
 	@ModelAttribute("latestPosts")
 	public List<Post> getLatestPosts(){
-		return postService.getPostsList(0, 10);
+		return postService.getPostsList(0, 5);
 	}
 	
 	@ModelAttribute("topPosts")
