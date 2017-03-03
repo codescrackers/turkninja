@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/blog">
+
+<head>
+<title th:text="'Türkninja Etiketler'"></title>
+
+<link rel="stylesheet" type="text/css"
+	href="../../css/external/pagedown.css"
+	th:href="@{/css/external/pagedown.css}" />
+
+</head>
+
+<body>
+
+	<section layout:fragment="content">
+		<div ng-controller="TagController as tagCtrl">
+			<div class="row ">
+				<div class="col-md-6 col-sm-6 col-xs-12"
+					ng-repeat="tag in tagData = (tagCtrl.tagList)">
+							<div class="tag-box"><a class="post-tag" ng-href="/posts?tagged={{tag.tagName}}">{{tag.tagName}}</a>
+							<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">{{tag.postCount}}</span></span>
+							</div> 
+				</div>
+
+
+			</div>
+			<div class="row">
+				<ul class="pagination">
+					<li ng-show="tagCtrl.pageNumber - 2 >= 0"><a
+						ng-href="#tagPage"
+						ng-click="tagCtrl.getPageTags(tagCtrl.pageNumber- 2)">{{tagCtrl.pageNumber-
+							1}}</a></li>
+					<li ng-show="tagCtrl.pageNumber - 1 >= 0"><a
+						ng-href="#tagPage"
+						ng-click="tagCtrl.getPageTags(tagCtrl.pageNumber -1)">{{tagCtrl.pageNumber}}</a>
+					</li>
+					<li class="active"><a ng-href="#tagPage"
+						ng-click="tagCtrl.getPageTags(tagCtrl.pageNumber)">{{tagCtrl.pageNumber+
+							1}}</a></li>
+
+					<li ng-show="tagCtrl.pageNumber + 1 &#60; tagCtrl.totalPageNumber">
+						<a ng-href="#tagPage"
+						ng-click="tagCtrl.getPageTags(tagCtrl.pageNumber+1)">{{tagCtrl.pageNumber+
+							2}}</a>
+					</li>
+					<li ng-show="tagCtrl.pageNumber + 2 &#60; tagCtrl.totalPageNumber">
+						<a ng-href="#tagPage"
+						ng-click="tagCtrl.getPageTags(tagCtrl.pageNumber+2)">{{tagCtrl.pageNumber+
+							3}} </a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</section>
+
+</body>
+</html>

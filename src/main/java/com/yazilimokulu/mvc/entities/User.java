@@ -114,9 +114,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
     
+    private String gravatarUrl;
+    
     @Transient
     private String dateStr;
-
+    
     public Long getId() {
         return Id;
     }
@@ -260,7 +262,16 @@ public class User {
         return getRoles().stream().anyMatch(r -> r.getName().equals(finalRole));
     }
 
-    @Override
+	
+    public String getGravatarUrl() {
+		return gravatarUrl;
+	}
+
+	public void setGravatarUrl(String gravatarUrl) {
+		this.gravatarUrl = gravatarUrl;
+	}
+
+	@Override
     public String toString() {
         return "User{" +
                 "Id=" + Id +

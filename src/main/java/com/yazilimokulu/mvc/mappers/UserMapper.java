@@ -13,6 +13,7 @@ public UserDTO userToUserDTO (User user) {
 		userDTO.setBigAvatarLink(user.getBigAvatarLink());
 		userDTO.setRegisterDate(user.getDateStr());
 		userDTO.setWebsite(user.getWebsiteLink());
+		userDTO.setGravatarUrl(user.getGravatarUrl());
 		return userDTO;
 	}
 

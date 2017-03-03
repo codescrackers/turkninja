@@ -40,6 +40,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private GravatarService gravatarService;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -84,6 +87,8 @@ public class UserServiceImpl implements UserService {
         user.getRoles().add(roleRepository.findByName("ROLE_USER"));
 
         user.setEnabled(true);
+        
+        user.setGravatarUrl(gravatarService.getAvatarUrl(user.getEmail()));
 
         user.setRegistrationDate(LocalDateTime.now());
 
@@ -97,6 +102,7 @@ public class UserServiceImpl implements UserService {
             throw new AuthException("password does not match");
 
         user.setEmail(newEmail);
+        user.setGravatarUrl(gravatarService.getAvatarUrl(newEmail));
 
         userRepository.saveAndFlush(user);
     }
@@ -202,7 +208,8 @@ public class UserServiceImpl implements UserService {
 		List<UserDTO> userDtos=new ArrayList<>();
 		for(User user : users){
 			UserMapper mapper= new UserMapper();
-			userDtos.add(mapper.userToUserDTO(user));
+			UserDTO userToUserDTO = mapper.userToUserDTO(user);
+			userDtos.add(userToUserDTO);
 		}
 		
 		ResponsePageDTO<UserDTO> response= new ResponsePageDTO<>();

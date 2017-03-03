@@ -11,7 +11,6 @@ angular.module('blog').controller('UserController', ['$scope', 'UserService', fu
 		
 			UserService.getAllUsers()
 			.then(function(response) {
-				console.log(response);
 				vm.totalPageNumber=response.data.totalPageNumber;
 				vm.isFirst=response.data.first;
 				vm.isLast=response.data.last;
@@ -19,6 +18,7 @@ angular.module('blog').controller('UserController', ['$scope', 'UserService', fu
 				response.data.data.forEach(function(user) {
 				    vm.userList.push(user);
 				});
+				console.log(vm.userList);
 	        })
 			.catch(function(response) {
 				var errObj = response.data || {};	

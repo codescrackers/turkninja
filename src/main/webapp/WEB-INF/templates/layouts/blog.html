@@ -88,14 +88,14 @@
 							<!-- Messages: style can be found in dropdown.less-->
 
 
-							<li><a th:href="@{/users}">Tüm Kullanıcılar</a></li>
+							<li><a th:href="@{/users}">Kullanıcılar</a></li>
+							<li><a th:href="@{/tags}">Etiketler</a></li>
 							<li th:if="${#authorization.expression('isAuthenticated()')}">
-								<a th:href="@{'/userposts/'+${#authentication.name}}"><span>Tüm
-										Gönderilerim</span> </a>
+								<a th:href="@{'/userposts/'+${#authentication.name}}"><span>Gönderilerim</span> </a>
 							</li>
 							<li th:if="${#authorization.expression('isAuthenticated()')}">
 								<img class="img-responsive" width="50" height="50"
-								th:src="${#strings.isEmpty(currentUser.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${currentUser.bigAvatarLink})" />
+								th:src="${#strings.isEmpty(currentUser.bigAvatarLink)} ?  ${currentUser.gravatarUrl} : (@{/uploads/} + ${currentUser.bigAvatarLink})" />
 							</li>
 							<li th:if="${#authorization.expression('isAuthenticated()')}">
 								<a th:href="@{'/users/'+${#authentication.name}}"><span
@@ -155,29 +155,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-padding">
-
-						<div class="form-group">
-							<label for="tagSearchInput">Etikete göre ara</label> <input
-								type="text" autocomplete="off" class="form-control"
-								id="tagSearchInput" ng-model="tagCtrl.tagName"
-								ng-focus="tagCtrl.getAllTags()" name="tagged"
-								placeholder="php, spring" />
-						</div>
-
-
-						<div class="btn-group" role="group" aria-label="..."
-							ng-if="tagCtrl.tagName.length > 0">
-							<button type="button" class="btn btn-default"
-								ng-click="tagCtrl.getPostsByTagName(tag.tagName)"
-								ng-repeat="tag in tagData = (tagCtrl.tagList | filter:{tagName: tagCtrl.tagName})">
-								{{ tag.tagName }} <span class="badge"> {{ tag.postCount
-									}}</span>
-							</button>
-							<div ng-if="tagData.length == 0">Sonuç bulunamadı</div>
-						</div>
-
-					</div>
+					
+					
+					
 					<div class="col-padding">
 
 
@@ -190,7 +170,7 @@
 							<div class="box-body no-padding">
 								<ul class="users-list clearfix">
 									<li th:each="user, iterStat : ${latestUsers}">
-									<img th:src="${#strings.isEmpty(user.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${user.bigAvatarLink})" alt="User Image"/>
+									<img th:src="${#strings.isEmpty(user.bigAvatarLink)} ?  ${user.gravatarUrl} : (@{/uploads/} + ${user.bigAvatarLink})" alt="User Image"/>
 										<a class="users-list-name" th:href="@{'/users/'+${user.username}}" th:text="${user.username}"></a> <span
 										class="users-list-date" th:text="${user.dateStr}"></span></li>
 								</ul>

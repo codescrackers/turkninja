@@ -5041,3 +5041,14 @@ table.text-center th {
 	background: white;
 }
 
+.tag-box{
+	margin:10px;
+}
+.item-multiplier {
+    margin-right: 4px;
+    color: #848d95;
+}
+.item-multiplier-count {
+    font-size: 11px;
+    color: #6a737c;
+}

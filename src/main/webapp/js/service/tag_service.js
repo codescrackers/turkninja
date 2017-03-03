@@ -1,20 +1,20 @@
 angular.module('blog').factory('TagService', ['$http', '$q', '$window' , function($http, $q, $window){
- 
-    var factory = {
+	
+	var factory = {
     		getAllTags: getAllTags,
-    		getPostsByTagName: getPostsByTagName
+    		getPageTags:getPageTags
     };
     
     return factory;
 	
         function getAllTags() {
-    		var list = $http.get(rootContext + '/tag/all');
-        	return list;
+    		var tags = $http.get(rootContext + '/getAllTags');
+        	return tags;
         }
         
-        function getPostsByTagName(tagName) {
-        	$window.location.href = rootContext + '/posts?tagged='+tagName;
+        function getPageTags(page) {
+    		var tags = $http.get(rootContext + '/getAllTags?page=' + page);
+        	return tags;
         }
         
-       
 }]);

@@ -8,7 +8,7 @@ public class TagDTO implements Serializable {
 	
 	
 	private String tagName;
-	private short postCount;
+	private long postCount;
 	
 	
 	public String getTagName() {
@@ -17,17 +17,17 @@ public class TagDTO implements Serializable {
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
 	}
-	public short getPostCount() {
+	public long getPostCount() {
 		return postCount;
 	}
-	public void setPostCount(short postCount) {
+	public void setPostCount(long postCount) {
 		this.postCount = postCount;
 	}
 	
-	public TagDTO( String tagName, int postCount) {
+	public TagDTO( String tagName, long postCount) {
 		this.tagName = tagName;
-		Integer obj = new Integer(postCount);
-		this.postCount = obj.shortValue();
+		Long obj = new Long(postCount);
+		this.postCount = obj.intValue();
 	}
 	
 }

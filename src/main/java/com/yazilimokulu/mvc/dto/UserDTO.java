@@ -16,6 +16,8 @@ public class UserDTO implements Serializable  {
 	
 	private String website;
 	
+	private String gravatarUrl;
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -54,6 +56,18 @@ public class UserDTO implements Serializable  {
 
 	public void setWebsite(String website) {
 		this.website = website;
+	}
+
+	public String getGravatarUrl() {
+		return gravatarUrl;
+	}
+
+	public void setGravatarUrl(String gravatarUrl) {
+		this.gravatarUrl = gravatarUrl;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 }
