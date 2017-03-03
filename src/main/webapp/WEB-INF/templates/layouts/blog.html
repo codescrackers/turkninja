@@ -195,7 +195,7 @@
 									<li class="item" th:each="post, iterStat : ${latestPosts}">
 										<div class="latestpost-img">
 											<img class="img-responsive img-circle"
-												th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${post.user.bigAvatarLink})"
+												th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  ${post.user.gravatarUrl} : (@{/uploads/} + ${post.user.bigAvatarLink})"
 												alt="User Image" />
 										</div>
 										<div class="latestpost-info">
@@ -222,7 +222,7 @@
 									<li class="item" th:each="toppost, iterStat : ${topPosts}">
 										<div class="latestpost-img">
 											<img class="img-responsive img-circle"
-												th:src="${#strings.isEmpty(toppost.user.bigAvatarLink)} ?  @{/uploads/noavatar.jpg} : (@{/uploads/} + ${toppost.user.bigAvatarLink})"
+												th:src="${#strings.isEmpty(toppost.user.bigAvatarLink)} ?  ${toppost.user.gravatarUrl} : (@{/uploads/} + ${toppost.user.bigAvatarLink})" />
 												alt="User Image" />
 										</div>
 										<div class="latestpost-info">
