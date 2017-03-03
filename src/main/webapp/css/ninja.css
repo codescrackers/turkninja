@@ -5052,3 +5052,6 @@ table.text-center th {
     font-size: 11px;
     color: #6a737c;
 }
+.zero-padding {
+	padding:0px !important;
+}
