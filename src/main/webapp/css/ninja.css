@@ -5055,3 +5055,16 @@ table.text-center th {
 .zero-padding {
 	padding:0px !important;
 }
+.fa-4 {
+	font-size:7em;
+	margin-right: .07142857em;	
+}
+.fa-2 {
+	font-size:2em;
+	margin-right: .07142857em;	
+}
+.ninja-box-content {
+	text-align: center;
+	padding: 5px 10px;
+	margin-left : 0px;
+}

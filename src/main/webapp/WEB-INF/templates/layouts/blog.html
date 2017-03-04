@@ -180,7 +180,7 @@
 					</div>
 				</section>
 
-				<section class="col-sm-4">
+				<section class="col-sm-4 content">
 					<div class="col-padding">
 
 						<div th:unless="${#authorization.expression('isAuthenticated()')}">
@@ -188,27 +188,49 @@
 						</div>
 
 						<div th:if="${#authorization.expression('isAuthenticated()')}">
-
-							<div class="user-menu">
-								<div class="user-menu-item"
-									sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
-									<a th:href="@{/posts/create}" role="button"
-										class="btn btn-primary"> <span
-										class="glyphicon glyphicon-pencil"></span> Gönderi Ekle
-									</a>
-								</div>
-								<div class="user-menu-item">
-									<a th:href="@{/settings}" role="button" class="btn btn-primary">
-										<span class="glyphicon glyphicon-cog"></span> Ayarlar
-									</a>
-								</div>
-								<div class="user-menu-item">
-									<a th:href="@{/edit_profile}" role="button"
-										class="btn btn-primary"> <span
-										class="glyphicon glyphicon-user"></span> Profil Ayarları
-									</a>
-								</div>
-							</div>
+							
+							
+							 <div class="info-box" style="text-align: center" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
+					            <div class="ninja-box-content">
+					              	<i class="fa fa-newspaper-o fa-4" aria-hidden="true"></i>
+					
+					              <div class="progress">
+					                <div class="progress-bar" style="width: 100%"></div>
+					              </div>
+					                  <span class="progress-description">
+					                   <a th:href="@{/posts/create}" ><h4>Yeni bir blog yazısı ekle</h4></a>
+					                  </span>
+					            </div>
+					            <!-- /.info-box-content -->
+					          </div>
+							
+							<div class="info-box" style="text-align: center" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
+					            <div class="ninja-box-content">
+					              	<i class="fa fa-cog fa-2" aria-hidden="true"></i>
+					
+					              <div class="progress">
+					                <div class="progress-bar" style="width: 100%"></div>
+					              </div>
+					                  <span class="progress-description">
+					                   <a th:href="@{/settings}" ><h4>Ayarlarımı düzenle</h4></a>
+					                  </span>
+					            </div>
+					            <!-- /.info-box-content -->
+					          </div>
+					          
+					          <div class="info-box" style="text-align: center" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
+					            <div class="ninja-box-content">
+					              	<i class="fa fa-user fa-2" aria-hidden="true"></i>
+					
+					              <div class="progress">
+					                <div class="progress-bar" style="width: 100%"></div>
+					              </div>
+					                  <span class="progress-description">
+					                   <a th:href="@{/edit_profile}" ><h4>Profil ayarlarım</h4></a>
+					                  </span>
+					            </div>
+					            <!-- /.info-box-content -->
+					          </div>
 						</div>
 					</div>
 
