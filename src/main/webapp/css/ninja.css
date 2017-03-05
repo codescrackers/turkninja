@@ -1566,12 +1566,11 @@ a:focus {
   position: relative;
   border-radius: 3px;
   background: #ffffff;
-  border-top: 3px solid #d2d6de;
   margin-bottom: 20px;
   width: 100%;
-  -webkit-box-shadow: 3px 2px 22px 2px rgba(201,191,201,0.75);
-  -moz-box-shadow: 3px 2px 22px 2px rgba(201,191,201,0.75);
-  box-shadow: 3px 2px 22px 2px rgba(201,191,201,0.75);
+  border: 1px solid;
+  border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+  
 }
 .box.box-primary {
   border-top-color: #3c8dbc;
@@ -2053,13 +2052,14 @@ a:focus {
   min-height: 90px;
   background: #fff;
   width: 100%;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border: 1px solid;
+  border-color: #e5e6e9 #dfe0e4 #d0d1d5;
   border-radius: 2px;
   margin-bottom: 15px;
 }
 
 .user-box {
-  min-height: 60px !important;
+  min-height: 75px !important;
 }
 
 .info-box small {
@@ -2675,6 +2675,10 @@ a:focus {
 }
 .latestposts-list .latestpost-info {
   margin-left: 60px;
+  font-weight: 600;
+  color: #444;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .latestposts-list .latestpost-title {
   font-weight: 600;
@@ -3383,15 +3387,14 @@ table.text-center th {
   margin-top: 5px;
 }
 .post {
-    border-bottom: 1px solid #d2d6de;
     margin-bottom: 15px;
     padding: 50px;
     color: #666;
-    border: 2px solid #d2d6de;
-    background: white;
-    -webkit-box-shadow: 3px 2px 22px 2px rgba(201,191,201,0.75);
-	-moz-box-shadow: 3px 2px 22px 2px rgba(201,191,201,0.75);
-	box-shadow: 3px 2px 22px 2px rgba(201,191,201,0.75);
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    background: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis
 }
 .post:last-of-type {
 }
