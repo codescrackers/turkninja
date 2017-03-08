@@ -87,11 +87,11 @@
                     </a>
                 </div>
 
-                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/posts/${post.id}/edit|}">edit</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/posts/${post.id}/edit|}">düzenle</a>
 
                 <a sec:authorize="hasRole('ROLE_ADMIN')" href="javascript:void(0)"
                    th:attr="data-action=${post.hidden} ? 'unhidePost' : 'hidePost', data-href=@{|/posts/${post.id}/|} + (${post.hidden} ? 'unhide' : 'hide')"
-                   th:text="${post.hidden} ? 'unhide' : 'hide'"></a>
+                   th:text="${post.hidden} ? 'göster' : 'gizle'"></a>
 
                 <a sec:authorize="hasRole('ROLE_ADMIN')" href="javascript:void(0)" th:style="${post.hidden} ? '' : 'display: none;'"
                    th:attr="data-href=@{|/posts/${post.id}/delete|}"

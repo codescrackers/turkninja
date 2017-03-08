@@ -76,7 +76,7 @@ $(document).ready(function() {
                 if (data == 'ok') {
                     btn.attr('data-action', 'hidePost');
                     btn.attr('data-href', btn.attr('data-href').replace('unhide', 'hide'));
-                    btn.html('hide');
+                    btn.html('gizle');
 
                     btn.closest('.post').find('.hidden-post').remove();
 
@@ -112,7 +112,7 @@ $(document).ready(function() {
                     label: 'Cancel'
                 },
                 main: {
-                    label: 'Delete',
+                    label: 'Sil',
                     className: 'btn-danger',
                     callback: function() {
                         loadingIndicator.show();

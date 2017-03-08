@@ -126,14 +126,14 @@ $(document).ready(function() {
         var loadingIndicator = btn.closest('.comment').find('.loading-indicator');
 
         bootbox.dialog({
-            title: 'Delete comment',
-            message: 'Are you sure you want to delete this comment?',
+            title: 'Yorumu sil',
+            message: 'Bu yorumu silmek istediğinizden emin misiniz?',
             buttons: {
                 cancel: {
                     label: 'Cancel'
                 },
                 main: {
-                    label: 'Delete',
+                    label: 'Sil',
                     className: 'btn-danger',
                     callback: function() {
                         loadingIndicator.show();
@@ -156,18 +156,18 @@ $(document).ready(function() {
                                 else if (data == 'expired') {
                                     loadingIndicator.hide();
 
-                                    showErrorDialog('You are not allowed to delete this comment anymore. Deletion allowed only for 10 minutes.');
+                                    showErrorDialog('Bu yorumu silme hakkınız artık yok. Silme işlemi ilk 10 dakika için geçerlidir.');
                                 }
                                 else {
                                     loadingIndicator.hide();
 
-                                    showErrorDialog('Error: ' + data + '. Try reloading page.');
+                                    showErrorDialog('Hata: ' + data + '. Lütfen sayfayı tekrar yüklemeyi deneyin.');
                                 }
                             },
                             error: function () {
                                 loadingIndicator.hide();
 
-                                showErrorDialog('Failed to send request. Try reloading page.');
+                                showErrorDialog('İstek gönderilemedi. Lütfen sayfayı tekrar yüklemeyi deneyin.');
                             }
                         });
                     }
@@ -265,7 +265,7 @@ $(document).ready(function() {
                                             commentList.html(s);
                                         },
                                         error: function() {
-                                            showErrorDialog('Failed to send request. Try reloading page.');
+                                            showErrorDialog('İstek gönderilemedi. Sayfayı tekrar yüklemeyi deneyin.');
                                         }
                                     });
                                 }
@@ -273,7 +273,7 @@ $(document).ready(function() {
                                     commentLoadingIndicator.hide();
 
                                     if (data == 'expired') {
-                                        showErrorDialog('You are not allowed to edit this comment anymore. Edition allowed only for 3 hours.');
+                                        showErrorDialog('Bu yorumu düzenleme yetkiniz yok. Düzenleme 3 saat için geçerlidir.');
 
                                         cancelBtn.prop('disabled', false);
                                     }
@@ -379,7 +379,7 @@ $(document).ready(function() {
                                     addedCommentHighlight(newCommentId);
                                 },
                                 error: function() {
-                                    showErrorDialog('Failed to send reload request. Try reloading page.');
+                                    showErrorDialog('Tekrar istek gönderimi başarısız. Lütfen sayfayı tekrar yüklemeyi deneyin.');
                                 }
                             });
                         }
@@ -393,7 +393,7 @@ $(document).ready(function() {
                     error: function () {
                         buttons.prop('disabled', false);
                         commentLoadingIndicator.hide();
-                        commentErrorLabel.text('Failed to send request.');
+                        commentErrorLabel.text('İstek gönderilemedi.');
                         commentErrorLabel.show();
                     }
                 });

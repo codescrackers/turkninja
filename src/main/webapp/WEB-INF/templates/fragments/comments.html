@@ -60,13 +60,13 @@
                            href="javascript:void(0)"
                            data-action="editComment"
                            th:attr="data-href=@{|/posts/${post.id}/comments/${comment.id}/edit|},
-                               data-maxDate=(${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? '' : ${comment.maxEditTimeUnixTimestamp()})">edit</a>
+                               data-maxDate=(${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? '' : ${comment.maxEditTimeUnixTimestamp()})">düzenle</a>
 
                         <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')') or (#authentication.name == comment.user.username and comment.userCanDelete())}"
                            href="javascript:void(0)"
                            data-action="deleteComment"
                            th:attr="data-href=@{|/posts/${post.id}/comments/${comment.id}/delete|},
-                               data-maxDate=(${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? '' : ${comment.maxDeleteTimeUnixTimestamp()})">delete</a>
+                               data-maxDate=(${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? '' : ${comment.maxDeleteTimeUnixTimestamp()})">sil</a>
                     </th:block>
                 </div>
                 <div class="loading-indicator" style="display: none">
