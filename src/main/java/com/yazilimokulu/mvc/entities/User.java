@@ -1,5 +1,6 @@
 package com.yazilimokulu.mvc.entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -23,24 +24,32 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.CollectionId;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yazilimokulu.mvc.converters.MarkdownConverter;
 import com.yazilimokulu.utils.LocalDateTimePersistenceConverter;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
-    public interface CreateValidationGroup {}
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5189291412284790737L;
+
+	public interface CreateValidationGroup {}
     public interface ChangeEmailValidationGroup {}
     public interface ChangePasswordValidationGroup {}
     public interface ProfileInfoValidationGroup {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Long Id;
 
     @Column(unique = true, nullable = false, length = 50)
@@ -83,13 +92,13 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
     
-    @OneToMany
+    @ManyToMany
     @JoinTable(name = "users_followings",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "following_id", referencedColumnName = "id"))
     private List<User> following = null;
     
-    @OneToMany
+    @ManyToMany
     @JoinTable(name = "users_followers",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "id"))
@@ -116,8 +125,16 @@ public class User {
     
     private String gravatarUrl;
     
+    private String title;
+    
     @Transient
     private String dateStr;
+    
+    @Transient
+    private int followingCount;
+    
+    @Transient
+    private int followersCount;
     
     public Long getId() {
         return Id;
@@ -270,6 +287,27 @@ public class User {
 	public void setGravatarUrl(String gravatarUrl) {
 		this.gravatarUrl = gravatarUrl;
 	}
+	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	
+
+	public int getFollowingCount() {
+		return this.following.size();
+	}
+
+
+	public int getFollowersCount() {
+		return this.followers.size();
+	}
+
 
 	@Override
     public String toString() {

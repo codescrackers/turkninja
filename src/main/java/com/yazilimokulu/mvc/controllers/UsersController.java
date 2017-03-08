@@ -7,7 +7,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,7 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yazilimokulu.mvc.dto.ResponseDTO;
 import com.yazilimokulu.mvc.dto.ResponsePageDTO;
 import com.yazilimokulu.mvc.dto.UserDTO;
 import com.yazilimokulu.mvc.entities.User;
@@ -38,6 +41,8 @@ import com.yazilimokulu.utils.JsonUtils;
 @Controller
 public class UsersController {
 
+	private static final Logger logger = LogManager.getLogger(UsersController.class.getName());
+	
     @Autowired
     private UserService userService;
 
@@ -244,6 +249,42 @@ public class UsersController {
 
         return "profile";
     }
+    
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @RequestMapping(value = "/changeFollowing/{currentUserId}/{followingUserId}/{command}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String>changeFollowing(@PathVariable("currentUserId") String currentUserId, @PathVariable("followingUserId") String followingUserId, @PathVariable("command") String command) {
+        if(userService.currentUser().getId()==Long.valueOf(currentUserId)){
+        	User currentUser=userService.findById(Long.valueOf(currentUserId));
+    		User user=userService.findById(Long.valueOf(followingUserId));
+        	if(command.equals("follow")){
+        		try {
+					userService.addFollowingUser(currentUser, user);
+					userService.addFollower(user, currentUser);
+				} catch (Exception e) {
+					logger.error("following mistakes");
+					return new ResponseEntity<String>("{\"result\":\"error\"}",HttpStatus.OK);
+				}
+        		
+        	}else if(command.equals("unfollow")){
+        		try {
+					userService.removeFollowingUser(currentUser, user);
+					userService.removeFollower(user, currentUser);
+				} catch (Exception e) {
+					logger.error("following mistakes");
+					return new ResponseEntity<String>("{\"result\":\"error\"}",HttpStatus.OK);
+				}
+        		
+        	}else{
+        		logger.error("Wrong following command");
+        		return new ResponseEntity<String>("{\"result\":\"error\"}",HttpStatus.OK);
+        	}
+        	
+        }
+        return new ResponseEntity<String>("{\"result\":\"success\"}", HttpStatus.OK);
+    }
+    
+    
 
     private String makeAvatarUploadResponse(String status, UploadedAvatarInfo uploadedAvatarInfo) {
         return "{" + JsonUtils.toJsonField("status", status) +

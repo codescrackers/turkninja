@@ -21,7 +21,7 @@
     <section layout:fragment="profile-content" class="content">
 
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" ng-controller="ProfileController as profileCtrl">
 
           <!-- Profile Image -->
           <div class="box box-primary">
@@ -36,14 +36,16 @@
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Takipçiler</b> <a class="pull-right">1,322</a>
+                  <b>Takipçiler</b> <a ng-model="followersVal" data-th-attr="ng-init='followersVal=\''+${user.followersCount}+'\''"  class="pull-right" >{{followersVal}}</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Takip ettikleri</b> <a class="pull-right">543</a>
+                  <b>Takip ettikleri</b> <a ng-model="followingVal" data-th-attr="ng-init='followingVal=\''+${user.followingCount}+'\''" class="pull-right" >{{followingVal}}</a>
                 </li>
               </ul>
 
-              <a href="#" class="btn btn-primary btn-block"><b>Takip et</b></a>
+				<a ng-model="statusVal" ng-init="statusVal='Takip et'" th:if="${(#authorization.expression('isAuthenticated()')) and (currentUser.username != user.username) and !(#lists.contains(currentUser.following, user)) }" href="#" class="btn btn-primary btn-block" th:attr="ng-click='profileCtrl.changeFollowingStatus(statusVal,\''+${currentUser.id}+'\', \''+${user.id}+'\',followingVal)' " ><b >{{statusVal}}</b></a>
+				<a ng-model="statusVal" ng-init="statusVal='Takibi bırak'" th:if="${(#authorization.expression('isAuthenticated()')) and (currentUser.username != user.username) and (#lists.contains(currentUser.following, user)) }" href="#" class="btn btn-primary btn-block" th:attr="ng-click='profileCtrl.changeFollowingStatus(statusVal,\''+${currentUser.id}+'\',\''+${user.id}+'\',followersVal)' " ><b>{{statusVal}}</b></a>
+				
             </div>
             <!-- /.box-body -->
           </div>

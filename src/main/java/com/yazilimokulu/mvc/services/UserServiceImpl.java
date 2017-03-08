@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.yazilimokulu.mvc.controllers.UsersController;
 import com.yazilimokulu.mvc.daos.RoleRepository;
 import com.yazilimokulu.mvc.daos.UserRepository;
 import com.yazilimokulu.mvc.dto.ResponsePageDTO;
@@ -32,6 +35,8 @@ import com.yazilimokulu.mvc.mappers.UserMapper;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
+	private static final Logger logger = LogManager.getLogger(UserServiceImpl.class.getName());
+	
     @Autowired
     private UserRepository userRepository;
 
@@ -227,4 +232,58 @@ public class UserServiceImpl implements UserService {
 
 		return userRepository.findAllByOrderByRegistrationDateDesc(pageRequest);
 	}
+
+	@Override
+	public void addFollowingUser(User currentUser, User user) throws Exception {
+		if(!currentUser.getFollowing().contains(user)){
+			currentUser.getFollowing().add(user);
+			userRepository.save(currentUser);
+		}else{
+			logger.info(currentUser.getUsername()+" already follow "+user.getUsername());
+			throw new Exception();
+		}
+		
+	}
+
+	@Override
+	public void addFollower(User user, User currentUser) throws Exception {
+		if(!user.getFollowers().contains(currentUser)){
+		user.getFollowers().add(currentUser);
+		userRepository.save(user);
+		}else{
+			logger.info(user.getUsername()+" already following by "+currentUser.getUsername());
+			throw new Exception();
+		}
+	}
+	
+
+	@Override
+	public void removeFollowingUser(User currentUser, User user) throws Exception {
+		if(currentUser.getFollowing().contains(user)){
+			currentUser.getFollowing().remove(user);
+			userRepository.save(currentUser);
+		}else{
+			logger.info(currentUser.getUsername()+" does not follow "+user.getUsername());
+			throw new Exception();
+		}
+		
+	}
+
+	@Override
+	public void removeFollower(User user, User currentUser) throws Exception {
+		if(user.getFollowers().contains(currentUser)){
+			user.getFollowers().remove(currentUser);
+			userRepository.save(user);
+			}else{
+				logger.info(user.getUsername()+" is not being follow by "+currentUser.getUsername());
+				throw new Exception();
+			}
+	}
+
+	@Override
+	public User findById(Long id) {
+		return userRepository.findOne(id);
+	}
+	
+	
 }

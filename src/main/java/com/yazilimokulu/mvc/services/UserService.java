@@ -45,6 +45,17 @@ public interface UserService extends UserDetailsService {
 	ResponsePageDTO<UserDTO> findUsersPage(int pageNumber, int pageSize);
 
 	Page<User> getLatestUsersList(int page, int count);
+	
+	void addFollowingUser(User currentUser,User user) throws Exception;
+	
+	void addFollower(User user,User currentUser) throws Exception;
+	
+	User findById(Long id);
+	
+	void removeFollowingUser(User currentUser,User user) throws Exception;
+	
+	void removeFollower(User user,User currentUser) throws Exception;
+	
 
 }
 
