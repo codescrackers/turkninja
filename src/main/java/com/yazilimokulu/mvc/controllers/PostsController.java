@@ -29,6 +29,7 @@ import com.yazilimokulu.mvc.entities.PostEditDto;
 import com.yazilimokulu.mvc.entities.Role;
 import com.yazilimokulu.mvc.entities.User;
 import com.yazilimokulu.mvc.services.AlreadyVotedException;
+import com.yazilimokulu.mvc.services.LikeNotificationService;
 import com.yazilimokulu.mvc.services.PhotoService;
 import com.yazilimokulu.mvc.services.PostService;
 import com.yazilimokulu.mvc.services.UnsupportedFormatException;
@@ -48,6 +49,9 @@ public class PostsController {
 	
 	@Autowired
 	private PhotoService photoService;
+	
+	@Autowired
+	private LikeNotificationService likeNotificationService;
 
 	@RequestMapping(value = { "/", "/posts" }, method = RequestMethod.GET)
 	public String showPostsList(@RequestParam(value = "page", defaultValue = "0") Integer pageNumber, ModelMap model) {
@@ -273,6 +277,7 @@ public class PostsController {
 	public @ResponseBody String like(@PathVariable("postId") Long postId) {
 		try {
 			postService.vote(postId, true);
+			likeNotificationService.save(postService.getPost(postId));
 		} catch (AlreadyVotedException e) {
 			return "already_voted";
 		}

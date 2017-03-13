@@ -24,12 +24,10 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.CollectionId;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yazilimokulu.mvc.converters.MarkdownConverter;
 import com.yazilimokulu.utils.LocalDateTimePersistenceConverter;
 
@@ -103,6 +101,16 @@ public class User implements Serializable {
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "id"))
     private List<User> followers = null;
+    
+    @ManyToMany
+    @JoinTable(name = "users_created_notifications",
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "notification_id", referencedColumnName = "id"))
+    private List<Notification> createdNotificaitons;
+    
+    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Notification> notifications;
 
 
     @Column(nullable = true, length = 1000)
@@ -307,7 +315,24 @@ public class User implements Serializable {
 	public int getFollowersCount() {
 		return this.followers.size();
 	}
+	
 
+
+	public List<Notification> getCreatedNotificaitons() {
+		return createdNotificaitons;
+	}
+
+	public void setCreatedNotificaitons(List<Notification> createdNotificaitons) {
+		this.createdNotificaitons = createdNotificaitons;
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
 
 	@Override
     public String toString() {

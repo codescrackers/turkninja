@@ -21,7 +21,7 @@
             <a class="post-tag" th:each="tag : ${searchTags}" th:text="${tag}" th:href="@{/posts(tagged=${tag})}"></a>
         </div>
         <div class="search-result">
-            <span class="h4" th:text="${postsPage.getTotalElements() == 0} ? 'Tag not found' :(${postsPage.getTotalElements()} + ' post' + (${postsPage.getTotalElements() &gt; 1 ? 's' : ''}))"></span>
+            <span class="h4" th:text="${postsPage.getTotalElements() == 0} ? 'Etiket bulunamadı' :(${postsPage.getTotalElements()} + ' gönderi')"></span>
         </div>
     </div>
     
@@ -93,8 +93,8 @@
                     </a>
                 </div>
 
-                <a class="comments-link" th:href="@{|/posts/${post.id}#comments|}"
-                   th:text="${post.comments.size() == 0} ? 'yorumlar' : (${post.comments.size()} + ' yorum' + (${post.comments.size() &gt; 1} ? 's' : ''))"></a>
+                <a class="comments-link" th:href="@{|/posts/${post.id}/${post.getShortUrl()}#comments|}"
+                   th:text="${post.comments.size() == 0} ? 'yorumlar' : (${post.comments.size()} + ' yorum' "></a>
 
                 <a sec:authorize="hasRole('ROLE_ADMIN')" th:if="${currentUser.username != post.user.username }" th:href="@{|/posts/${post.id}/edit|}">düzenle</a>
 				<a sec:authorize="hasRole('ROLE_USER')"  th:if="${currentUser.username == post.user.username } "  th:href="@{|/posts/${post.id}/edit|}">düzenle</a>

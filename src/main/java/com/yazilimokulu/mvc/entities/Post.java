@@ -22,6 +22,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -75,6 +76,10 @@ public class Post {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+    
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="LIKE_NOTFY_ID")
+    private LikeNotification likeNotification;
     
     @Transient
     private String dateStr;
@@ -205,4 +210,15 @@ public class Post {
 	public String getShortUrl() {
 		return StringUtil.clearTurkishChars(this.title).toLowerCase().replace(" ", "-");
 	}
+
+	public LikeNotification getLikeNotification() {
+		return likeNotification;
+	}
+
+	public void setLikeNotification(LikeNotification likeNotification) {
+		this.likeNotification = likeNotification;
+	}
+
+	
+	
 }

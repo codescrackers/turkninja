@@ -31,7 +31,7 @@
 				<div class="box-body">
 					<div th:if="${#fields.hasErrors('*')}">
                  		<ul class="list-no-indent">
-                     		<li class="error-line" th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                     		<li class="error-line" th:each="err : ${#fields.errors('*')}" th:text="${err}">Giriş hatalı</li>
                  		</ul>
              		</div>
 					<div class="form-group">

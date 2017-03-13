@@ -46,7 +46,7 @@ $(document).ready(function() {
             },
             error: function () {
                 btn.removeClass('voted');
-                showErrorDialog('Voting failed. Try reloading page.');
+                showErrorDialog('Oylama başarısız. Sayfayı yeniden yüklemeyi deneyin.');
             }
         });
     });
