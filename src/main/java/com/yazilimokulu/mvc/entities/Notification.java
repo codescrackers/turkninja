@@ -46,13 +46,6 @@ public abstract class Notification {
 		Id = id;
 	}
 
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
 
 	public List<User> getCreatorUsers() {
 		return creatorUsers;

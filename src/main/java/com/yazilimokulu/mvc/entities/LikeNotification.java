@@ -19,4 +19,12 @@ public class LikeNotification extends Notification {
 		this.post = post;
 	}
 	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 }

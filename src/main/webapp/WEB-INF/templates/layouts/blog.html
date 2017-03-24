@@ -34,13 +34,14 @@
 
 <link rel="stylesheet" type="text/css"
 	href="../../../css/bootstrap/css/bootstrap-theme.min.css" />
-	
+
 <link rel="stylesheet" type="text/css"
-	href="../../../css/skins/_all-skins.min.css" />	
-	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
-	
-	<link rel="stylesheet" type="text/css"
+	href="../../../css/skins/_all-skins.min.css" />
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+<link rel="stylesheet" type="text/css"
 	href="../../../css/skins/ionicons.min.css" />
 
 <link rel="stylesheet" type="text/css" href="../../../css/ninja.css" />
@@ -121,39 +122,69 @@
 					<!-- Navbar Right Menu -->
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
-							
+
+							<li class="dropdown notifications-menu">
+								<!-- Menu toggle button --> <a href="#" class="dropdown-toggle"
+								data-toggle="dropdown"> <i class="fa fa-bell-o"></i> <span
+									class="label label-warning">10</span>
+							</a>
+								<ul class="dropdown-menu">
+									<li class="header">You have 10 notifications</li>
+									<li>
+										<!-- Inner Menu: contains the notifications -->
+										<ul class="menu">
+											<li class="item" th:each="notificaiton, iterStat : ${likeNotificaitons}">
+												<a href="#">
+						                       		 <i class="fa fa-users text-aqua"></i> 5 new members joined today
+						                      	</a>
+											<!-- end notification -->
+											</li>
+										</ul>
+									</li>
+									<li class="footer"><a href="#">Hepsini Gör</a></li>
+								</ul>
+							</li>
+
 							<!-- User Account Menu -->
-							<li class="dropdown user user-menu zero-padding" th:if="${#authorization.expression('isAuthenticated()')}">
+							<li class="dropdown user user-menu zero-padding"
+								th:if="${#authorization.expression('isAuthenticated()')}">
 								<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
 								data-toggle="dropdown"> <!-- The user image in the navbar-->
-									<img th:src="${#strings.isEmpty(currentUser.bigAvatarLink)} ?  ${currentUser.gravatarUrl} : (@{/uploads/} + ${currentUser.bigAvatarLink})" class="user-image"
-									alt="User Image"/> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+									<img
+									th:src="${#strings.isEmpty(currentUser.bigAvatarLink)} ?  ${currentUser.gravatarUrl} : (@{/uploads/} + ${currentUser.bigAvatarLink})"
+									class="user-image" alt="User Image" /> <!-- hidden-xs hides the username on small devices so only the image appears. -->
 									<span class="hidden-xs" th:text="${currentUser.username}"></span>
 							</a>
 								<ul class="dropdown-menu">
 									<!-- The user image in the menu -->
 									<li class="user-header"><img
-										th:src="${#strings.isEmpty(currentUser.bigAvatarLink)} ?  ${currentUser.gravatarUrl} : (@{/uploads/} + ${currentUser.bigAvatarLink})" class="img-circle"
-										alt="User Image"/>
+										th:src="${#strings.isEmpty(currentUser.bigAvatarLink)} ?  ${currentUser.gravatarUrl} : (@{/uploads/} + ${currentUser.bigAvatarLink})"
+										class="img-circle" alt="User Image" />
 
-										<p th:inline="text">[[${currentUser.username}]]
-											<small th:text="${currentUser.dateStr}+'\'den beri üyesiniz'">1 Ocak 1923 den beri üyesiniz</small>
+										<p th:inline="text">
+											[[${currentUser.username}]] <small
+												th:text="${currentUser.dateStr}+'\'den beri üyesiniz'">1
+												Ocak 1923 den beri üyesiniz</small>
 										</p></li>
 									<!-- Menu Body -->
-									 <li class="user-body">
+									<li class="user-body">
 										<div class="row">
-											<div class="col-xs-4 text-center" th:if="${#authorization.expression('isAuthenticated()')}">
-												<a th:href="@{'/userposts/'+${#authentication.name}}"><span>Gönderilerim</span> </a>
+											<div class="col-xs-4 text-center"
+												th:if="${#authorization.expression('isAuthenticated()')}">
+												<a th:href="@{'/userposts/'+${#authentication.name}}"><span>Gönderilerim</span>
+												</a>
 											</div>
 										</div>
 									</li>
 									<!-- Menu Footer-->
 									<li class="user-footer">
 										<div class="pull-left">
-											<a class="btn btn-default btn-flat" th:href="@{'/users/'+${#authentication.name}}">Profilim</a>
+											<a class="btn btn-default btn-flat"
+												th:href="@{'/users/'+${#authentication.name}}">Profilim</a>
 										</div>
 										<div class="pull-right">
-											<a th:href="@{/logout}" class="btn btn-default btn-flat">Çıkış Yap</a>
+											<a th:href="@{/logout}" class="btn btn-default btn-flat">Çıkış
+												Yap</a>
 										</div>
 									</li>
 								</ul>
@@ -188,49 +219,53 @@
 						</div>
 
 						<div th:if="${#authorization.expression('isAuthenticated()')}">
-							
-							
-							 <div class="info-box" style="text-align: center" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
-					            <div class="ninja-box-content">
-					              	<i class="fa fa-newspaper-o fa-4" aria-hidden="true"></i>
-					
-					              <div class="progress">
-					                <div class="progress-bar" style="width: 100%"></div>
-					              </div>
-					                  <span class="progress-description">
-					                   <a th:href="@{/posts/create}" ><h4>Yeni bir blog yazısı ekle</h4></a>
-					                  </span>
-					            </div>
-					            <!-- /.info-box-content -->
-					          </div>
-							
-							<div class="info-box" style="text-align: center" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
-					            <div class="ninja-box-content">
-					              	<i class="fa fa-cog fa-2" aria-hidden="true"></i>
-					
-					              <div class="progress">
-					                <div class="progress-bar" style="width: 100%"></div>
-					              </div>
-					                  <span class="progress-description">
-					                   <a th:href="@{/settings}" ><h4>Ayarlarımı düzenle</h4></a>
-					                  </span>
-					            </div>
-					            <!-- /.info-box-content -->
-					          </div>
-					          
-					          <div class="info-box" style="text-align: center" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
-					            <div class="ninja-box-content">
-					              	<i class="fa fa-user fa-2" aria-hidden="true"></i>
-					
-					              <div class="progress">
-					                <div class="progress-bar" style="width: 100%"></div>
-					              </div>
-					                  <span class="progress-description">
-					                   <a th:href="@{/edit_profile}" ><h4>Profil ayarlarım</h4></a>
-					                  </span>
-					            </div>
-					            <!-- /.info-box-content -->
-					          </div>
+
+
+							<div class="info-box" style="text-align: center"
+								sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
+								<div class="ninja-box-content">
+									<i class="fa fa-newspaper-o fa-4" aria-hidden="true"></i>
+
+									<div class="progress">
+										<div class="progress-bar" style="width: 100%"></div>
+									</div>
+									<span class="progress-description"> <a
+										th:href="@{/posts/create}"><h4>Yeni bir blog yazısı
+												ekle</h4></a>
+									</span>
+								</div>
+								<!-- /.info-box-content -->
+							</div>
+
+							<div class="info-box" style="text-align: center"
+								sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
+								<div class="ninja-box-content">
+									<i class="fa fa-cog fa-2" aria-hidden="true"></i>
+
+									<div class="progress">
+										<div class="progress-bar" style="width: 100%"></div>
+									</div>
+									<span class="progress-description"> <a
+										th:href="@{/settings}"><h4>Ayarlarımı düzenle</h4></a>
+									</span>
+								</div>
+								<!-- /.info-box-content -->
+							</div>
+
+							<div class="info-box" style="text-align: center"
+								sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
+								<div class="ninja-box-content">
+									<i class="fa fa-user fa-2" aria-hidden="true"></i>
+
+									<div class="progress">
+										<div class="progress-bar" style="width: 100%"></div>
+									</div>
+									<span class="progress-description"> <a
+										th:href="@{/edit_profile}"><h4>Profil ayarlarım</h4></a>
+									</span>
+								</div>
+								<!-- /.info-box-content -->
+							</div>
 						</div>
 					</div>
 

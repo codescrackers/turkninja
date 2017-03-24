@@ -1,5 +1,7 @@
 package com.yazilimokulu.mvc.daos;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -9,5 +11,7 @@ public interface LikeNotificationRepository extends BaseRepository<LikeNotificat
 	
 	@Query("select n from LikeNotification n where n.post.id=:postId")
 	LikeNotification findByPostId(@Param("postId") Long postId);
+	
+	List<LikeNotification> findByRead(boolean read);
 	
 }

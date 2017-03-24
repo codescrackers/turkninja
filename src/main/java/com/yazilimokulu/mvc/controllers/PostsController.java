@@ -33,7 +33,6 @@ import com.yazilimokulu.mvc.services.LikeNotificationService;
 import com.yazilimokulu.mvc.services.PhotoService;
 import com.yazilimokulu.mvc.services.PostService;
 import com.yazilimokulu.mvc.services.UnsupportedFormatException;
-import com.yazilimokulu.mvc.services.UploadedAvatarInfo;
 import com.yazilimokulu.mvc.services.UploadedPhotoInfo;
 import com.yazilimokulu.mvc.services.UserService;
 import com.yazilimokulu.utils.JsonUtils;
@@ -62,9 +61,10 @@ public class PostsController {
 		// should implement custom Spring Security UserDetails instead of this,
 		// so it will be stored in session
 		User currentUser = userService.currentUser();
-		if (currentUser != null)
+		if (currentUser != null){
 			model.addAttribute("userId", currentUser.getId());
-
+			model.addAttribute("likeNotificaitons", likeNotificationService.getAllUnreadNotifiacitons());
+		}
 		return "posts";
 	}
 

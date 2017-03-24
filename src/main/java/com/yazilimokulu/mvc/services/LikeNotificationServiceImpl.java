@@ -48,6 +48,11 @@ public class LikeNotificationServiceImpl implements LikeNotificationService {
 		
 	}
 
+	@Override
+	public List<LikeNotification> getAllUnreadNotifiacitons() {
+		return likeNotificationRepository.findByRead(false);
+	}
+
 	
 	
 }
