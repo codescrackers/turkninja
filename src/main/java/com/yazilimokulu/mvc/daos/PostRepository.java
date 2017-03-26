@@ -27,4 +27,6 @@ public interface PostRepository extends BaseRepository<Post, Long> {
     List<Post> findTopPosts(Pageable pageable);
     
     Page<Post> findByUserUsername(String username,Pageable pageable);
+    
+    List<Post> findByMainpageOrderByMainphotoVisibleupdateTimeDesc(boolean mainpage);
 }

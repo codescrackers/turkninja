@@ -20,12 +20,13 @@
 </head>
 
 <body>
-
 <section layout:fragment="content">
     <div class="col-sm-8 no-padding-col">
     	<script th:inline="javascript">
-            window.avatarUploadUrl = /*[[@{|/upload_post_photo|}]]*/ '';
+            window.mainPhotoUploadUrl = /*[[@{|/upload_post_main_photo/${post.id}|}]]*/ '';
             window.imgBaseUrl = /*[[@{|/uploads/|}]]*/ '';
+            window.noPhotoImgUrl = /*[[@{|/images/noimage.jpg|}]]*/ '';
+            window.avatarUploadUrl = /*[[@{|/upload_post_photo|}]]*/ '';
             window.noAvatarImgUrl = /*[[@{|/images/no-avatar-big.png|}]]*/ '';
         </script>
         <h2 th:text="${edit} ? 'Gönderiyi Düzenle' : 'Gönderi Oluştur'"></h2>
@@ -55,6 +56,47 @@
             <button type="submit" class="btn btn-default" th:text="${edit} ? 'Kaydet' : 'Gönder'"></button>
 
         </form>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div id="mainPhotoForm">
+            <div class="mainPhoto-big">
+                <img id="mainPhotoImg" class="img-responsive img-rounded" width="160" height="160"
+                     th:src="${#strings.isEmpty(post.mainpagePhotoUrl)} ? @{/images/noimage.jpg} :
+                          (${#strings.startsWith(post.mainpagePhotoUrl, 'http')} ? ${post.mainpagePhotoUrl} : (@{/uploads/} + ${post.mainpagePhotoUrl}))"/>
+            </div>
+
+            <div>
+                <label>JPG veya PNG, kare foto terch ediniz (160x160 and 28x28 formatına resize edilecektir), maksimum boyut 1 MB</label>
+                <div>
+                    <span role="button" class="btn btn-default fileinput-button" id="uploadmainPhoto">
+                        <span>Anasayfa vitrin fotosonu değiştir</span>
+                        <input type="file" accept="image/jpeg, image/png" id="mainPhotoFileUploadInput" name="mainPhotoFile"/>
+                    </span>
+                </div>
+            </div>
+
+            <div id="mainPhotoUploadProgress" class="progress" style="display: none">
+                <div class="progress-bar progress-bar-success"></div>
+            </div>
+            <div class="loading-indicator" style="display: none">
+                <img th:src="@{/images/ajax-loader.gif}" />
+            </div>
+        </div>
+
+        <div>
+            <label class="error" id="mainPhotoError"></label>
+
+            <div class="settings-success" id="mainPhotoSuccess" style="display: none">
+                <img width="24" height="24" src="../../images/success-tick.png" th:src="@{/images/success-tick.png}"/>
+                Ana sayfa blog fotosu başarılı bir şekilde kaydedildi.
+            </div>
+        </div>
+        <div ng-controller="PostController as postCtrl" sec:authorize="hasRole('ROLE_ADMIN')">
+        		<button ng-model="statusVal" ng-init="statusVal='Ana Sayfa Görünür Yap'" th:if="${!post.mainpage}"  class="btn btn-primary btn-block" th:attr="ng-click='postCtrl.changeMainpageVisibleStatus(statusVal,\''+${post.id}+'\')' " ><b >{{statusVal}}</b></button>
+				<button ng-model="statusVal" ng-init="statusVal='Ana Sayfa Görünmez Yap'" th:if="${post.mainpage}"  class="btn btn-primary btn-block" th:attr="ng-click='postCtrl.changeMainpageVisibleStatus(statusVal,\''+${post.id}+'\')' " ><b>{{statusVal}}</b></button>
+
+        </div>
+        </div>
+        
     </div>
 </section>
 

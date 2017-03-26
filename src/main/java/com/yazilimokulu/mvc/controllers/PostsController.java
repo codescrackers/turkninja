@@ -1,6 +1,7 @@
 package com.yazilimokulu.mvc.controllers;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,8 +9,12 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -40,6 +45,8 @@ import com.yazilimokulu.utils.JsonUtils;
 @Controller
 public class PostsController {
 
+	private static final Logger logger = LogManager.getLogger(PostsController.class.getName());
+	
 	@Autowired
 	private UserService userService;
 
@@ -52,7 +59,7 @@ public class PostsController {
 	@Autowired
 	private LikeNotificationService likeNotificationService;
 
-	@RequestMapping(value = { "/", "/posts" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/posts" }, method = RequestMethod.GET)
 	public String showPostsList(@RequestParam(value = "page", defaultValue = "0") Integer pageNumber, ModelMap model) {
 		Page<Post> postsPage = postService.getPostsPage(pageNumber, 3);
 
@@ -63,7 +70,7 @@ public class PostsController {
 		User currentUser = userService.currentUser();
 		if (currentUser != null){
 			model.addAttribute("userId", currentUser.getId());
-			model.addAttribute("likeNotificaitons", likeNotificationService.getAllUnreadNotifiacitons());
+			model.addAttribute("likeNotificaitons", likeNotificationService.getAllUnCheckedNotifiacitons());
 		}
 		return "posts";
 	}
@@ -301,7 +308,7 @@ public class PostsController {
 	    @RequestMapping(value = "/upload_post_photo", method = RequestMethod.POST)
 	    public @ResponseBody String uploadAvatar(@RequestParam("avatarFile") MultipartFile file) throws IOException {
 	        try {
-	            UploadedPhotoInfo result = photoService.upload(file);
+	            UploadedPhotoInfo result = photoService.upload(file,"regular");
 
 	            return makePhotoUploadResponse("ok", result);
 	        } catch (UnsupportedFormatException e) {
@@ -314,6 +321,55 @@ public class PostsController {
 	                (uploadedPhotoInfo == null ? "" : (", " + JsonUtils.toJsonField("link", uploadedPhotoInfo.imageLink))) +
 	                "}";
 	    }
+	 
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
+	    @RequestMapping(value = "/upload_post_main_photo/{postId}", method = RequestMethod.POST)
+	    public @ResponseBody String uploadMainpagePhoto(@RequestParam("mainPhotoFile") MultipartFile file,@PathVariable("postId") Long postId) throws IOException {
+	        try {
+	            UploadedPhotoInfo result = photoService.upload(file,"mainphoto");
+	            PostEditDto post= postService.getEditablePost(postId);
+	            post.setMainpagePhotoUrl(result.imageLink);
+	            postService.updatePost(post);
+	            return makePhotoUploadResponse("ok", result);
+	        } catch (UnsupportedFormatException e) {
+	            return makePhotoUploadResponse("invalid_format", null);
+	        }
+	    }
+	 
+	 
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
+	    @RequestMapping(value = "/changeMainpageVisible/{postId}/{command}", method = RequestMethod.GET)
+	    @ResponseBody
+	    public ResponseEntity<String>changeMainPagePhotoVisible(@PathVariable("postId") Long postId, @PathVariable("command") String command) {
+			PostEditDto post= postService.getEditablePost(postId);
+		 	if(command.equals("makeMainpageVisible")){
+	        		try {
+	        			post.setMainpage(true);
+	        			post.setMainphotoVisibleupdateTime(LocalDateTime.now());
+	        			postService.updatePost(post);
+					} catch (Exception e) {
+						logger.error("making photo visible mistakes"+e);
+						return new ResponseEntity<String>("{\"result\":\"error\"}",HttpStatus.OK);
+					}
+	        		
+	        	}else if(command.equals("makeMainpageUnvisible")){
+	        		try {
+	        			post.setMainpage(false);
+	        			postService.updatePost(post);
+					} catch (Exception e) {
+						logger.error("making photo unvisible mistakes"+e);
+						return new ResponseEntity<String>("{\"result\":\"error\"}",HttpStatus.OK);
+					}
+	        		
+	        	}else{
+	        		logger.error("Wrong making photo visible command");
+	        		return new ResponseEntity<String>("{\"result\":\"error\"}",HttpStatus.OK);
+	        	}
+	        	
+	        
+	        return new ResponseEntity<String>("{\"result\":\"success\"}", HttpStatus.OK);
+	    }
+	    
 	
 	
 }

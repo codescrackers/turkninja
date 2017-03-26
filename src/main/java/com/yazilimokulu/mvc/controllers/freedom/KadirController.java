@@ -12,8 +12,6 @@ import com.yazilimokulu.utils.StringUtil;
 @RequestMapping(value = "/kadir")
 public class KadirController {
 	
-	@Autowired
-	StringUtil util;
 	
 	
 	@RequestMapping(value="/util/test")

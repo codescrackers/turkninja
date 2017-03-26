@@ -30,14 +30,18 @@ public class PhotoServiceImpl implements PhotoService {
     public final List<String> SUPPORTED_EXTENSIONS = Arrays.asList("jpg", "jpeg", "png");
 
     @Override
-    public UploadedPhotoInfo upload(MultipartFile file) throws IOException, UnsupportedFormatException {
+    public UploadedPhotoInfo upload(MultipartFile file,String type) throws IOException, UnsupportedFormatException {
         String fileName = file.getOriginalFilename();
         String ext = FilenameUtils.getExtension(fileName).toLowerCase();
 
         if (!SUPPORTED_EXTENSIONS.contains(ext))
             throw new UnsupportedFormatException(fileName);
-
-        String name = fileNameGenerator.getFileName(fileName, "photo");
+        String name="";
+        if(type.equals("regular")){
+        	name = fileNameGenerator.getFileName(fileName, "photo");
+        }else{
+        	name = fileNameGenerator.getFileName(fileName, "mainpage_photo");
+        }
         String imageName = name + "_big" + "." + ext;
 
         BufferedImage image = ImageIO.read(file.getInputStream());

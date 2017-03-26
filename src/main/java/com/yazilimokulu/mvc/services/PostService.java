@@ -32,4 +32,6 @@ public interface PostService {
     void deletePost(Long postId);
 
     void vote(Long postId, boolean like) throws AlreadyVotedException;
+    
+    List<Post> getMainpagePostList();
 }

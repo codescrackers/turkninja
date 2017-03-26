@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/main">
+
+<head>
+<title th:text="'Türkninja Anasayfa'"></title>
+
+</head>
+<body>
+
+	<section layout:fragment="content">
+		<div class="row demo-2">
+			<div id="slider" class="sl-slider-wrapper col-md-8">
+				<div class="sl-slider">
+
+					<div class="sl-slide" data-orientation="horizontal"
+						data-slice1-rotation="-25" data-slice2-rotation="-25"
+						data-slice1-scale="2" data-slice2-scale="2">
+						<div class="sl-slide-inner">
+							<div class="bg-img bg-img-1"></div>
+							<h2>Yayındayız.</h2>
+							<blockquote>
+								<p>Blog sayfanızı oluşturabileceğiniz, diğer kullanıcalarla
+									ve internetteki herkesle paylaşabileceğiniz sosyal blog sitesi
+									turkninja.com beta olarak yayında.</p>
+								<cite>turkninja.com ekibi</cite>
+							</blockquote>
+						</div>
+					</div>
+
+					<div class="sl-slide" data-orientation="vertical"
+						data-slice1-rotation="10" data-slice2-rotation="-15"
+						data-slice1-scale="1.5" data-slice2-scale="1.5">
+						<div class="sl-slide-inner">
+							<div class="bg-img bg-img-2"></div>
+							<h2>Spring Eğitimlerimiz.</h2>
+							<blockquote>
+								<p>Spring Core, Spring MVC, Spring Data, Hibernate ve Spring
+									Boot Eğitimleri.</p>
+								<cite>Avantajlı fiyatlar için : aliturgutbozkurt@gmail.com</cite>
+							</blockquote>
+						</div>
+					</div>
+					
+				</div>
+				<!-- /sl-slider -->
+
+				<nav id="nav-dots" class="nav-dots">
+					<span class="nav-dot-current"></span>
+					<span></span>
+				</nav>
+			</div>
+		</div>
+
+		<div id="fh5co-blog" class="row popular-posts fh5co-bg-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+						<span></span>
+						<h2>Öne Çıkan Makaleler</h2>
+						<p>Sizin için seçtiğimiz birbirinden ilginç makaleler. Tüm makale akışına <a th:href="@{/posts}">buradan</a> ulaşabilirsiniz.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div id="grid" data-columns="">
+						<div 
+							th:each="post, iterStat : ${mainPagePopularPosts}">
+							<div class="fh5co-post">
+								<span class="fh5co-date" th:text="${post.dateStr}">1 Ocak</span>
+								<h3>
+									<a th:text="${post.title}"
+										th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}"></a>
+								</h3>
+
+								<div class="mainPhoto-big">
+									<img id="mainPhotoImg" class="img-responsive img-rounded"
+										width="160" height="160"
+										th:src="${#strings.isEmpty(post.mainpagePhotoUrl)} ? @{/images/noimage.jpg} :
+                          (${#strings.startsWith(post.mainpagePhotoUrl, 'http')} ? ${post.mainpagePhotoUrl} : (@{/uploads/} + ${post.mainpagePhotoUrl}))" />
+								</div>
+								<p class="author">
+									<img
+										th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  ${post.user.gravatarUrl} : (@{/uploads/} + ${post.user.bigAvatarLink})"
+										alt="User Image" /> <cite th:text="${post.user.username}">
+										Mike Adam</cite>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

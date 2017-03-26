@@ -14,10 +14,6 @@
 	<context:component-scan base-package="com.yazilimokulu.mvc"/>
 	<context:annotation-config/>
 	<bean class="com.yazilimokulu.config.DataConfiguration"/>
-	<import resource="classpath:kadir-context.xml"/>
-	<import resource="classpath:turgut-context.xml"/>
-	<import resource="classpath:yusuf-context.xml"/>
-	<import resource="classpath:ridvan-context.xml"/>
 	
 	
 </beans>

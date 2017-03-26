@@ -12,6 +12,6 @@ public interface LikeNotificationRepository extends BaseRepository<LikeNotificat
 	@Query("select n from LikeNotification n where n.post.id=:postId")
 	LikeNotification findByPostId(@Param("postId") Long postId);
 	
-	List<LikeNotification> findByRead(boolean read);
+	List<LikeNotification> findByChecked(boolean checked);
 	
 }

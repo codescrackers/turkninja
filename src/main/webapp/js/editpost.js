@@ -78,6 +78,106 @@ $(document).ready(function() {
             }
         }
     });
+    
+    console.log("works");
+    
+    var uploadMainphotoBtn = $('#uploadmainPhoto');
+    var removeMainphotoBtn = $('#removemainPhoto');
+    var pbMain = $('#mainPhotoUploadProgress').find('.progress-bar');
+    var mainPhotoImg = $('#mainPhotoImg');
+    var mainPhotoErrorLabel = $('#mainPhotoError');
+    var mainPhotoSuccessLabel = $('#mainPhotoSuccess');
+
+    $('#mainPhotoFileUploadInput').fileupload({
+        url: window.mainPhotoUploadUrl,
+        dataType: "json",
+        send: function (e, data) {
+            pbMain.css('width', '0');
+            pbMain.switchClass('progress-bar-danger', 'progress-bar-success', 0);
+            pbMain.parent().show();
+
+            mainPhotoErrorLabel.hide();
+            mainPhotoSuccessLabel.hide();
+
+            uploadMainphotoBtn.addClass('disabled');
+            removeMainphotoBtn.addClass('disabled');
+        },
+        done: function (e, data) {
+            if (data.result.status == 'ok') {
+            	console.log(data.result.link);
+                mainPhotoImg.attr('src', window.imgBaseUrl + data.result.link);
+
+                removeMainphotoBtn.show();
+
+                mainPhotoSuccessLabel.show();
+            }
+            else {
+                pbMain.switchClass('progress-bar-success', 'progress-bar-danger');
+
+                var errMsg = 'Yükleme başarısız, ' + data.result.status;
+
+                if (data.result.status == 'invalid_format') {
+                    errMsg = "Sadece JPG ve PNG'ye izin veriliyor.";
+                }
+
+                mainPhotoErrorLabel.text(errMsg);
+                mainPhotoErrorLabel.show();
+            }
+        },
+        fail: function (e, data) {
+            pbMain.switchClass('progress-bar-success', 'progress-bar-danger');
+            console.log(data);
+            mainPhotoErrorLabel.text("Resim yükleme başarısız. Lütfrn resmin PNG veya JPG olduğundan ve and 1 MB'ı geçmediğinden emin olunuz");
+            mainPhotoErrorLabel.show();
+        },
+        always: function (e, data) {
+            uploadMainphotoBtn.removeClass('disabled');
+            removeMainphotoBtn.removeClass('disabled');
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            pbMain.css('width', progress + '%');
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+    removeMainphotoBtn.click(function() {
+        pbMain.parent().hide();
+
+        mainPhotoErrorLabel.hide();
+        mainPhotoSuccessLabel.hide();
+
+        uploadMainphotoBtn.addClass('disabled');
+        removeMainphotoBtn.addClass('disabled');
+
+        var loadingIndicator = $('.loading-indicator');
+        loadingIndicator.show();
+
+        $.ajax({
+            type: 'post',
+            url: removeMainphotoBtn.attr('data-href'),
+            success: function (data) {
+                if (data == 'ok') {
+                    mainPhotoImg.attr('src', window.noPhotoImgUrl);
+
+                    removeMainphotoBtn.hide();
+                }
+                else {
+                    mainPhotoErrorLabel.text('Hata: ' + data + '. Sayfayı yeniden yüklemeyi deneyiniz.');
+                }
+            },
+            error: function () {
+                mainPhotoErrorLabel.text('İstek gönderimi başarısız. Sayfayı yeniden yüklemeyi deneyiniz.');
+            },
+            complete: function() {
+                loadingIndicator.hide();
+
+                uploadMainphotoBtn.removeClass('disabled');
+                removeMainphotoBtn.removeClass('disabled');
+            }
+        });
+    });
+    
    
 });
 

@@ -34,6 +34,7 @@ public class DataConfiguration {
 		Properties props= new Properties();
 		props.setProperty("useUnicode", "true");
 		props.setProperty("characterEncoding", "utf-8");
+		props.setProperty("zeroDateTimeBehavior","convertToNull");
 		dataSource.setConnectionProperties(props);
 		dataSource.setUsername("root");
 		dataSource.setPassword("password");

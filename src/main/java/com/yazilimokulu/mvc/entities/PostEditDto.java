@@ -2,6 +2,8 @@ package com.yazilimokulu.mvc.entities;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.Size;
 
 public class PostEditDto {
@@ -26,6 +28,13 @@ public class PostEditDto {
     private User user;
     
     private String shortUrl;
+    
+    private boolean mainpage;
+    
+    private String mainpagePhotoUrl;
+    
+    private LocalDateTime mainphotoVisibleupdateTime;
+
 
     public Long getId() {
         return Id;
@@ -74,6 +83,30 @@ public class PostEditDto {
 	public void setShortUrl(String shortUrl) {
 		this.shortUrl = shortUrl;
 	}
-    
+
+	public boolean isMainpage() {
+		return mainpage;
+	}
+
+	public void setMainpage(boolean mainpage) {
+		this.mainpage = mainpage;
+	}
+
+	public String getMainpagePhotoUrl() {
+		return mainpagePhotoUrl;
+	}
+
+	public void setMainpagePhotoUrl(String mainpagePhotoUrl) {
+		this.mainpagePhotoUrl = mainpagePhotoUrl;
+	}
+
+	public LocalDateTime getMainphotoVisibleupdateTime() {
+		return mainphotoVisibleupdateTime;
+	}
+
+	public void setMainphotoVisibleupdateTime(LocalDateTime mainphotoVisibleupdateTime) {
+		this.mainphotoVisibleupdateTime = mainphotoVisibleupdateTime;
+	}
+	
     
 }

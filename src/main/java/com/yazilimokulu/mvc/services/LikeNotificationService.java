@@ -9,7 +9,7 @@ public interface LikeNotificationService {
 
 	public void save(Post post);
 	
-	public List<LikeNotification> getAllUnreadNotifiacitons();
+	public List<LikeNotification> getAllUnCheckedNotifiacitons();
 	
 	
 	

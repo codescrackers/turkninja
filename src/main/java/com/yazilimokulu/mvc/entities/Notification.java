@@ -36,7 +36,8 @@ public abstract class Notification {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 	
-	private boolean read = false;
+	@Column(nullable = false)
+	private boolean checked = false;
 
 	public Long getId() {
 		return Id;
@@ -63,12 +64,12 @@ public abstract class Notification {
 		this.user = user;
 	}
 
-	public boolean isRead() {
-		return read;
+	public boolean isChecked() {
+		return checked;
 	}
 
-	public void setRead(boolean read) {
-		this.read = read;
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
-	
+
 }

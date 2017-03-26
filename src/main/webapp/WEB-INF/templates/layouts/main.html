@@ -69,12 +69,30 @@
 	th:src="@{/js/external/angular.min.js}"></script>
 <script src="../../../js/external/ng-infinite-scroll.min.js"
 	th:src="@{/js/external/ng-infinite-scroll.min.js}"></script>
-
+<link rel="stylesheet" type="text/css" href="../../../css/external/animate.css"
+	th:href="@{/css/external/animate.css}" />
 <link rel="stylesheet" type="text/css" href="../../../css/blog.css"
 	th:href="@{/css/blog.css}" />
+<link rel="stylesheet" type="text/css"
+	href="../../../css/slider/css/style.css"
+	th:href="@{/css/slider/css/style.css}" />
+<link rel="stylesheet" type="text/css"
+	href="../../../css/slider/css/custom.css"
+	th:href="@{/css/slider/css/custom.css}" />
+<script src="../../../js/external/slider/modernizr.custom.79639.js"
+	th:src="@{/js/external/slider/modernizr.custom.79639.js}"></script>
+<noscript>
+	<link rel="stylesheet" type="text/css"
+		href="../../../css/slider/css/styleNoJS.css"
+		th:href="@{/css/slider/css/styleNoJS.css}" />
+</noscript>
+
 </head>
 
-<body class="ng-cloak hold-transition layout-top-nav" ng-app="blog">
+
+
+
+<body class="layout-top-nav">
 
 	<script th:inline="javascript">
 		window.postsUrl = /*[[@{/posts}]]*/'';
@@ -197,12 +215,8 @@
 				<!-- /.container-fluid -->
 			</nav>
 		</header>
-
-
-
 		<div class="container skin-ninja-light" style="padding: 30px;"
 			ng-controller="TagController as tagCtrl">
-
 
 			<div class="row">
 				<section class="col-sm-8">
@@ -300,65 +314,6 @@
 							<!-- /.box-footer -->
 						</div>
 
-
-						<div class="box-header with-border">
-							<h3 class="box-title">Son Gönderiler</h3>
-						</div>
-
-						<div id="latestPosts" class="box box-default">
-
-							<div class="box-body">
-								<ul class="latestposts-list latestpost-list-in-box">
-									<li class="item" th:each="post, iterStat : ${latestPosts}">
-										<div class="latestpost-img">
-											<img class="img-responsive img-circle"
-												th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  ${post.user.gravatarUrl} : (@{/uploads/} + ${post.user.bigAvatarLink})"
-												alt="User Image" />
-										</div>
-										<div class="latestpost-info">
-											<a th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}"
-												class="latestpost-title" th:inline="text">[[${post.title}]]<span
-												class="label label-default pull-right"
-												th:text="${post.dateStr}"></span></a><span
-												class="latestpost-description"><a
-												th:href="@{'/users/'+${post.user.username}}"
-												th:text="${post.user.username}"></a></span>
-										</div>
-									</li>
-								</ul>
-							</div>
-							<!-- /.box-body -->
-						</div>
-
-						<div class="box-header with-border">
-							<h3 class="box-title">Popüler Gönderiler</h3>
-						</div>
-						<div id="popularPosts" class="box box-default">
-							<div class="box-body">
-								<ul class="latestposts-list latestpost-list-in-box">
-									<li class="item" th:each="toppost, iterStat : ${topPosts}">
-										<div class="latestpost-img">
-											<img class="img-responsive img-circle"
-												th:src="${#strings.isEmpty(toppost.user.bigAvatarLink)} ?  ${toppost.user.gravatarUrl} : (@{/uploads/} + ${toppost.user.bigAvatarLink})"
-												alt="User Image" />
-
-										</div>
-										<div class="latestpost-info">
-											<a
-												th:href="@{|/posts/${toppost.id}/${toppost.getShortUrl()}|}"
-												class="latestpost-title" th:inline="text">[[${toppost.title}]]<span
-												class="label label-default pull-right"
-												th:text="${toppost.dateStr}"></span></a><span
-												class="latestpost-description"><a
-												th:href="@{'/users/'+${toppost.user.username}}"
-												th:text="${toppost.user.username}"></a></span>
-										</div>
-									</li>
-								</ul>
-							</div>
-							<!-- /.box-body -->
-
-						</div>
 					</div>
 				</section>
 			</div>
@@ -371,22 +326,79 @@
 				href="https://github.com/codescrackers/yazilim-okulu">https://github.com/codescrackers/turkninja</a>
 		</p>
 	</footer>
-	<script src="../../../js/app.js" th:src="@{/js/app.js}"></script>
-	<script src="../../../js/service/tag_service.js"
-		th:src="@{/js/service/tag_service.js}"></script>
-	<script src="../../../js/controller/tag_controller.js"
-		th:src="@{/js/controller/tag_controller.js}"></script>
-	<script src="../../../js/service/user_service.js"
-		th:src="@{/js/service/user_service.js}"></script>
-	<script src="../../../js/controller/user_controller.js"
-		th:src="@{/js/controller/user_controller.js}"></script>
-	<script src="../../../js/service/post_service.js"
-		th:src="@{/js/service/post_service.js}"></script>
-	<script src="../../../js/controller/post_controller.js"
-		th:src="@{/js/controller/post_controller.js}"></script>
-	<script src="../../../js/external/fastclick.js"
-		th:src="@{/js/external/fastclick.js}"></script>
-	<script src="../../../js/external/jquery.slimscroll.js"
-		th:src="@{/js/external/jquery.slimscroll.js}"></script>
+	<script src="../../../js/external/slider/jquery.ba-cond.min.js"
+		th:src="@{/js/external/slider/jquery.ba-cond.min.js}"></script>
+	<script src="../../../js/external/slider/jquery.slitslider.js"
+		th:src="@{/js/external/slider/jquery.slitslider.js}"></script>
+	<script type="text/javascript">
+		$(function() {
+
+			var Page = (function() {
+
+				var $nav = $('#nav-dots > span'), slitslider = $('#slider')
+						.slitslider({
+							onBeforeChange : function(slide, pos) {
+
+								$nav.removeClass('nav-dot-current');
+								$nav.eq(pos).addClass('nav-dot-current');
+
+							}
+						}),
+
+				init = function() {
+
+					initEvents();
+
+				}, initEvents = function() {
+
+					$nav.each(function(i) {
+
+						$(this).on('click', function(event) {
+
+							var $dot = $(this);
+
+							if (!slitslider.isActive()) {
+
+								$nav.removeClass('nav-dot-current');
+								$dot.addClass('nav-dot-current');
+
+							}
+
+							slitslider.jump(i + 1);
+							return false;
+
+						});
+
+					});
+
+				};
+
+				return {
+					init : init
+				};
+
+			})();
+
+			Page.init();
+
+			/**
+			 * Notes: 
+			 * 
+			 * example how to add items:
+			 */
+
+			/*
+			
+			var $items  = $('<div class="sl-slide sl-slide-color-2" data-orientation="horizontal" data-slice1-rotation="-5" data-slice2-rotation="10" data-slice1-scale="2" data-slice2-scale="1"><div class="sl-slide-inner bg-1"><div class="sl-deco" data-icon="t"></div><h2>some text</h2><blockquote><p>bla bla</p><cite>Margi Clarke</cite></blockquote></div></div>');
+			
+			// call the plugin's add method
+			ss.add($items);
+
+			 */
+
+		});
+	</script>
+	<script src="../../../js/external/salvattore.js"
+	th:src="@{/js/external/salvattore.js}"></script>
 </body>
 </html>

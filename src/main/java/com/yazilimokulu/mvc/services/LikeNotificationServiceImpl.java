@@ -41,7 +41,7 @@ public class LikeNotificationServiceImpl implements LikeNotificationService {
 		likeNotification.setCreatorUsers(creatorList);
 		likeNotification.setPost(post);
 		likeNotification.setUser(post.getUser());
-		likeNotification.setRead(false);
+		likeNotification.setChecked(false);
 		post.getUser().getNotifications().add(likeNotification);
 		post.setLikeNotification(likeNotification);
 		likeNotificationRepository.save(likeNotification);
@@ -49,8 +49,8 @@ public class LikeNotificationServiceImpl implements LikeNotificationService {
 	}
 
 	@Override
-	public List<LikeNotification> getAllUnreadNotifiacitons() {
-		return likeNotificationRepository.findByRead(false);
+	public List<LikeNotification> getAllUnCheckedNotifiacitons() {
+		return likeNotificationRepository.findByChecked(false);
 	}
 
 	

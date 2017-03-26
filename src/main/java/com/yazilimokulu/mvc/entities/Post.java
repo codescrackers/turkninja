@@ -57,6 +57,16 @@ public class Post {
 
     @Column(nullable = false)
     private boolean hidden = false;
+    
+    @Column(nullable = false)
+    private boolean mainpage = false;
+    
+    @Column
+    private String mainpagePhotoUrl;
+    
+    @Column(nullable = true)
+    @Convert(converter = LocalDateTimePersistenceConverter.class)
+    private LocalDateTime mainphotoVisibleupdateTime=LocalDateTime.now();
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "posts_tags",
@@ -219,6 +229,28 @@ public class Post {
 		this.likeNotification = likeNotification;
 	}
 
-	
+	public boolean isMainpage() {
+		return mainpage;
+	}
+
+	public void setMainpage(boolean mainpage) {
+		this.mainpage = mainpage;
+	}
+
+	public String getMainpagePhotoUrl() {
+		return mainpagePhotoUrl;
+	}
+
+	public void setMainpagePhotoUrl(String mainpagePhotoUrl) {
+		this.mainpagePhotoUrl = mainpagePhotoUrl;
+	}
+
+	public LocalDateTime getMainphotoVisibleupdateTime() {
+		return mainphotoVisibleupdateTime;
+	}
+
+	public void setMainphotoVisibleupdateTime(LocalDateTime mainphotoVisibleupdateTime) {
+		this.mainphotoVisibleupdateTime = mainphotoVisibleupdateTime;
+	}
 	
 }

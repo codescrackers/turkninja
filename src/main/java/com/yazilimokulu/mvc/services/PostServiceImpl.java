@@ -160,6 +160,8 @@ public class PostServiceImpl implements PostService {
 		postEditDto.setText(post.getFullPostText());
 		postEditDto.setTitle(post.getTitle());
 		postEditDto.setUser(post.getUser());
+		postEditDto.setMainpagePhotoUrl(post.getMainpagePhotoUrl());
+		postEditDto.setMainpage(post.isMainpage());
 
 		postEditDto.setTags(post.getTags().stream().map(Tag::getName).collect(Collectors.joining(", ")));
 
@@ -170,6 +172,9 @@ public class PostServiceImpl implements PostService {
 		post.setId(postEditDto.getId());
 		post.setTitle(postEditDto.getTitle());
 		post.setFullPostText(postEditDto.getText());
+		post.setMainpagePhotoUrl(postEditDto.getMainpagePhotoUrl());
+		post.setMainpage(postEditDto.isMainpage());
+		post.setMainphotoVisibleupdateTime(postEditDto.getMainphotoVisibleupdateTime());
 		User currentUser =null;
 		if(post.getUser()==null){
 			currentUser=userService.currentUser();
@@ -216,4 +221,12 @@ public class PostServiceImpl implements PostService {
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize, Sort.Direction.DESC, "dateTime");
 		return postRepository.findByUserUsername(username,pageRequest);
 	}
+
+	@Override
+	public List<Post> getMainpagePostList() {
+		// TODO Auto-generated method stub
+		return postRepository.findByMainpageOrderByMainphotoVisibleupdateTimeDesc(true);
+	}
+	
+	
 }

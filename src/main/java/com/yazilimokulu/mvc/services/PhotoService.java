@@ -6,5 +6,5 @@ import java.io.IOException;
 
 public interface PhotoService {
 
-    UploadedPhotoInfo upload(MultipartFile file) throws IOException, UnsupportedFormatException;
+    UploadedPhotoInfo upload(MultipartFile file,String type) throws IOException, UnsupportedFormatException;
 }
