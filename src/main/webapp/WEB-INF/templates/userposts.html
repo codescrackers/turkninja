@@ -142,7 +142,7 @@
 					</div>
 
 					<a class="comments-link" th:href="@{|/posts/${post.id}/${post.getShortUrl()}#comments|}"
-						th:text="${post.comments.size() == 0} ? 'yorumlar' : (${post.comments.size()} + ' yorum'"></a>
+						th:text="${post.comments.size() == 0} ? 'yorumlar' : (${post.comments.size()} + ' yorum')"></a>
 
 					<a sec:authorize="hasRole('ROLE_ADMIN')"
 						th:href="@{|/posts/${post.id}/edit|}">düzenle</a> <a
