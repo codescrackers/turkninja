@@ -15,7 +15,7 @@ public class GravatarServiceImpl implements GravatarService {
 		gravatar.setSize(50);
 		gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
 		gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
-		String url = gravatar.getUrl("aliturgutbozkurt@email.com");
+		String url = gravatar.getUrl(email);
 		return url;
 	}
 

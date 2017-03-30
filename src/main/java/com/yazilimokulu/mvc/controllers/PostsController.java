@@ -216,10 +216,15 @@ public class PostsController {
 	@RequestMapping(value = "/posts/{postId}/edit", method = RequestMethod.POST)
 	public String updatePost(ModelMap model, @Valid @ModelAttribute("post") PostEditDto post, BindingResult result,
 			@PathVariable("postId") Long postId) {
+		Post currentPost=postService.getPost(postId);
 		post.setId(postId);
-		post.setUser(postService.getPost(postId).getUser());
-		post.setShortUrl(postService.getPost(postId).getShortUrl());
+		post.setUser(currentPost.getUser());
+		post.setShortUrl(currentPost.getShortUrl());
+		post.setMainpage(currentPost.isMainpage());
+		post.setMainpagePhotoUrl(currentPost.getMainpagePhotoUrl());
+		post.setMainphotoVisibleupdateTime(currentPost.getMainphotoVisibleupdateTime());
 		List<Role> roles = userService.currentUser().getRoles();
+		
 		boolean userRole = false;
 		boolean adminRole = false;
 		for (Role role : roles) {

@@ -162,6 +162,7 @@ public class PostServiceImpl implements PostService {
 		postEditDto.setUser(post.getUser());
 		postEditDto.setMainpagePhotoUrl(post.getMainpagePhotoUrl());
 		postEditDto.setMainpage(post.isMainpage());
+		postEditDto.setMainphotoVisibleupdateTime(post.getMainphotoVisibleupdateTime());
 
 		postEditDto.setTags(post.getTags().stream().map(Tag::getName).collect(Collectors.joining(", ")));
 
