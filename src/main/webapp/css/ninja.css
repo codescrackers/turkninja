@@ -5083,7 +5083,7 @@ table.text-center th {
   padding: 30px;
   -webkit-box-shadow: -2px 11px 24px -8px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: -2px 11px 24px -8px rgba(0, 0, 0, 0.15);
-  box-shadow: -2px 11px 24px -8px rgba(0, 0, 0, 0.15);
+  box-shadow: -2px 11px 24px 5px rgba(0, 0, 0, 0.15);
   position: relative;
   bottom: 0;
   -webkit-transition: 0.3s;
@@ -5094,8 +5094,7 @@ table.text-center th {
 }
 
 .fh5co-post:hover {
-    -webkit-animation: pulse 3s;
-    animation: pulse 3s;
+box-shadow: 0px 1px 18px 12px rgba(0, 0, 0, 0.15);
 }
 .popular-posts{
 }
@@ -5203,7 +5202,7 @@ padding: 1em 0;
 	}
 }
 
-/* Again, you’re free to use and define the classes: */
+/* Again, youï¿½re free to use and define the classes: */
 .column { float: left; }
 .size-1of1 { 
 	width: 100%;
@@ -5217,3 +5216,9 @@ padding: 1em 0;
 	width: 30.333%;
 	margin:1%;
 	} 
+
+.homepage-post-title {
+ width: 100%;
+ max-height: 3.9em;
+ line-height: 1.3em;
+}	

@@ -70,24 +70,24 @@
 						<div 
 							th:each="post, iterStat : ${mainPagePopularPosts}">
 							<div class="fh5co-post">
-								<span class="fh5co-date" th:text="${post.dateStr}">1 Ocak</span>
-								<h3>
-									<a th:text="${post.title}"
+							
+								<div class="user-block">
+					                <img class="img-circle" th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  ${post.user.gravatarUrl} : (@{/uploads/} + ${post.user.bigAvatarLink})" alt="User Image"/>
+					                <span class="username" th:text="${post.user.username}">aliturgutb</span>
+					                <span class="description" th:text="${post.dateStr} + ' tarihli gönderi'">1 Ocak</span>
+				              	</div>
+								
+								<h4>
+									<a class="homepage-post-title" th:text="${post.title}"
 										th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}"></a>
-								</h3>
+								</h4>
 
 								<div class="mainPhoto-big">
 									<img id="mainPhotoImg" class="img-responsive img-rounded"
-										width="160" height="160"
+										width="300" height="300"
 										th:src="${#strings.isEmpty(post.mainpagePhotoUrl)} ? @{/images/noimage.jpg} :
                           (${#strings.startsWith(post.mainpagePhotoUrl, 'http')} ? ${post.mainpagePhotoUrl} : (@{/uploads/} + ${post.mainpagePhotoUrl}))" />
 								</div>
-								<p class="author">
-									<img
-										th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  ${post.user.gravatarUrl} : (@{/uploads/} + ${post.user.bigAvatarLink})"
-										alt="User Image" /> <cite th:text="${post.user.username}">
-										aliturgutb</cite>
-								</p>
 							</div>
 						</div>
 					</div>
