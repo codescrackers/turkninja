@@ -2,6 +2,7 @@ package com.yazilimokulu.mvc.services;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -22,13 +23,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.yazilimokulu.mvc.controllers.UsersController;
 import com.yazilimokulu.mvc.daos.RoleRepository;
+import com.yazilimokulu.mvc.daos.SkillRepository;
 import com.yazilimokulu.mvc.daos.UserRepository;
 import com.yazilimokulu.mvc.dto.ResponsePageDTO;
 import com.yazilimokulu.mvc.dto.UserDTO;
-import com.yazilimokulu.mvc.entities.Post;
 import com.yazilimokulu.mvc.entities.Role;
+import com.yazilimokulu.mvc.entities.Skill;
+import com.yazilimokulu.mvc.entities.Tag;
 import com.yazilimokulu.mvc.entities.User;
 import com.yazilimokulu.mvc.mappers.UserMapper;
 
@@ -48,6 +50,9 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     private GravatarService gravatarService;
+    
+    @Autowired
+    private SkillRepository skillRepository;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -131,6 +136,28 @@ public class UserServiceImpl implements UserService {
         user.setAboutText(newProfileInfo.getAboutText());
 
         user.setWebsiteLink(newProfileInfo.getWebsiteLink());
+        
+        user.setFullName(newProfileInfo.getFullName());
+        
+        user.setTitle(newProfileInfo.getTitle());
+        
+        user.setScholl(newProfileInfo.getScholl());
+        
+        user.setLocation(newProfileInfo.getLocation());
+        
+        user.getSkills().clear();
+
+		String[] skills = Arrays.stream(newProfileInfo.getSkillsStr().split(",")).map(String::trim).toArray(String[]::new);
+
+		for (String skillname : skills) {
+			Skill skill = skillRepository.findByNameIgnoreCase(skillname);
+
+			if (skill == null) {
+				skill = new Skill(skillname);
+			}
+
+			user.getSkills().add(skill);
+		}
 
         userRepository.saveAndFlush(user);
     }

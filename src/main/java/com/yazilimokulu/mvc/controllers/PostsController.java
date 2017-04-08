@@ -144,22 +144,22 @@ public class PostsController {
 		return "post";
 	}
 
-	@RequestMapping(value = "/userposts/{username}", method = RequestMethod.GET)
-	public String showUserPosts(@PathVariable("username") String username,
-			@RequestParam(value = "page", defaultValue = "0") Integer pageNumber, ModelMap model) {
-		
-		Page<Post> postsPage = postService.getPostsPageByUsername(username,pageNumber, 3);
-		User postUser=userService.findByUsername(username);
-		model.addAttribute("postsPage", postsPage);
-		model.addAttribute("postUser", postUser);
-		// should implement custom Spring Security UserDetails instead of this,
-		// so it will be stored in session
-		User currentUser = userService.currentUser();
-		if (currentUser != null)
-			model.addAttribute("userId", currentUser.getId());
-
-		return "userposts";
-	}
+//	@RequestMapping(value = "/userposts/{username}", method = RequestMethod.GET)
+//	public String showUserPosts(@PathVariable("username") String username,
+//			@RequestParam(value = "page", defaultValue = "0") Integer pageNumber, ModelMap model) {
+//		
+//		Page<Post> postsPage = postService.getPostsPageByUsername(username,pageNumber, 3);
+//		User postUser=userService.findByUsername(username);
+//		model.addAttribute("postsPage", postsPage);
+//		model.addAttribute("postUser", postUser);
+//		// should implement custom Spring Security UserDetails instead of this,
+//		// so it will be stored in session
+//		User currentUser = userService.currentUser();
+//		if (currentUser != null)
+//			model.addAttribute("userId", currentUser.getId());
+//
+//		return "userposts";
+//	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 	@RequestMapping(value = "/posts/create", method = RequestMethod.GET)

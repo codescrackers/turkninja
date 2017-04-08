@@ -1,137 +1,359 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-
-      layout:decorator="layouts/no-right-content">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/no-right-content">
 
 <head>
-    <title th:text="'Türkninja — Kullanıcı: ' + ${user.username}"></title>
+<title th:text="'Türkninja — Kullanıcı: ' + ${user.username}"></title>
 
-    <link rel="stylesheet" type="text/css" href="../../css/external/pagedown.css" th:href="@{/css/external/pagedown.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/skins/_all-skins.min.css" th:href="@{/css/skins/_all-skins.min.css}"/>
-    <script src="../../js/external/fastclick.js" th:src="@{/js/external/fastclick.js}"></script>
-    <script src="../../js/external/dist/app.min.js" th:src="@{/js/external/dist/app.min.js}"></script>
-    <script src="../../js/external/dist/demo.js" th:src="@{/js/external/dist/demo.js}"></script>
+<link rel="stylesheet" type="text/css"
+	href="../../css/external/pagedown.css"
+	th:href="@{/css/external/pagedown.css}" />
+<link rel="stylesheet" type="text/css"
+	href="../../css/skins/_all-skins.min.css"
+	th:href="@{/css/skins/_all-skins.min.css}" />
+<script src="../../js/external/fastclick.js"
+	th:src="@{/js/external/fastclick.js}"></script>
+<script src="../../js/external/dist/app.min.js"
+	th:src="@{/js/external/dist/app.min.js}"></script>
+<script src="../../js/external/dist/demo.js"
+	th:src="@{/js/external/dist/demo.js}"></script>
 </head>
 
 <body>
-    <!-- Main content -->
-    <section layout:fragment="profile-content" class="content">
+	<!-- Main content -->
+	<section layout:fragment="profile-content" >
 
-      <div class="row">
-        <div class="col-md-3" ng-controller="ProfileController as profileCtrl">
+		<div class="col-md-3" ng-controller="ProfileController as profileCtrl">
 
-          <!-- Profile Image -->
-          <div class="box box-primary">
-            <div class="box-body box-profile">
-              <div class="avatar-big" th:unless="${#strings.isEmpty(user.bigAvatarLink)}">
-                <img class="img-responsive img-rounded profile-user-img img-responsive" width="160" height="160" th:src="${#strings.startsWith(user.bigAvatarLink, 'http')} ? ${user.bigAvatarLink} : (@{/uploads/} + ${user.bigAvatarLink})"/>
-              </div>
+			<!-- Profile Image -->
+			<div class="box box-primary">
+				<div class="box-body box-profile">
+					<div class="avatar-big"
+						th:unless="${#strings.isEmpty(user.bigAvatarLink)}">
+						<img
+							class="img-responsive img-rounded profile-user-img img-responsive"
+							width="160" height="160"
+							th:src="${#strings.startsWith(user.bigAvatarLink, 'http')} ? ${user.bigAvatarLink} : (@{/uploads/} + ${user.bigAvatarLink})" />
+					</div>
 
-              <h3 class="profile-username text-center" th:text="${user.username}"></h3>
+					<h3 class="profile-username text-center"
+						th:text="${#strings.isEmpty(user.fullName)} ? ${user.username} : ${user.fullName}"></h3>
+					<p class="text-muted text-center" th:text="${user.title}"></p>
+					<h5 class="text-center" th:text="${postsPage.getTotalElements()} +' Makale'"></h5>
+					<ul class="list-group list-group-unbordered">
+						<li class="list-group-item"><b>Takipçiler</b> <a
+							ng-model="followersVal"
+							data-th-attr="ng-init='followersVal=\''+${user.followersCount}+'\''"
+							class="pull-right">{{followersVal}}</a></li>
+						<li class="list-group-item"><b>Takip ettikleri</b> <a
+							ng-model="followingVal"
+							data-th-attr="ng-init='followingVal=\''+${user.followingCount}+'\''"
+							class="pull-right">{{followingVal}}</a></li>
+					</ul>
 
-              <p class="text-muted text-center">Software Engineer</p>
+					<a ng-model="statusVal" ng-init="statusVal='Takip et'"
+						th:if="${(#authorization.expression('isAuthenticated()')) and (currentUser.username != user.username) and !(#lists.contains(currentUser.following, user)) }"
+						href="#" class="btn btn-primary btn-block"
+						th:attr="ng-click='profileCtrl.changeFollowingStatus(statusVal,\''+${currentUser.id}+'\', \''+${user.id}+'\',followingVal)' "><b>{{statusVal}}</b></a>
+					<a ng-model="statusVal" ng-init="statusVal='Takibi bırak'"
+						th:if="${(#authorization.expression('isAuthenticated()')) and (currentUser.username != user.username) and (#lists.contains(currentUser.following, user)) }"
+						href="#" class="btn btn-primary btn-block"
+						th:attr="ng-click='profileCtrl.changeFollowingStatus(statusVal,\''+${currentUser.id}+'\',\''+${user.id}+'\',followersVal)' "><b>{{statusVal}}</b></a>
 
-              <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                  <b>Takipçiler</b> <a ng-model="followersVal" data-th-attr="ng-init='followersVal=\''+${user.followersCount}+'\''"  class="pull-right" >{{followersVal}}</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Takip ettikleri</b> <a ng-model="followingVal" data-th-attr="ng-init='followingVal=\''+${user.followingCount}+'\''" class="pull-right" >{{followingVal}}</a>
-                </li>
-              </ul>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
 
-				<a ng-model="statusVal" ng-init="statusVal='Takip et'" th:if="${(#authorization.expression('isAuthenticated()')) and (currentUser.username != user.username) and !(#lists.contains(currentUser.following, user)) }" href="#" class="btn btn-primary btn-block" th:attr="ng-click='profileCtrl.changeFollowingStatus(statusVal,\''+${currentUser.id}+'\', \''+${user.id}+'\',followingVal)' " ><b >{{statusVal}}</b></a>
-				<a ng-model="statusVal" ng-init="statusVal='Takibi bırak'" th:if="${(#authorization.expression('isAuthenticated()')) and (currentUser.username != user.username) and (#lists.contains(currentUser.following, user)) }" href="#" class="btn btn-primary btn-block" th:attr="ng-click='profileCtrl.changeFollowingStatus(statusVal,\''+${currentUser.id}+'\',\''+${user.id}+'\',followersVal)' " ><b>{{statusVal}}</b></a>
-				
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
+			<!-- About Me Box -->
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">Hakkımda</h3>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					<div class="website-link"
+						th:unless="${#strings.isEmpty(user.websiteLink)}">
+						<span class="glyphicon glyphicon-link"></span> <a
+							th:href="${user.websiteLink}" th:text="${user.websiteLinkTitle}"></a>
+					</div>
+					<div class="reg-date">
+						<p class="text-muted" th:text="'Kayıt : ' + ${user.getDateStr()}"></p>
+					</div>
+					<strong><i class="fa fa-book margin-r-5"></i> Öğrenim</strong>
 
-          <!-- About Me Box -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Hakkımda</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-	            <div class="website-link" th:unless="${#strings.isEmpty(user.websiteLink)}">
-	                <span class="glyphicon glyphicon-link"></span>
-	                <a th:href="${user.websiteLink}" th:text="${user.websiteLinkTitle}"></a>
-	            </div>
-	        	<div class="reg-date">
-	               <p class="text-muted" th:text="'Kayıt : ' + ${user.getDateStr()}"></p>
-	           </div>
-              <strong><i class="fa fa-book margin-r-5"></i> Öğrenim</strong>
-
-              <p class="text-muted">
-               	London University of Science Informations
-              </p>
-
-
-              <strong><i class="fa fa-map-marker margin-r-5"></i> Yer</strong>
-
-              <p class="text-muted">Etiler, İstanbul</p>
-
-
-              <strong><i class="fa fa-pencil margin-r-5"></i> Yetenekler</strong>
-
-              <p>
-                <span class="label label-danger">UI Design</span>
-                <span class="label label-success">Coding</span>
-                <span class="label label-info">Javascript</span>
-                <span class="label label-warning">Java</span>
-                <span class="label label-primary">Node.js</span>
-              </p>
+					<p class="text-muted" th:text="${user.scholl}"></p>
 
 
-              <strong><i class="fa fa-file-text-o margin-r-5"></i> Not</strong>
+					<strong><i class="fa fa-map-marker margin-r-5"></i> Yer</strong>
 
-              <p th:utext="${user.getAboutTextHtml()}"></p>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-9">
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#activity" data-toggle="tab">Aktiviteler</a></li>
-              <li><a href="#timeline" data-toggle="tab">Zaman Tüneli</a></li>
-              <li><a href="#settings" data-toggle="tab">Ayarlar</a></li>
-            </ul>
-            <div class="tab-content">
-              <div class="active tab-pane" id="activity">
-                Aktiviteler Alanı
-              </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="timeline">
-              Zaman Tüneli
-              </div>
-              <!-- /.tab-pane -->
+					<p class="text-muted" th:text="${user.location}"></p>
 
-              <div class="tab-pane" id="settings">
-                Ayarlar
-              </div>
-              <!-- /.tab-pane -->
-            </div>
-            <!-- /.tab-content -->
-          </div>
-          <!-- /.nav-tabs-custom -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
 
-    </section>
-    <!-- /.content -->
+					<strong><i class="fa fa-pencil margin-r-5"></i> Yetenekler</strong>
+
+					<p class="post-tags">
+						<span class="label label-default"
+							th:each="skill : ${user.getSkills()}" th:text="${skill.name}">Java</span>
+					</p>
+
+					<strong><i class="fa fa-file-text-o margin-r-5"></i>
+						Hakkımda- Kısaca</strong>
+
+					<p th:utext="${user.getAboutText()}"></p>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+		</div>
+		<!-- /.col -->
+
+	</section>
+	<!-- /.content -->
+
+	<section layout:fragment="post-content">
+
+		<div class="col-md-9">
+			<div id="postsContainer"
+				th:with="isUser=${#authorization.expression('hasRole(''ROLE_USER'')')}">
+				<div
+					th:attr="data-post-id=${post.id}, data-post-title=${post.title}"
+					class="post" th:each="post, iterStat : ${postsPage.getContent()}">
+					<div class="post-content">
 
 
 
 
+						<div class=" row">
+							<div class="col-sm-8">
+
+								<div class="row">
+									<div class="col-sm-6">
+										<p class="post-date" th:text="${post.dateStr}"></p>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="post-title">
+								<a class="h2" th:text="${post.title}" target="_blank"
+									th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}"></a>
+							</div>
+
+							<div class="post-tags">
+								<a class="post-tag" th:each="tag : ${post.getTags()}" target="_blank"
+									th:text="${tag.name}" th:href="@{/posts(tagged=${tag.name})}"></a>
+							</div>
+
+							<div class="post-maincontent"
+								th:utext="${post.hasShortTextPart()}? ${post.shortTextPartHtml()} : ${post.fullPostTextHtml()}"></div>
+
+							<div th:if="${post.hasShortTextPart()}">
+								<a class="lead" target="_blank"
+									th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}">Devam
+									et &rarr;</a>
+							</div>
+
+							<th:block th:if="${post.hidden}">
+								<div class="hidden-post">
+									<span>Kullanıcılar için görünür değil</span>
+								</div>
+							</th:block>
+						</div>
+					</div>
+
+					<div class="post-actions">
+						<div class="post-rating-block"
+							th:title="${isUser} ? '' : 'Log in or register to vote'"
+							th:with="ratingSum=${post.getRatingSum()}, userVoteValue=${post.getUserVoteValue(userId)}">
+							<a class=" rating-arrow like-arrow" href="javascript:void(0)"
+								th:attr="data-action=${isUser and userVoteValue == 0} ? 'vote' : '', data-href=@{|/posts/${post.id}/like|}"
+								th:classappend="${userVoteValue == 1} ? 'voted'"
+								data-vote-type="like"> <span
+								class="glyphicon glyphicon-arrow-up"></span>
+							</a> <span class="rating-value" th:text="${ratingSum}"
+								th:classappend="${ratingSum == 0} ? 'rating-value-no' : (${ratingSum lt 0} ? 'rating-value-negative' : 'rating-value-positive')"></span>
+							<a class="rating-arrow dislike-arrow" href="javascript:void(0)"
+								th:attr="data-action=${isUser and userVoteValue == 0} ? 'vote' : '', data-href=@{|/posts/${post.id}/dislike|}"
+								th:classappend="${userVoteValue == -1} ? 'voted'"
+								data-vote-type="dislike"> <span
+								class="glyphicon glyphicon-arrow-down"></span>
+							</a>
+						</div>
+
+						<a class="comments-link"
+							th:href="@{|/posts/${post.id}/${post.getShortUrl()}#comments|}"
+							th:text="${post.comments.size() == 0} ? 'yorumlar' : (${post.comments.size()} + ' yorum')"></a>
+
+						<a sec:authorize="hasRole('ROLE_ADMIN')"
+							th:href="@{|/posts/${post.id}/edit|}">düzenle</a> <a
+							sec:authorize="hasRole('ROLE_USER')"
+							th:if="${currentUser.username == post.user.username}"
+							th:href="@{|/posts/${post.id}/edit|}">düzenle</a> <a
+							sec:authorize="hasRole('ROLE_ADMIN')" href="javascript:void(0)"
+							th:attr="data-action=${post.hidden} ? 'unhidePost' : 'hidePost', data-href=@{|/posts/${post.id}/|} + (${post.hidden} ? 'unhide' : 'hide')"
+							th:text="${post.hidden} ? 'göster' : 'gizle'"></a> <a
+							sec:authorize="hasRole('ROLE_ADMIN')" href="javascript:void(0)"
+							th:style="${post.hidden} ? '' : 'display: none;'"
+							th:attr="data-href=@{|/posts/${post.id}/delete|}"
+							data-action="deletePost">Sonsuza kadar sil</a>
+					</div>
+					<div class="postaction-loading-indicator" style="display: none">
+						<img th:src="@{/images/ajax-loader.gif}" />
+					</div>
+				</div>
+			</div>
+
+			<div
+				th:with="searchQueryParam=${searchQuery == null} ? '' : '&amp;' + ${searchQuery}">
+
+				<ul class="pagination" th:if="${postsPage.getNumber()  le 3}">
+					<li th:unless="${postsPage.isFirst()}"><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}">&larr;
+							Önceki</a></li>
+					<li th:if="${postsPage.getNumber() - 4 ge 0 }"><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 4})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() - 3}"></a></li>
+
+					<li th:if="${postsPage.getNumber() - 3 ge 0  }"><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 3})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() -2}"></a></li>
+
+					<li th:if="${postsPage.getNumber() - 2 ge 0}"><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 2})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() - 1}"></a></li>
+					<li th:if="${postsPage.getNumber() - 1 ge 0}"><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber()}"></a></li>
+					<li class="active"><a th:text="${postsPage.getNumber() + 1}"></a>
+					</li>
+					<li
+						th:if="${postsPage.getNumber()+2 le 5 and postsPage.getTotalPages() ge postsPage.getNumber()+2 }">
+						<a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() + 2}"></a>
+					</li>
+					<li
+						th:if="${postsPage.getNumber() + 3 le 5 and postsPage.getTotalPages() ge postsPage.getNumber()+3}">
+						<a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() + 2})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() + 3}"></a>
+					</li>
+					<li
+						th:if="${postsPage.getNumber() + 4 le 5 and postsPage.getTotalPages() ge postsPage.getNumber()+4}">
+						<a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() + 3})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() + 4}"></a>
+					</li>
+					<li
+						th:if="${postsPage.getNumber() + 5 le 5 and postsPage.getTotalPages() ge postsPage.getNumber()+5}">
+						<a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() + 4})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() + 5}"></a>
+					</li>
+					<li th:if="${postsPage.getTotalPages() &gt; 5}"><span
+						class="page-numbers dots">…</span></li>
+					<li th:if="${postsPage.getTotalPages() &gt; 5}"><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getTotalPages()})} + ${searchQueryParam}"
+						th:text="${postsPage.getTotalPages()}"></a></li>
+					<li th:unless="${postsPage.isLast()}"><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}">Sonraki
+							&rarr;</a></li>
+
+				</ul>
+
+				<ul class="pagination"
+					th:if="${postsPage.getNumber()  ge 4 and postsPage.getTotalPages()- postsPage.getNumber() -1 gt 2}">
+					<li th:unless="${postsPage.isFirst()}"><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}">&larr;
+							Önceki</a></li>
+					<li><a
+						th:href="@{'/users/'+${postUser.username}(page=1)} + ${searchQueryParam}">1</a>
+					</li>
+
+					<li><span class="page-numbers dots">…</span></li>
+					<li><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 2})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() - 1}"></a></li>
+					<li><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber()}"></a></li>
+					<li class="active"><a th:text="${postsPage.getNumber() + 1}"></a>
+					</li>
+					<li><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() + 2}"></a></li>
+					<li><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() + 2})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() + 3}"></a></li>
+
+					<li><span class="page-numbers dots">…</span></li>
+					<li><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getTotalPages()})} + ${searchQueryParam}"
+						th:text="${postsPage.getTotalPages()}"></a></li>
+					<li th:unless="${postsPage.isLast()}"><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}">Sonraki
+							&rarr;</a></li>
+
+
+				</ul>
+
+				<ul class="pagination"
+					th:if="${postsPage.getNumber()  ge 4 and postsPage.getTotalPages()- postsPage.getNumber() -1 le 2 and postsPage.getTotalPages()- postsPage.getNumber() -1 ge 0}">
+					<li th:unless="${postsPage.isFirst()}"><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}">&larr;
+							Önceki</a></li>
+					<li><a
+						th:href="@{'/users/'+${postUser.username}(page=1)} + ${searchQueryParam}">1</a>
+					</li>
+
+					<li><span class="page-numbers dots">…</span></li>
+
+					<li
+						th:if="${postsPage.getTotalPages()- postsPage.getNumber() -1 ==0}">
+						<a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 4})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() - 3}"></a>
+					</li>
+					<li
+						th:if="${postsPage.getTotalPages()- postsPage.getNumber() -1  le 1}">
+						<a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 3})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber()-2}"></a>
+					</li>
+
+					<li><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 2})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() - 1}"></a></li>
+					<li><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() - 1})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber()}"></a></li>
+					<li class="active"><a th:text="${postsPage.getNumber() + 1}"></a>
+					</li>
+					<li
+						th:if="${postsPage.getTotalPages()- postsPage.getNumber() -1 == 2 or postsPage.getTotalPages()- postsPage.getNumber() -1 ==1}">
+						<a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() + 2}"></a>
+					</li>
+					<li
+						th:if="${postsPage.getTotalPages()- postsPage.getNumber() -1 == 2}">
+						<a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() + 2})} + ${searchQueryParam}"
+						th:text="${postsPage.getNumber() + 3}"></a>
+					</li>
+					<li th:unless="${postsPage.isLast()}"><a
+						th:href="@{'/users/'+${postUser.username}(page=${postsPage.getNumber() + 1})} + ${searchQueryParam}">Sonraki
+							&rarr;</a></li>
+
+				</ul>
+
+			</div>
+		</div>
+	</section>
 </body>
 </html>

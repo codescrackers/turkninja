@@ -26,7 +26,7 @@
 								<p>Blog sayfanızı oluşturabileceğiniz, diğer kullanıcalarla
 									ve internetteki herkesle paylaşabileceğiniz sosyal blog sitesi
 									turkninja.com beta olarak yayında.</p>
-								<cite>turkninja.com ekibi</cite>
+								<p>turkninja.com ekibi</p>
 							</blockquote>
 						</div>
 					</div>
@@ -40,7 +40,7 @@
 							<blockquote>
 								<p>Spring Core, Spring MVC, Spring Data, Hibernate ve Spring
 									Boot Eğitimleri.</p>
-								<cite>Avantajlı fiyatlar için : turkninjaacademy@gmail.com</cite>
+								<p>Avantajlı fiyatlar için : turkninjaacademy@gmail.com</p>
 							</blockquote>
 						</div>
 					</div>
@@ -73,7 +73,7 @@
 							
 								<div class="user-block">
 					                <img class="img-circle" th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  ${post.user.gravatarUrl} : (@{/uploads/} + ${post.user.bigAvatarLink})" alt="User Image"/>
-					                <span class="username" th:text="${post.user.username}">aliturgutb</span>
+					                <a th:href="@{|/users/${post.user.username}|}"><span class="username" th:text="${post.user.username}"></span></a>
 					                <span class="description" th:text="${post.dateStr} + ' tarihli gönderi'">1 Ocak</span>
 				              	</div>
 								

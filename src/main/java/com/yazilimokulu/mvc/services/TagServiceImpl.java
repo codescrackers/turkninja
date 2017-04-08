@@ -1,20 +1,18 @@
 package com.yazilimokulu.mvc.services;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.yazilimokulu.mvc.daos.AWithBCount;
 import com.yazilimokulu.mvc.daos.TagRepository;
 import com.yazilimokulu.mvc.dto.ResponsePageDTO;
 import com.yazilimokulu.mvc.dto.TagDTO;
 import com.yazilimokulu.mvc.entities.Tag;
+import com.yazilimokulu.mvc.entities.TagWithPostCount;
 import com.yazilimokulu.mvc.mappers.TagMapper;
 
 @Service
@@ -50,9 +48,9 @@ public class TagServiceImpl implements TagService {
 	@Override
 	public ResponsePageDTO<TagDTO> findTagsPage(Integer pageNumber, int pageSize) {
 		PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
-		Page<AWithBCount> tags =tagRepository.findAllWithPostCount(pageRequest);
+		Page<TagWithPostCount> tags =tagRepository.findAllWithPostCount(pageRequest);
 		List<TagDTO> tagDtos=new ArrayList<>();
-		for(AWithBCount withCount : tags){
+		for(TagWithPostCount withCount : tags){
 			TagDTO tagDto= new TagDTO(withCount.getTag().getName(),withCount.getPostCount());
 			tagDtos.add(tagDto);
 		}

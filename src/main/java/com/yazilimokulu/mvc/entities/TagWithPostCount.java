@@ -1,15 +1,15 @@
-package com.yazilimokulu.mvc.daos;
+package com.yazilimokulu.mvc.entities;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yazilimokulu.mvc.entities.Tag;
 
-public class AWithBCount {
+public class TagWithPostCount {
 	private Long postCount;
 	@Autowired
 	private Tag tag;
 
-	public AWithBCount(Long postCount, Tag tag) {
+	public TagWithPostCount(Long postCount, Tag tag) {
 		this.postCount = postCount;
 		this.tag = tag;
 	}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
@@ -64,6 +66,22 @@ public class User implements Serializable {
     @Email(groups = {CreateValidationGroup.class, ChangeEmailValidationGroup.class})
     @NotBlank(groups = {CreateValidationGroup.class, ChangeEmailValidationGroup.class})
     private String email;
+    
+    @Column(length = 100)
+    @Size(max = 100, message = "100 karakteri geçemezsiniz", groups = {CreateValidationGroup.class})
+    private String fullName;
+    
+    @Column(length = 70)
+    @Size(max = 70, message = "70 karakteri geçemezsiniz", groups = {CreateValidationGroup.class})
+    private String title;
+    
+    @Column(length = 100)
+    @Size(max = 100, message = "70 karakteri geçemezsiniz", groups = {CreateValidationGroup.class})
+    private String scholl;
+    
+    @Column(length = 70)
+    @Size(max = 70, message = "70 karakteri geçemezsiniz", groups = {CreateValidationGroup.class})
+    private String location;
 
     @Column(nullable = false, length = 80)
     // haven't figured out how to specify messages for Size.List in the messages file
@@ -113,8 +131,8 @@ public class User implements Serializable {
     private List<Notification> notifications;
 
 
-    @Column(nullable = true, length = 1000)
-    @Size(max = 1000, groups = {ProfileInfoValidationGroup.class})
+    @Column(nullable = true, length = 200)
+    @Size(max = 200, groups = {ProfileInfoValidationGroup.class})
     private String aboutText;
 
     @Column(nullable = true, length = 80)
@@ -133,7 +151,14 @@ public class User implements Serializable {
     
     private String gravatarUrl;
     
-    private String title;
+   
+    
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "users_skills",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id", referencedColumnName = "id"))
+    @OrderBy("name ASC")
+    private Collection<Skill> skills = new ArrayList<>();
     
     @Transient
     private String dateStr;
@@ -143,6 +168,9 @@ public class User implements Serializable {
     
     @Transient
     private int followersCount;
+    
+    @Transient
+    private String skillsStr;
     
     public Long getId() {
         return Id;
@@ -167,8 +195,32 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public String getFullName() {
+		return fullName;
+	}
 
-    public String getPassword() {
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+	
+	public String getScholl() {
+		return scholl;
+	}
+
+	public void setScholl(String scholl) {
+		this.scholl = scholl;
+	}
+	
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getPassword() {
         return password;
     }
 
@@ -316,8 +368,6 @@ public class User implements Serializable {
 		return this.followers.size();
 	}
 	
-
-
 	public List<Notification> getCreatedNotificaitons() {
 		return createdNotificaitons;
 	}
@@ -332,6 +382,24 @@ public class User implements Serializable {
 
 	public void setNotifications(List<Notification> notifications) {
 		this.notifications = notifications;
+	}
+
+	
+	public Collection<Skill> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(Collection<Skill> skills) {
+		this.skills = skills;
+	}
+
+
+	public String getSkillsStr() {
+		return skillsStr;
+	}
+
+	public void setSkillsStr(String skillsStr) {
+		this.skillsStr = skillsStr;
 	}
 
 	@Override

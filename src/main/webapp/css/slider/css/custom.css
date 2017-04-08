@@ -15,13 +15,13 @@
 
 .demo-2 .sl-slider h2,
 .demo-2 .sl-slider blockquote {
-	padding: 100px 30px 10px 30px;
-	width: 80%;
-	max-width: 960px;
-	color: #fff;
-	margin: 0 auto;
-	position: relative;
-	z-index: 100;
+	padding: 10px 30px 10px 30px;
+    width: 80%;
+    max-width: 960px;
+    color: #eee;
+    background: rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 100;
 }
 
 .demo-2 .sl-slider h2 {
@@ -30,10 +30,10 @@
 }
 
 .demo-2 .sl-slider blockquote {
-	font-size: 20px;
-	padding-top: 10px;
-	font-weight: 200;
-	text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+	font-size: 15px;
+    padding-top: 10px;
+    font-weight: 400;
+    border-left: 7px solid #f39c12;
 }
 
 .demo-2 .sl-slider blockquote cite {
@@ -46,13 +46,10 @@
 }
 
 .demo-2 .bg-img {
-	padding: 200px;
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	box-sizing: content-box;
 	position: absolute;
-	top: -200px;
-	left: -200px;
 	width: 100%;
 	height: 100%;
 	-webkit-background-size: cover;

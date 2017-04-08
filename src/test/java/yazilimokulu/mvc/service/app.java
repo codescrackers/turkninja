@@ -11,7 +11,7 @@ public class app {
 		gravatar.setSize(50);
 		gravatar.setRating(GravatarRating.GENERAL_AUDIENCES);
 		gravatar.setDefaultImage(GravatarDefaultImage.IDENTICON);
-		String url = gravatar.getUrl("nilay.uysal@gmail.com");
+		String url = gravatar.getUrl("aliturgutbozkurt@gmail.com");
 		System.out.println(url);
 
 	}

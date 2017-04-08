@@ -3,6 +3,7 @@ package com.yazilimokulu.mvc.controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,9 +32,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yazilimokulu.mvc.dto.ResponsePageDTO;
 import com.yazilimokulu.mvc.dto.UserDTO;
+import com.yazilimokulu.mvc.entities.Post;
+import com.yazilimokulu.mvc.entities.Skill;
 import com.yazilimokulu.mvc.entities.User;
 import com.yazilimokulu.mvc.services.AuthException;
 import com.yazilimokulu.mvc.services.AvatarService;
+import com.yazilimokulu.mvc.services.PostService;
 import com.yazilimokulu.mvc.services.UnsupportedFormatException;
 import com.yazilimokulu.mvc.services.UploadedAvatarInfo;
 import com.yazilimokulu.mvc.services.UserService;
@@ -51,6 +56,9 @@ public class UsersController {
 
     @Autowired
     private Validator userValidator;
+    
+    @Autowired
+    private PostService postService;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegistrationForm(ModelMap model, HttpServletRequest request, HttpSession session) {
@@ -172,11 +180,10 @@ public class UsersController {
     public String showEditProfilePage(ModelMap model) {
         if (!model.containsAttribute("user")) {
             User user = userService.currentUser();
-
             if (user == null) {
                 return "redirect:posts";
             }
-
+            user.setSkillsStr(user.getSkills().stream().map(Skill::getName).collect(Collectors.joining(", ")));
             model.addAttribute("user", user);
         }
 
@@ -239,8 +246,16 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/users/{username}", method = RequestMethod.GET)
-    public String showProfile(@PathVariable("username") String username, ModelMap model) {
+    public String showProfile(@PathVariable("username") String username, @RequestParam(value = "page", defaultValue = "0") Integer pageNumber,ModelMap model) {
         User user = userService.findByUsername(username);
+        Page<Post> postsPage = postService.getPostsPageByUsername(username,pageNumber, 3);
+		model.addAttribute("postsPage", postsPage);
+		model.addAttribute("postUser", user);
+		// should implement custom Spring Security UserDetails instead of this,
+		// so it will be stored in session
+		User currentUser = userService.currentUser();
+		if (currentUser != null)
+			model.addAttribute("userId", currentUser.getId());
 
         if (user == null)
             throw new ResourceNotFoundException();

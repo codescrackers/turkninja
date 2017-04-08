@@ -140,7 +140,7 @@
 									 <li class="user-body">
 										<div class="row">
 											<div class="col-xs-4 text-center" th:if="${#authorization.expression('isAuthenticated()')}">
-												<a th:href="@{'/userposts/'+${#authentication.name}}"><span>Gönderilerim</span> </a>
+												<a th:href="@{'/users/'+${#authentication.name}}"><span>Gönderilerim</span> </a>
 											</div>
 										</div>
 									</li>
@@ -170,7 +170,8 @@
 				<section class="col-sm-12">
 	
 					<div class="col-padding">
-						<section id="pageContent" layout:fragment="profile-content"></section>
+						<section id="profileContent" layout:fragment="profile-content"></section>
+						<section id="postContent" layout:fragment="post-content"></section>
 					</div>
 				</section>
 			
