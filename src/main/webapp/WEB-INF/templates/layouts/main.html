@@ -142,6 +142,18 @@
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
 
+							<form action="#" th:action="@{/search}" th:object="${post}" method="GET"
+								  class="navbar-form navbar-left" role="search" >
+								<div class="form-group">
+									<input type="text" class="form-control" id="navbar-search-input"
+										   placeholder="Search" th:field="*{title}"/>
+								</div>
+								<div class="form-group">
+									<input type="submit" value="Submit"/>
+								</div>
+
+								<a th:href="@{/search}">Search</a>
+							</form>
 							<!-- <li class="dropdown notifications-menu">
 								Menu toggle button <a href="#" class="dropdown-toggle"
 								data-toggle="dropdown"> <i class="fa fa-bell-o"></i> <span

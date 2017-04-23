@@ -27,6 +27,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.util.StringUtils;
 
 import com.yazilimokulu.mvc.converters.MarkdownConverter;
@@ -35,9 +36,11 @@ import com.yazilimokulu.utils.StringUtil;
 
 @Entity
 @Table(name = "posts")
+@Document(indexName = "posts", type = "post")
 public class Post {
 
     @Id
+    @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 

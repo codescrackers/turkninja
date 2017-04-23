@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main">
+
+<head>
+    <title th:text="'Arama Sonucu'"></title>
+
+</head>
+<body>
+
+<section layout:fragment="contentBottom">
+    <div id="fh5co-blog" class="row popular-posts fh5co-bg-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                    <span></span>
+                    <h2>Öne Çıkan Makaleler</h2>
+                    <p>Sizin için seçtiğimiz birbirinden ilginç makaleler. Tüm makale akışına <a th:href="@{/posts}">buradan</a>
+                        ulaşabilirsiniz.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div id="grid" data-columns="">
+                    <div
+                            th:each="post, iterStat : ${listPosts}">
+                        <div class="fh5co-post">
+
+                            <div class="user-block">
+                                <img class="img-circle"
+                                     th:src="${#strings.isEmpty(post.user.bigAvatarLink)} ?  ${post.user.gravatarUrl} : (@{/uploads/} + ${post.user.bigAvatarLink})"
+                                     alt="User Image"/>
+                                <a th:href="@{|/users/${post.user.username}|}"><span class="username"
+                                                                                     th:text="${post.user.username}"></span></a>
+                                <span class="description" th:text="${post.dateStr} + ' tarihli gönderi'">1 Ocak</span>
+                            </div>
+
+                            <h4>
+                                <a class="homepage-post-title" th:text="${post.title}"
+                                   th:href="@{|/posts/${post.id}/${post.getShortUrl()}|}"></a>
+                            </h4>
+
+                            <div class="mainPhoto-big">
+                                <img id="mainPhotoImg" class="img-responsive img-rounded"
+                                     width="300" height="300"
+                                     th:src="${#strings.isEmpty(post.mainpagePhotoUrl)} ? @{/images/noimage.jpg} :
+                          (${#strings.startsWith(post.mainpagePhotoUrl, 'http')} ? ${post.mainpagePhotoUrl} : (@{/uploads/} + ${post.mainpagePhotoUrl}))"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

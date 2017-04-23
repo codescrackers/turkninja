@@ -37,7 +37,7 @@ public class DataConfiguration {
 		props.setProperty("zeroDateTimeBehavior","convertToNull");
 		dataSource.setConnectionProperties(props);
 		dataSource.setUsername("root");
-		dataSource.setPassword("password");
+		dataSource.setPassword("1");
 		return dataSource;
 	}
 
